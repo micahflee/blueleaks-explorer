@@ -1,7 +1,7 @@
 {
     "ncric": {
         "name": "Northern California Regional Intelligence Center",
-        "content_types": {
+        "tables": {
             "AgencyNames": {
                 "display": "Agencies",
                 "important_fields": [
@@ -299,8 +299,8 @@
                     },
                     "Task Force": {
                         "type": "one",
-                        "from": "HIDTAInventory.HIDTATaskForceCmdrsID",
-                        "to": "HIDTATaskforceCmdrs.HIDTATaskForceCmdrsID"
+                        "from": "HIDTAInventory.HIDTATaskforceCmdrsID",
+                        "to": "HIDTATaskforceCmdrs.HIDTATaskforceCmdrsID"
                     },
                     "Pool Location": {
                         "type": "one",
@@ -365,8 +365,8 @@
                     },
                     "Task Forces": {
                         "type": "many",
-                        "from": "HIDTAInventoryStatus.HIDTATaskForceCmdrsID",
-                        "to": "HIDTATaskForceCmdrs.HIDTATaskForceCmdrsID"
+                        "from": "HIDTAInventoryStatus.HIDTATaskforceCmdrsID",
+                        "to": "HIDTATaskforceCmdrs.HIDTATaskforceCmdrsID"
                     },
                     "Items": {
                         "type": "many",
@@ -375,7 +375,7 @@
                     }
                 }
             },
-            "HIDTATaskForceCmdrs": {
+            "HIDTATaskforceCmdrs": {
                 "name": "HIDTA Task Forces",
                 "important_fields": [
                     "TaskForceName",
@@ -392,18 +392,18 @@
                 "joins": {
                     "Initiative": {
                         "type": "one",
-                        "from": "HIDTATaskForceCmdrs.HIDTAInitiativeID",
+                        "from": "HIDTATaskforceCmdrs.HIDTAInitiativeID",
                         "to": "HIDTAInitiative.HIDTAInitiativeID"
                     },
                     "Registration": {
                         "type": "one",
-                        "from": "HIDTATaskForceCmdrs.RegistrationsID",
+                        "from": "HIDTATaskforceCmdrs.RegistrationsID",
                         "to": "Registrations.RegistrationsID"
                     },
                     "Items": {
                         "type": "many",
-                        "from": "HIDTATaskForceCmdrs.HIDTATaskForceCmdrsID",
-                        "to": "HIDTAInventory.HIDTATaskForceCmdrsID"
+                        "from": "HIDTATaskforceCmdrs.HIDTATaskforceCmdrsID",
+                        "to": "HIDTAInventory.HIDTATaskforceCmdrsID"
                     }
                 }
             },
@@ -577,7 +577,7 @@
                     "HIDTA Task Forces": {
                         "type": "many",
                         "from": "Registrations.RegistrationsID",
-                        "to": "HIDTATaskForceCmdrs.RegistrationsID"
+                        "to": "HIDTATaskforceCmdrs.RegistrationsID"
                     }
                 }
             },
