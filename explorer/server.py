@@ -1,5 +1,6 @@
 import json
-from flask import Flask
+import subprocess
+from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 
@@ -11,9 +12,18 @@ with open("./structure.json") as f:
     structure = json.load(f)
 
 
+def render_frontend():
+    return render_template("frontend.html")
+
+
 @app.route("/")
-def hello_world():
-    return "Hello, World!"
+def index():
+    return render_frontend()
+
+
+@app.route("/structure.json")
+def structure_json():
+    return jsonify(structure)
 
 
 def run(new_blueleaks_path):
