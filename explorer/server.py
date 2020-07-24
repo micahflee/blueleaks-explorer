@@ -26,6 +26,14 @@ def structure_json():
     return jsonify(structure)
 
 
+@app.route("/api/sites")
+def api_sites():
+    sites = []
+    for site in structure:
+        sites.append({"folder": site, "name": structure[site]["name"]})
+    return jsonify(sites)
+
+
 def run(new_blueleaks_path):
     global blueleaks_path
     blueleaks_path = new_blueleaks_path
