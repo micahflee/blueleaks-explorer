@@ -56,7 +56,7 @@ export default {
   methods: {
     getRows: function () {
       var that = this;
-      fetch("/api/" + this.siteFolder + "/" + this.table + "/rows")
+      fetch("/api/" + this.siteFolder + "/" + this.table)
         .then(function (response) {
           if (response.status !== 200) {
             console.log("Error fetching rows, status code: " + response.status);

@@ -29,7 +29,8 @@ export default {
   methods: {
     htmlValue: function (html) {
       var html = html
-        .replace(/\\n/g, "")
+        .replace(/\\n/g, " ")
+        .replace(/\\t/g, " ")
         .replace(/POSITION: absolute;/g, "")
         .replace(/position:absolute;/g, "");
       return html;

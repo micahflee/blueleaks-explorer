@@ -135,7 +135,7 @@ def api_tables(site):
     return jsonify({"site_name": structure[site]["name"], "tables": tables})
 
 
-@app.route("/api/<site>/<table>/rows")
+@app.route("/api/<site>/<table>")
 def api_rows(site, table):
     if site not in structure:
         abort(500)
