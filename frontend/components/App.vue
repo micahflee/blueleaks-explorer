@@ -27,11 +27,17 @@ a:hover {
 
 <style scoped>
 h1 {
-  color: cornflowerblue;
   font-size: 2.3em;
   border-bottom: 5px solid cornflowerblue;
 }
 h1 i {
+  color: cornflowerblue;
+}
+h1 a:link,
+h1 a:visited,
+h1 a:active,
+h1 a:hover {
+  text-decoration: none;
   color: cornflowerblue;
 }
 </style>
@@ -40,7 +46,7 @@ h1 i {
   <div>
     <h1>
       <i class="fas fa-cat"></i>
-      BlueLeaks Explorer
+      <router-link to="/">BlueLeaks Explorer</router-link>
     </h1>
     <router-view></router-view>
   </div>

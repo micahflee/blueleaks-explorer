@@ -10,9 +10,12 @@ Vue.use(VueRouter);
 fetch("/structure.json").then(function (response) {
     response.json().then(function (structure) {
 
-        var routes = [{ path: '/', name: "sites", component: Sites }];
+        var routes = [{ path: '/', component: Sites }];
         for (var site_folder in structure) {
-            routes.push({ path: '/' + site_folder, name: site_folder, component: Site })
+            routes.push({
+                path: '/' + site_folder,
+                component: Site
+            })
         }
 
         const router = new VueRouter({

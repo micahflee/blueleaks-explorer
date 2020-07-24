@@ -81,3 +81,5 @@ def run(blueleaks_path):
                         conn.commit()
 
             click.secho(f"Loaded {row_count} rows", dim=True)
+
+        conn.close()

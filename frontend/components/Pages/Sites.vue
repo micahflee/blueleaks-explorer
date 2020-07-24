@@ -17,9 +17,10 @@ li .meta {
 
 <template>
   <div>
-    <ul class="sites">
+    <ul>
       <li v-for="site in sites">
         <div class="site-link">
+          <i class="fas fa-sitemap"></i>
           <router-link v-bind:to="linkToSite(site.folder)">{{ site.name }}</router-link>
         </div>
         <div class="meta">BlueLeaks folder: {{ site.folder }}</div>
