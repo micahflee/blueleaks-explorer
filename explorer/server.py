@@ -29,21 +29,29 @@ def sql_count(site, table):
     return row[0]
 
 
-def sql_query(site, table, query):
+def sql_headers(site, table):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
-    # Get column names
-    columns = []
-    for row in c.execute("PRAGMA table_info(VideoCategory);"):
-        columns.append(row[1])
+    headers = []
+    for row in c.execute(f"PRAGMA table_info({table});"):
+        headers.append(row[1])
+
+    conn.close()
+
+    return headers
+
+
+def sql_select(site, table):
+    conn = sqlite3.connect(get_database_filename(site))
+    c = conn.cursor()
 
     rows = []
-    for row in c.execute(query):
+    for row in c.execute(f"SELECT * FROM {table}"):
         rows.append(list(row))
 
     conn.close()
-    return columns, rows
+    return rows
 
 
 def render_frontend():
@@ -90,6 +98,37 @@ def api_tables(site):
             }
         )
     return jsonify({"site_name": structure[site]["name"], "tables": tables})
+
+
+@app.route("/api/<site>/<table>/rows")
+def api_rows(site, table):
+    if site not in structure:
+        abort(500)
+    if table not in structure[site]["tables"]:
+        abort(500)
+
+    headers = sql_headers(site, table)
+
+    if "important_fields" in structure[site]["tables"][table]:
+        important_fields = structure[site]["tables"][table]["important_fields"]
+    else:
+        important_fields = headers
+
+    if "field_types" in structure[site]["tables"][table]:
+        field_types = structure[site]["tables"][table]["field_types"]
+    else:
+        field_types = {}
+
+    return jsonify(
+        {
+            "site_name": structure[site]["name"],
+            "headers": headers,
+            "rows": sql_select(site, table),
+            "count": sql_count(site, table),
+            "important_fields": important_fields,
+            "field_types": field_types,
+        }
+    )
 
 
 def run(new_blueleaks_path):

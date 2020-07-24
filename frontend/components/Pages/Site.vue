@@ -42,7 +42,7 @@ li .meta {
 export default {
   data: function () {
     return {
-      site_folder: this.$route.path.substring(1),
+      site_folder: this.$route.path.split("/")[1],
       site_name: null,
       tables: null,
     };
@@ -67,13 +67,14 @@ export default {
           });
         })
         .catch(function (err) {
-          console.log("Error tables sites", err);
+          console.log("Error fetching tables", err);
         });
     },
     linkToTable: function (table) {
       return "/" + this.site_folder + "/" + table;
     },
     numberWithCommas: function (x) {
+      if (!x) return "...";
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
