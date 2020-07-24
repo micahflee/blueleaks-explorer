@@ -73,12 +73,15 @@ def run(blueleaks_path):
                         .replace("\\'", "''")
                     )
                     sql = f"INSERT INTO {table} VALUES {values}"
+                    # click.secho(sql, dim=True)
                     exec_sql(c, sql)
 
                     row_count += 1
                     if row_count % 1000 == 0:
                         click.secho(f"Loaded {row_count} rows", dim=True)
                         conn.commit()
+
+                conn.commit()
 
             click.secho(f"Loaded {row_count} rows", dim=True)
 

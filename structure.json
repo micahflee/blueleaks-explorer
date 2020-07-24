@@ -255,7 +255,7 @@
                 }
             },
             "HIDTAInventory": {
-                "name": "HIDTA Inventory",
+                "display": "HIDTA Inventory",
                 "important_fields": [
                     "Type",
                     "Status",
@@ -310,7 +310,7 @@
                 }
             },
             "HIDTAInventoryType": {
-                "name": "HIDTA Inventory Types",
+                "display": "HIDTA Inventory Types",
                 "important_fields": [
                     "InventoryDescription",
                     "Items"
@@ -327,7 +327,7 @@
                 }
             },
             "HIDTAInventoryStatus": {
-                "name": "HIDTA Inventory Statuses",
+                "display": "HIDTA Inventory Statuses",
                 "important_fields": [
                     "InventoryStatusDesc",
                     "Items"
@@ -344,7 +344,7 @@
                 }
             },
             "HIDTAInitiative": {
-                "name": "HIDTA Initiatives",
+                "display": "HIDTA Initiatives",
                 "important_fields": [
                     "InitiativeName",
                     "Description",
@@ -376,7 +376,7 @@
                 }
             },
             "HIDTATaskforceCmdrs": {
-                "name": "HIDTA Task Forces",
+                "display": "HIDTA Task Forces",
                 "important_fields": [
                     "TaskForceName",
                     "AgencyName",
@@ -408,7 +408,7 @@
                 }
             },
             "HIDTAPoolLocations": {
-                "name": "HIDTA Pool Locations",
+                "display": "HIDTA Pool Locations",
                 "important_fields": [
                     "LocationName",
                     "Items"
@@ -425,7 +425,7 @@
                 }
             },
             "HIDTALawEnforcement": {
-                "name": "HIDTA Law Enforcement",
+                "display": "HIDTA Law Enforcement",
                 "important_fields": [
                     "AgentFirstName",
                     "AgentLastName",
@@ -436,7 +436,7 @@
                 ]
             },
             "IncidentMap": {
-                "name": "Incident Map",
+                "display": "Incident Map",
                 "important_fields": [
                     "FormTimeStamp",
                     "Longitude",
@@ -461,14 +461,14 @@
                 }
             },
             "LawEnforcementAgencies": {
-                "name": "Law Enforcement Agencies",
+                "display": "Law Enforcement Agencies",
                 "important_fields": [
                     "LawEnforcementAgencies",
                     "County"
                 ]
             },
             "NewsLetter": {
-                "name": "Newsletters",
+                "display": "Newsletters",
                 "important_fields": [
                     "Title",
                     "SubTitle",
@@ -489,7 +489,7 @@
                 }
             },
             "NewsLetterCategory": {
-                "name": "Newsletter Categories",
+                "display": "Newsletter Categories",
                 "important_fields": [
                     "Category",
                     "PageHeader",
@@ -508,7 +508,7 @@
                 }
             },
             "Podcast": {
-                "name": "Podcasts",
+                "display": "Podcasts",
                 "important_fields": [
                     "PodcastTitle",
                     "Description",
@@ -530,7 +530,7 @@
                 }
             },
             "PodcastCategory": {
-                "name": "Podcast Categories",
+                "display": "Podcast Categories",
                 "important_fields": [
                     "PodcastCategoryName",
                     "Podcasts"
@@ -547,7 +547,7 @@
                 }
             },
             "Registrations": {
-                "name": "Registrations",
+                "display": "Registrations",
                 "important_fields": [
                     "FullName",
                     "MemberType",
@@ -582,7 +582,7 @@
                 }
             },
             "Requests": {
-                "name": "Requests",
+                "display": "Requests",
                 "important_fields": [
                     "RequestType",
                     "ServiceRequested",
@@ -627,7 +627,7 @@
                 }
             },
             "SARs": {
-                "name": "Suspicious Activity Reports",
+                "display": "Suspicious Activity Reports",
                 "important_fields": [
                     "fullname",
                     "AgencyOrganization",
@@ -741,7 +741,7 @@
                 }
             },
             "Video": {
-                "name": "Videos",
+                "display": "Videos",
                 "important_fields": [
                     "VideoTitle",
                     "ShortDescription",
@@ -765,7 +765,7 @@
                 }
             },
             "VideoCategory": {
-                "name": "Video Categories",
+                "display": "Video Categories",
                 "important_fields": [
                     "VideoCategoryName",
                     "Videos"
