@@ -24,7 +24,7 @@ li .meta {
   <div>
     <h2>
       <i class="fas fa-sitemap"></i>
-      {{ site_name }}
+      {{ siteName }}
     </h2>
     <ul>
       <li v-for="table in tables">
@@ -42,8 +42,8 @@ li .meta {
 export default {
   data: function () {
     return {
-      site_folder: this.$route.path.split("/")[1],
-      site_name: null,
+      siteFolder: this.$route.path.split("/")[1],
+      siteName: null,
       tables: null,
     };
   },
@@ -53,7 +53,7 @@ export default {
   methods: {
     getTables: function () {
       var that = this;
-      fetch("/api/" + this.site_folder + "/tables")
+      fetch("/api/" + this.siteFolder + "/tables")
         .then(function (response) {
           if (response.status !== 200) {
             console.log(
@@ -62,7 +62,7 @@ export default {
             return;
           }
           response.json().then(function (data) {
-            that.site_name = data["site_name"];
+            that.siteName = data["site_name"];
             that.tables = data["tables"];
           });
         })
@@ -71,7 +71,7 @@ export default {
         });
     },
     linkToTable: function (table) {
-      return "/" + this.site_folder + "/" + table;
+      return "/" + this.siteFolder + "/" + table;
     },
     numberWithCommas: function (x) {
       if (!x) return "...";

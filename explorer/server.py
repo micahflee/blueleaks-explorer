@@ -107,6 +107,11 @@ def api_rows(site, table):
     if table not in structure[site]["tables"]:
         abort(500)
 
+    if "display" in structure[site]["tables"][table]:
+        table_display_name = structure[site]["tables"][table]["display"]
+    else:
+        table_display_name = table
+
     headers = sql_headers(site, table)
 
     if "important_fields" in structure[site]["tables"][table]:
@@ -122,6 +127,7 @@ def api_rows(site, table):
     return jsonify(
         {
             "site_name": structure[site]["name"],
+            "table_name": table_display_name,
             "headers": headers,
             "rows": sql_select(site, table),
             "count": sql_count(site, table),

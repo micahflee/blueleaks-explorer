@@ -16,7 +16,8 @@ li.row {
   background-color: aliceblue;
 }
 
-ul.fields {
+ul.fields,
+ul.hidden-fields {
   list-style: none;
   padding: 0;
 }
@@ -31,53 +32,60 @@ div.html-value {
   max-height: 600px;
   overflow: auto;
 }
+
+ul.buttons {
+  list-style: none;
+  padding: 0;
+  margin-top: 1em;
+}
+
+ul.buttons li {
+  display: inline-block;
+  margin: 0 10px 0 0;
+}
 </style>
 
 <template>
   <div>
     <h2>
       <i class="fas fa-sitemap"></i>
-      <router-link v-bind:to="linkToSite">{{ site_name }}</router-link>
+      <router-link v-bind:to="linkToSite">{{ siteName }}</router-link>
     </h2>
     <h3>
       <i class="fas fa-table"></i>
-      {{ table }}
+      {{ tableName }}
     </h3>
     <div class="meta">Displaying {{ numberWithCommas(count) }} rows</div>
     <ul class="rows">
       <li v-for="row in rows" class="row">
-        <ul class="fields">
-          <li v-for="field in important_fields" class="field">
-            <span class="label">{{ field }}:</span>
-            <span
-              class="value"
-              v-if="field_types[field] == 'text'"
-            >{{ row[headers.indexOf(field)] }}</span>
-            <span class="value" v-else-if="field_types[field] == 'html'">
-              <div class="html-value" v-html="htmlValue(row[headers.indexOf(field)])"></div>
-            </span>
-            <span class="value" v-else-if="field_types[field] == 'join'">TODO: join</span>
-            <span class="value" v-else>Unimplemented field type: {{ field_types[field] }}</span>
-          </li>
-        </ul>
+        <TableRow
+          v-bind:row="row"
+          v-bind:importantFields="importantFields"
+          v-bind:hiddenFields="hiddenFields"
+          v-bind:fieldTypes="fieldTypes"
+          v-bind:headers="headers"
+        ></TableRow>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import TableRow from "./TableRow.vue";
+
 export default {
   data: function () {
     return {
-      site_folder: this.$route.path.split("/")[1],
+      siteFolder: this.$route.path.split("/")[1],
       table: this.$route.path.split("/")[2],
-      site_name: null,
+      siteName: null,
+      tableName: null,
       headers: null,
       rows: null,
       count: null,
-      important_fields: null,
-      hidden_fields: null,
-      field_types: null,
+      importantFields: null,
+      hiddenFields: null,
+      fieldTypes: null,
     };
   },
   created: function () {
@@ -86,32 +94,33 @@ export default {
   methods: {
     getRows: function () {
       var that = this;
-      fetch("/api/" + this.site_folder + "/" + this.table + "/rows")
+      fetch("/api/" + this.siteFolder + "/" + this.table + "/rows")
         .then(function (response) {
           if (response.status !== 200) {
             console.log("Error fetching rows, status code: " + response.status);
             return;
           }
           response.json().then(function (data) {
-            that.site_name = data["site_name"];
+            that.siteName = data["site_name"];
+            that.tableName = data["table_name"];
             that.headers = data["headers"];
             that.rows = data["rows"];
             that.count = data["count"];
-            that.important_fields = data["important_fields"];
-            that.field_types = data["field_types"];
+            that.importantFields = data["important_fields"];
+            that.fieldTypes = data["field_types"];
 
             // Fill in the hidden fields
-            that.hidden_fields = [];
+            that.hiddenFields = [];
             for (var i in that.headers) {
-              if (!that.important_fields.includes(that.headers[i])) {
-                that.hidden_fields.push(that.headers[i]);
+              if (!that.importantFields.includes(that.headers[i])) {
+                that.hiddenFields.push(that.headers[i]);
               }
             }
 
             // Fill in the default field types
             for (var i in that.headers) {
-              if (!that.field_types[that.headers[i]]) {
-                that.field_types[that.headers[i]] = "text";
+              if (!that.fieldTypes[that.headers[i]]) {
+                that.fieldTypes[that.headers[i]] = "text";
               }
             }
           });
@@ -124,18 +133,14 @@ export default {
       if (!x) return "...";
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
-    htmlValue: function (html) {
-      var html = html
-        .replace(/\\n/g, "")
-        .replace(/POSITION: absolute;/g, "")
-        .replace(/position:absolute;/g, "");
-      return html;
-    },
   },
   computed: {
     linkToSite: function () {
-      return "/" + this.site_folder;
+      return "/" + this.siteFolder;
     },
+  },
+  components: {
+    TableRow: TableRow,
   },
 };
 </script>
