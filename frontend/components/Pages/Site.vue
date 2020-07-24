@@ -22,19 +22,26 @@ li .meta {
 
 <template>
   <div>
-    <h2>
-      <i class="fas fa-sitemap"></i>
-      {{ siteName }}
-    </h2>
-    <ul>
-      <li v-for="table in tables">
-        <div class="table-link">
-          <i class="fas fa-table"></i>
-          <router-link v-bind:to="linkToTable(table.name)">{{ table.display_name }}</router-link>
-        </div>
-        <div class="meta">{{ numberWithCommas(table.count) }} rows</div>
-      </li>
-    </ul>
+    <template v-if="loading">
+      <div class="loading">
+        <img src="/static/loading.gif" alt="Loading" />
+      </div>
+    </template>
+    <template v-else>
+      <h2>
+        <i class="fas fa-sitemap"></i>
+        {{ siteName }}
+      </h2>
+      <ul>
+        <li v-for="table in tables">
+          <div class="table-link">
+            <i class="fas fa-table"></i>
+            <router-link v-bind:to="linkToTable(table.name)">{{ table.display_name }}</router-link>
+          </div>
+          <div class="meta">{{ numberWithCommas(table.count) }} rows</div>
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 
@@ -42,6 +49,7 @@ li .meta {
 export default {
   data: function () {
     return {
+      loading: false,
       siteFolder: this.$route.path.split("/")[1],
       siteName: null,
       tables: null,
@@ -53,8 +61,11 @@ export default {
   methods: {
     getTables: function () {
       var that = this;
+      this.loading = true;
       fetch("/api/" + this.siteFolder + "/tables")
         .then(function (response) {
+          that.loading = false;
+
           if (response.status !== 200) {
             console.log(
               "Error fetching tables, status code: " + response.status
@@ -67,6 +78,7 @@ export default {
           });
         })
         .catch(function (err) {
+          that.loading = false;
           console.log("Error fetching tables", err);
         });
     },

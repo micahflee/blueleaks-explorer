@@ -93,6 +93,11 @@ li.row {
   padding: 1em;
   background-color: aliceblue;
 }
+
+div.loading {
+  text-align: center;
+  margin: 100px 0;
+}
 </style>
 
 <style scoped>

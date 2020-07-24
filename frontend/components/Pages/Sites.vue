@@ -17,15 +17,22 @@ li .meta {
 
 <template>
   <div>
-    <ul>
-      <li v-for="site in sites">
-        <div class="site-link">
-          <i class="fas fa-sitemap"></i>
-          <router-link v-bind:to="linkToSite(site.folder)">{{ site.name }}</router-link>
-        </div>
-        <div class="meta">BlueLeaks folder: {{ site.folder }}</div>
-      </li>
-    </ul>
+    <template v-if="loading">
+      <div class="loading">
+        <img src="/static/loading.gif" alt="Loading" />
+      </div>
+    </template>
+    <template v-else>
+      <ul>
+        <li v-for="site in sites">
+          <div class="site-link">
+            <i class="fas fa-sitemap"></i>
+            <router-link v-bind:to="linkToSite(site.folder)">{{ site.name }}</router-link>
+          </div>
+          <div class="meta">BlueLeaks folder: {{ site.folder }}</div>
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 
@@ -33,6 +40,7 @@ li .meta {
 export default {
   data: function () {
     return {
+      loading: false,
       sites: null,
     };
   },
@@ -42,6 +50,7 @@ export default {
   methods: {
     getSites: function () {
       var that = this;
+      this.loading = true;
       fetch("/api/sites")
         .then(function (response) {
           if (response.status !== 200) {
@@ -52,9 +61,11 @@ export default {
           }
           response.json().then(function (data) {
             that.sites = data;
+            that.loading = false;
           });
         })
         .catch(function (err) {
+          that.loading = false;
           console.log("Error fetching sites", err);
         });
     },

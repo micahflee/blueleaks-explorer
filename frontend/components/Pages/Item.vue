@@ -3,28 +3,35 @@
 
 <template>
   <div>
-    <h2>
-      <i class="fas fa-sitemap"></i>
-      <router-link v-bind:to="linkToSite">{{ siteName }}</router-link>
-    </h2>
-    <h3>
-      <i class="fas fa-table"></i>
-      <router-link v-bind:to="linkToTable">{{ tableName }}</router-link>
-    </h3>
+    <template v-if="loading">
+      <div class="loading">
+        <img src="/static/loading.gif" alt="Loading" />
+      </div>
+    </template>
+    <template v-else>
+      <h2>
+        <i class="fas fa-sitemap"></i>
+        <router-link v-bind:to="linkToSite">{{ siteName }}</router-link>
+      </h2>
+      <h3>
+        <i class="fas fa-table"></i>
+        <router-link v-bind:to="linkToTable">{{ tableName }}</router-link>
+      </h3>
 
-    <ul class="rows">
-      <li v-for="row in rows" class="row">
-        <TableRow
-          v-bind:row="row"
-          v-bind:importantFields="importantFields"
-          v-bind:hiddenFields="hiddenFields"
-          v-bind:fieldTypes="fieldTypes"
-          v-bind:headers="headers"
-          v-bind:siteFolder="siteFolder"
-          v-bind:table="table"
-        ></TableRow>
-      </li>
-    </ul>
+      <ul class="rows">
+        <li v-for="row in rows" class="row">
+          <TableRow
+            v-bind:row="row"
+            v-bind:importantFields="importantFields"
+            v-bind:hiddenFields="hiddenFields"
+            v-bind:fieldTypes="fieldTypes"
+            v-bind:headers="headers"
+            v-bind:siteFolder="siteFolder"
+            v-bind:table="table"
+          ></TableRow>
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 
@@ -34,6 +41,7 @@ import TableRow from "./TableRow.vue";
 export default {
   data: function () {
     return {
+      loading: false,
       siteFolder: this.$route.path.split("/")[1],
       table: this.$route.path.split("/")[2],
       siteName: null,
@@ -51,6 +59,7 @@ export default {
   methods: {
     getItem: function () {
       var that = this;
+      this.loading = true;
       fetch(
         "/api/" +
           this.siteFolder +
@@ -60,6 +69,8 @@ export default {
           this.$route.params.id
       )
         .then(function (response) {
+          that.loading = false;
+
           if (response.status !== 200) {
             console.log("Error fetching item, status code: " + response.status);
             return;
@@ -89,6 +100,7 @@ export default {
           });
         })
         .catch(function (err) {
+          that.loading = false;
           console.log("Error fetching item", err);
         });
     },

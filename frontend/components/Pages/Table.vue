@@ -7,28 +7,35 @@
 
 <template>
   <div>
-    <h2>
-      <i class="fas fa-sitemap"></i>
-      <router-link v-bind:to="linkToSite">{{ siteName }}</router-link>
-    </h2>
-    <h3>
-      <i class="fas fa-table"></i>
-      {{ tableName }}
-    </h3>
-    <div class="meta">Displaying {{ numberWithCommas(count) }} rows</div>
-    <ul class="rows">
-      <li v-for="row in rows" class="row">
-        <TableRow
-          v-bind:row="row"
-          v-bind:importantFields="importantFields"
-          v-bind:hiddenFields="hiddenFields"
-          v-bind:fieldTypes="fieldTypes"
-          v-bind:headers="headers"
-          v-bind:siteFolder="siteFolder"
-          v-bind:table="table"
-        ></TableRow>
-      </li>
-    </ul>
+    <template v-if="loading">
+      <div class="loading">
+        <img src="/static/loading.gif" alt="Loading" />
+      </div>
+    </template>
+    <template v-else>
+      <h2>
+        <i class="fas fa-sitemap"></i>
+        <router-link v-bind:to="linkToSite">{{ siteName }}</router-link>
+      </h2>
+      <h3>
+        <i class="fas fa-table"></i>
+        {{ tableName }}
+      </h3>
+      <div class="meta">Displaying {{ numberWithCommas(count) }} rows</div>
+      <ul class="rows">
+        <li v-for="row in rows" class="row">
+          <TableRow
+            v-bind:row="row"
+            v-bind:importantFields="importantFields"
+            v-bind:hiddenFields="hiddenFields"
+            v-bind:fieldTypes="fieldTypes"
+            v-bind:headers="headers"
+            v-bind:siteFolder="siteFolder"
+            v-bind:table="table"
+          ></TableRow>
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 
@@ -38,6 +45,7 @@ import TableRow from "./TableRow.vue";
 export default {
   data: function () {
     return {
+      loading: false,
       siteFolder: this.$route.path.split("/")[1],
       table: this.$route.path.split("/")[2],
       siteName: null,
@@ -56,9 +64,11 @@ export default {
   methods: {
     getRows: function () {
       var that = this;
+      this.loading = true;
       fetch("/api/" + this.siteFolder + "/" + this.table)
         .then(function (response) {
           if (response.status !== 200) {
+            that.loading = false;
             console.log("Error fetching rows, status code: " + response.status);
             return;
           }
@@ -85,9 +95,12 @@ export default {
                 that.fieldTypes[that.headers[i]] = "text";
               }
             }
+
+            that.loading = false;
           });
         })
         .catch(function (err) {
+          that.loading = false;
           console.log("Error fetching rows", err);
         });
     },
