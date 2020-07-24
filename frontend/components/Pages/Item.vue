@@ -1,8 +1,4 @@
 <style scoped>
-.meta {
-  color: #333333;
-  font-style: italic;
-}
 </style>
 
 <template>
@@ -13,9 +9,9 @@
     </h2>
     <h3>
       <i class="fas fa-table"></i>
-      {{ tableName }}
+      <router-link v-bind:to="linkToTable">{{ tableName }}</router-link>
     </h3>
-    <div class="meta">Displaying {{ numberWithCommas(count) }} rows</div>
+
     <ul class="rows">
       <li v-for="row in rows" class="row">
         <TableRow
@@ -44,22 +40,28 @@ export default {
       tableName: null,
       headers: null,
       rows: null,
-      count: null,
       importantFields: null,
       hiddenFields: null,
       fieldTypes: null,
     };
   },
   created: function () {
-    this.getRows();
+    this.getItem();
   },
   methods: {
-    getRows: function () {
+    getItem: function () {
       var that = this;
-      fetch("/api/" + this.siteFolder + "/" + this.table + "/rows")
+      fetch(
+        "/api/" +
+          this.siteFolder +
+          "/" +
+          this.table +
+          "/" +
+          this.$route.params.id
+      )
         .then(function (response) {
           if (response.status !== 200) {
-            console.log("Error fetching rows, status code: " + response.status);
+            console.log("Error fetching item, status code: " + response.status);
             return;
           }
           response.json().then(function (data) {
@@ -67,7 +69,6 @@ export default {
             that.tableName = data["table_name"];
             that.headers = data["headers"];
             that.rows = data["rows"];
-            that.count = data["count"];
             that.importantFields = data["important_fields"];
             that.fieldTypes = data["field_types"];
 
@@ -88,17 +89,16 @@ export default {
           });
         })
         .catch(function (err) {
-          console.log("Error fetching rows", err);
+          console.log("Error fetching item", err);
         });
-    },
-    numberWithCommas: function (x) {
-      if (!x) return "...";
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
   computed: {
     linkToSite: function () {
       return "/" + this.siteFolder;
+    },
+    linkToTable: function () {
+      return "/" + this.siteFolder + "/" + this.table;
     },
   },
   components: {

@@ -88,7 +88,8 @@
                     "Documents"
                 ],
                 "field_types": {
-                    "Documents": "join"
+                    "Documents": "join",
+                    "CategoryDescription": "html"
                 },
                 "joins": {
                     "Documents": {

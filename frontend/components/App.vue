@@ -81,6 +81,18 @@ button:active {
   position: relative;
   top: 1px;
 }
+
+ul.rows {
+  list-style: none;
+  padding: 0;
+}
+
+li.row {
+  font-family: "Courier New", Courier, monospace;
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: aliceblue;
+}
 </style>
 
 <style scoped>

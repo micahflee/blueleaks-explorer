@@ -42,7 +42,7 @@ def sql_headers(site, table):
     return headers
 
 
-def sql_select(site, table):
+def sql_select_rows(site, table):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
@@ -52,6 +52,41 @@ def sql_select(site, table):
 
     conn.close()
     return rows
+
+
+def sql_select_item(site, table, item_id, headers):
+    conn = sqlite3.connect(get_database_filename(site))
+    c = conn.cursor()
+
+    item_id = item_id.replace("'", "''")
+
+    rows = []
+    for row in c.execute(f"SELECT * FROM {table} WHERE {headers[0]}='{item_id}'"):
+        rows.append(list(row))
+
+    conn.close()
+    return rows
+
+
+def get_table_display_name(site, table):
+    if "display" in structure[site]["tables"][table]:
+        return structure[site]["tables"][table]["display"]
+    else:
+        return table
+
+
+def get_important_fields(site, table, headers):
+    if "important_fields" in structure[site]["tables"][table]:
+        return structure[site]["tables"][table]["important_fields"]
+    else:
+        return headers
+
+
+def get_field_types(site, table):
+    if "field_types" in structure[site]["tables"][table]:
+        return structure[site]["tables"][table]["field_types"]
+    else:
+        return {}
 
 
 def render_frontend():
@@ -107,30 +142,42 @@ def api_rows(site, table):
     if table not in structure[site]["tables"]:
         abort(500)
 
-    if "display" in structure[site]["tables"][table]:
-        table_display_name = structure[site]["tables"][table]["display"]
-    else:
-        table_display_name = table
-
+    table_display_name = get_table_display_name(site, table)
     headers = sql_headers(site, table)
-
-    if "important_fields" in structure[site]["tables"][table]:
-        important_fields = structure[site]["tables"][table]["important_fields"]
-    else:
-        important_fields = headers
-
-    if "field_types" in structure[site]["tables"][table]:
-        field_types = structure[site]["tables"][table]["field_types"]
-    else:
-        field_types = {}
+    important_fields = get_important_fields(site, table, headers)
+    field_types = get_field_types(site, table)
 
     return jsonify(
         {
             "site_name": structure[site]["name"],
             "table_name": table_display_name,
             "headers": headers,
-            "rows": sql_select(site, table),
+            "rows": sql_select_rows(site, table),
             "count": sql_count(site, table),
+            "important_fields": important_fields,
+            "field_types": field_types,
+        }
+    )
+
+
+@app.route("/api/<site>/<table>/<item_id>")
+def api_item(site, table, item_id):
+    if site not in structure:
+        abort(500)
+    if table not in structure[site]["tables"]:
+        abort(500)
+
+    table_display_name = get_table_display_name(site, table)
+    headers = sql_headers(site, table)
+    important_fields = get_important_fields(site, table, headers)
+    field_types = get_field_types(site, table)
+
+    return jsonify(
+        {
+            "site_name": structure[site]["name"],
+            "table_name": table_display_name,
+            "headers": headers,
+            "rows": sql_select_item(site, table, item_id, headers),
             "important_fields": important_fields,
             "field_types": field_types,
         }

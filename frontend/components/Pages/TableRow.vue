@@ -52,7 +52,15 @@ ul.buttons li {
 import TableCell from "./TableCell.vue";
 
 export default {
-  props: ["row", "importantFields", "hiddenFields", "fieldTypes", "headers"],
+  props: [
+    "row",
+    "importantFields",
+    "hiddenFields",
+    "fieldTypes",
+    "headers",
+    "siteFolder",
+    "table",
+  ],
   data: function () {
     return {
       showAllFields: false,
@@ -61,7 +69,7 @@ export default {
   },
   methods: {
     permalink: function (id) {
-      return "/" + this.site_folder + "/" + this.table + "/" + id;
+      return "/" + this.siteFolder + "/" + this.table + "/" + id;
     },
     toggleHiddenFields: function () {
       if (this.showAllFields) {

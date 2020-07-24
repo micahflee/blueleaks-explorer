@@ -5,6 +5,7 @@ import App from './components/App.vue';
 import Sites from './components/Pages/Sites.vue';
 import Site from './components/Pages/Site.vue';
 import Table from './components/Pages/Table.vue';
+import Item from './components/Pages/Item.vue';
 
 Vue.use(VueRouter);
 
@@ -16,12 +17,16 @@ fetch("/structure.json").then(function (response) {
             routes.push({
                 path: '/' + site_folder,
                 component: Site
-            })
+            });
             for (var table in structure[site_folder]["tables"]) {
                 routes.push({
                     path: '/' + site_folder + "/" + table,
                     component: Table
-                })
+                });
+                routes.push({
+                    path: '/' + site_folder + "/" + table + "/:id",
+                    component: Item
+                });
             }
         }
 
