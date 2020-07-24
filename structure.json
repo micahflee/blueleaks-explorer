@@ -694,6 +694,7 @@
                 ],
                 "field_types": {
                     "Title": "html",
+                    "Explaination": "html",
                     "ThankYouMessage": "html",
                     "Questions": "join",
                     "Results": "join",

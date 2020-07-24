@@ -24,6 +24,13 @@ ul.fields {
 li.field .label {
   font-weight: bold;
 }
+
+div.html-value {
+  background-color: white;
+  max-width: 100%;
+  max-height: 600px;
+  overflow: auto;
+}
 </style>
 
 <template>
@@ -46,6 +53,9 @@ li.field .label {
               class="value"
               v-if="field_types[field] == 'text'"
             >{{ row[headers.indexOf(field)] }}</span>
+            <span class="value" v-else-if="field_types[field] == 'html'">
+              <div class="html-value" v-html="htmlValue(row[headers.indexOf(field)])"></div>
+            </span>
             <span class="value" v-else-if="field_types[field] == 'join'">TODO: join</span>
             <span class="value" v-else>Unimplemented field type: {{ field_types[field] }}</span>
           </li>
@@ -113,6 +123,13 @@ export default {
     numberWithCommas: function (x) {
       if (!x) return "...";
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    htmlValue: function (html) {
+      var html = html
+        .replace(/\\n/g, "")
+        .replace(/POSITION: absolute;/g, "")
+        .replace(/position:absolute;/g, "");
+      return html;
     },
   },
   computed: {
