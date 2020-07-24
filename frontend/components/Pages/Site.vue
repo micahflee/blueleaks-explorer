@@ -71,7 +71,7 @@ export default {
         });
     },
     linkToTable: function (table) {
-      return "/" + this.$route.params.site_folder + "/" + table;
+      return "/" + this.site_folder + "/" + table;
     },
     numberWithCommas: function (x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
