@@ -24,7 +24,6 @@
                 },
                 "joins": {
                     "Category": {
-                        "type": "one",
                         "from": "Blog.BlogCategoryID",
                         "to": "BlogCategory.BlogCategoryID"
                     }
@@ -43,7 +42,6 @@
                 },
                 "joins": {
                     "Blog Posts": {
-                        "type": "many",
                         "from": "BlogCategory.BlogCategoryID",
                         "to": "Blog.BlogCategoryID"
                     }
@@ -75,7 +73,6 @@
                 },
                 "joins": {
                     "Category": {
-                        "type": "one",
                         "from": "Documents.DocumentCategoryID",
                         "to": "DocumentCategory.DocumentCategoryID"
                     }
@@ -94,7 +91,6 @@
                 },
                 "joins": {
                     "Documents": {
-                        "type": "many",
                         "from": "DocumentCategory.DocumentCategoryID",
                         "to": "Document.DocumentCategoryID"
                     }
@@ -153,12 +149,10 @@
                 ],
                 "joins": {
                     "Survey": {
-                        "type": "one",
                         "from": "EventBuilder.SurveyFormID",
                         "to": "SurveyForm.SurveyFormID"
                     },
                     "Registrations": {
-                        "type": "many",
                         "from": "EventBuilder.EventBuilderID",
                         "to": "EventRegistration.EventBuilderID"
                     }
@@ -210,7 +204,6 @@
                 },
                 "joins": {
                     "Event": {
-                        "type": "one",
                         "from": "EventRegistration.EventBuilderID",
                         "to": "EventBuilder.EventBuilderID"
                     }
@@ -285,27 +278,22 @@
                 },
                 "joins": {
                     "Type": {
-                        "type": "one",
                         "from": "HIDTAInventory.HIDTAInventoryTypeID",
                         "to": "HIDTAInventoryType.HIDTAInventoryTypeID"
                     },
                     "Status": {
-                        "type": "one",
                         "from": "HIDTAInventory.HIDTAInventoryStatusID",
                         "to": "HIDTAInventoryStatus.HIDTAInventoryStatusID"
                     },
                     "Initiative": {
-                        "type": "one",
                         "from": "HIDTAInventory.HIDTAInitiativeID",
                         "to": "HIDTAInitiative.HIDTAInitiativeID"
                     },
                     "Task Force": {
-                        "type": "one",
                         "from": "HIDTAInventory.HIDTATaskforceCmdrsID",
                         "to": "HIDTATaskforceCmdrs.HIDTATaskforceCmdrsID"
                     },
                     "Pool Location": {
-                        "type": "one",
                         "from": "HIDTAInventory.HIDTAPoolLocationsID",
                         "to": "HIDTAPoolLocations.HIDTAPoolLocationsID"
                     }
@@ -322,7 +310,6 @@
                 },
                 "joins": {
                     "Items": {
-                        "type": "many",
                         "from": "HIDTAInventoryType.HIDTAInventoryTypeID",
                         "to": "HIDTAInventory.HIDTAInventoryTypeID"
                     }
@@ -339,7 +326,6 @@
                 },
                 "joins": {
                     "Items": {
-                        "type": "many",
                         "from": "HIDTAInventoryStatus.HIDTAInventoryStatusID",
                         "to": "HIDTAInventory.HIDTAInventoryStatusID"
                     }
@@ -361,7 +347,6 @@
                 },
                 "joins": {
                     "Registration": {
-                        "type": "one",
                         "from": "HIDTAInitiative.RegistrationsID",
                         "to": "Registrations.RegistrationsID"
                     },
@@ -393,12 +378,10 @@
                 },
                 "joins": {
                     "Initiative": {
-                        "type": "one",
                         "from": "HIDTATaskforceCmdrs.HIDTAInitiativeID",
                         "to": "HIDTAInitiative.HIDTAInitiativeID"
                     },
                     "Registration": {
-                        "type": "one",
                         "from": "HIDTATaskforceCmdrs.RegistrationsID",
                         "to": "Registrations.RegistrationsID"
                     },
@@ -420,7 +403,6 @@
                 },
                 "joins": {
                     "Items": {
-                        "type": "many",
                         "from": "HIDTAPoolLocations.HIDTAPoolLocationsID",
                         "to": "HIDTAInventory.HIDTAPoolLocationsID"
                     }
@@ -484,7 +466,6 @@
                 },
                 "joins": {
                     "Category": {
-                        "type": "one",
                         "from": "NewsLetter.NewsLetterCategoryID",
                         "to": "NewsLetterCategory.NewsLetterCategoryID"
                     }
@@ -503,7 +484,6 @@
                 },
                 "joins": {
                     "Newsletters": {
-                        "type": "many",
                         "from": "NewsLetterCategory.NewsLetterCategoryID",
                         "to": "NewsLetter.NewsLetterCategoryID"
                     }
@@ -525,7 +505,6 @@
                 },
                 "joins": {
                     "Category": {
-                        "type": "one",
                         "from": "Podcasts.PodcastCategoryID",
                         "to": "PodcastCategory.PodcastCategoryID"
                     }
@@ -542,7 +521,6 @@
                 },
                 "joins": {
                     "Podcasts": {
-                        "type": "many",
                         "from": "PodcastCategory.PodcastCategoryID",
                         "to": "Podcasts.PodcastCategoryID"
                     }
@@ -572,12 +550,10 @@
                 },
                 "joins": {
                     "HIDTA Initiatives": {
-                        "type": "many",
                         "from": "Registrations.RegistrationsID",
                         "to": "HIDTAInitiative.RegistrationsID"
                     },
                     "HIDTA Task Forces": {
-                        "type": "many",
                         "from": "Registrations.RegistrationsID",
                         "to": "HIDTATaskforceCmdrs.RegistrationsID"
                     }
@@ -679,7 +655,6 @@
                 },
                 "joins": {
                     "Survey": {
-                        "type": "one",
                         "from": "Survey.SurveyName",
                         "to": "SurveyForm.SurveyFormName"
                     }
@@ -705,17 +680,14 @@
                 },
                 "joins": {
                     "Questions": {
-                        "type": "many",
                         "from": "SurveyForm.SurveyFormID",
                         "to": "SurveyQuestion.SurveyFormID"
                     },
                     "Results": {
-                        "type": "many",
                         "from": "SurveyForm.SurveyFormName",
                         "to": "Survey.SurveyName"
                     },
                     "Event": {
-                        "type": "one",
                         "from": "SurveyForm.SurveyFormID",
                         "to": "EventBuilder.SurveyFormID"
                     }
@@ -738,7 +710,6 @@
                 },
                 "joins": {
                     "Survey": {
-                        "type": "one",
                         "from": "SurveyQuestion.SurveyFormID",
                         "to": "SurveyForm.SurveyFormID"
                     }
@@ -762,7 +733,6 @@
                 },
                 "joins": {
                     "Category": {
-                        "type": "one",
                         "from": "Video.VideoCategoryID",
                         "to": "VideoCategory.VideoCategoryID"
                     }
@@ -779,7 +749,6 @@
                 },
                 "joins": {
                     "Videos": {
-                        "type": "many",
                         "from": "VideoCategory.VideoCategoryID",
                         "to": "Video.VideoCategoryID"
                     }
