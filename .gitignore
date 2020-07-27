@@ -106,3 +106,6 @@ venv.bak/
 # other
 .DS_Store
 .vscode/
+
+node_modules/
+explorer/static/bundle.js
