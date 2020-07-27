@@ -106,9 +106,14 @@ pre {
 </style>
 
 <style scoped>
+header {
+  border-bottom: 5px solid cornflowerblue;
+}
 h1 {
   font-size: 2.3em;
-  border-bottom: 5px solid cornflowerblue;
+  display: inline-block;
+  padding-right: 1em;
+  margin-right: 1em;
 }
 h1 i {
   color: cornflowerblue;
@@ -120,14 +125,48 @@ h1 a:hover {
   text-decoration: none;
   color: cornflowerblue;
 }
+
+ul {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+ul li {
+  display: inline-block;
+  padding: 3px 10px;
+}
+ul li a {
+  border: 0;
+  padding: 5px;
+  text-decoration: none;
+  color: #5d8fad;
+  font-weight: bold;
+}
+ul li i {
+  color: #5d8fad;
+}
 </style>
 
 <template>
   <div>
-    <h1>
-      <i class="fas fa-cat"></i>
-      <router-link to="/">BlueLeaks Explorer</router-link>
-    </h1>
+    <header>
+      <h1>
+        <i class="fas fa-cat"></i>
+        <router-link to="/">BlueLeaks Explorer</router-link>
+      </h1>
+      <ul>
+        <li>
+          <i class="fas fa-folder-open"></i>
+          <a href="/blueleaks-data/">Browse Files</a>
+        </li>
+        <li>
+          <i class="fas fa-tools"></i>
+          <router-link to="/structure">Define Structure</router-link>
+        </li>
+      </ul>
+    </header>
     <router-view></router-view>
   </div>
 </template>
