@@ -1,7 +1,8 @@
 import json
 import sqlite3
 import os
-from flask import Flask, jsonify, render_template, abort
+from pathlib import Path
+from flask import Flask, jsonify, render_template, abort, send_file
 
 app = Flask(__name__)
 
@@ -11,6 +12,16 @@ blueleaks_path = None
 # Load structure
 with open("./structure.json") as f:
     structure = json.load(f)
+
+
+def humansize(nbytes):
+    suffixes = ["B", "KB", "MB", "GB", "TB", "PB"]
+    i = 0
+    while nbytes >= 1024 and i < len(suffixes) - 1:
+        nbytes /= 1024.0
+        i += 1
+    f = ("%.2f" % nbytes).rstrip("0").rstrip(".")
+    return "%s %s" % (f, suffixes[i])
 
 
 def get_database_filename(site):
@@ -96,7 +107,64 @@ def render_frontend():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
-    return render_frontend()
+    # Download a data file
+    if path.startswith("blueleaks-data"):
+        listing_path = path[len("blueleaks-data") :]
+        if listing_path == "":
+            listing_path = "/"
+        filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
+        if os.path.exists(filename):
+            if os.path.isdir(filename):
+                # Render directory listing
+                dirs = []
+                files = []
+
+                if listing_path != "/":
+                    dirs.append(
+                        {
+                            "name": "..",
+                            "link": os.path.join(
+                                "/blueleaks-data",
+                                os.path.dirname(listing_path).lstrip("/"),
+                            ),
+                        }
+                    )
+
+                for name in os.listdir(filename):
+                    if os.path.isdir(os.path.join(filename, name)):
+                        dirs.append(
+                            {
+                                "name": name,
+                                "link": os.path.join(
+                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                ),
+                            }
+                        )
+                    else:
+                        size_bytes = Path(os.path.join(filename, name)).stat().st_size
+                        files.append(
+                            {
+                                "name": name,
+                                "link": os.path.join(
+                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                ),
+                                "size": humansize(size_bytes),
+                            }
+                        )
+
+                return render_template(
+                    "directory_listing.html",
+                    listing_path=listing_path,
+                    dirs=dirs,
+                    files=files,
+                )
+            else:
+                return send_file(filename)
+        else:
+            abort(404)
+    else:
+        # Everything else, render the frontend
+        return render_frontend()
 
 
 @app.route("/structure.json")

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>BlueLeaks Explorer - BlueLeaks data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1>BlueLeaks directory listing: {{ listing_path }}</h1>
+    <table>
+        <tr>
+            <th>Filename</th>
+            <th>Size</th>
+        </tr>
+        {% for dir in dirs %}
+        <tr>
+            <td>📁 <a href="{{ dir.link }}">{{ dir.name }}</a></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+        {% for file in files %}
+        <tr>
+            <td>📑 <a href="{{ file.link }}">{{ file.name }}</a></td>
+            <td>{{ file.size }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
