@@ -47,7 +47,6 @@ export default {
         this.siteFolder +
         "/files/" +
         value.replace("\\", "/");
-      console.log(url);
       return url;
     },
   },

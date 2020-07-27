@@ -67,9 +67,7 @@ def run(blueleaks_path):
                 for row in reader:
                     values = (
                         str(tuple([row[field] for field in row]))
-                        .replace(
-                            "\\\\", ""
-                        )  # Just remove "\\", to clean some of the data...
+                        .replace("\\\\", "/")  # convert Windows paths to unix paths
                         .replace("\\'", "''")
                     )
                     sql = f"INSERT INTO {table} VALUES {values}"
