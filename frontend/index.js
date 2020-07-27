@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import App from './components/App.vue';
+import Structure from './components/Pages/Structure.vue';
 import Sites from './components/Pages/Sites.vue';
 import Site from './components/Pages/Site.vue';
 import Table from './components/Pages/Table.vue';
@@ -12,7 +13,10 @@ Vue.use(VueRouter);
 fetch("/structure.json").then(function (response) {
     response.json().then(function (structure) {
 
-        var routes = [{ path: '/', component: Sites }];
+        var routes = [
+            { path: '/', component: Sites },
+            { path: '/structure', component: Structure },
+        ];
         for (var site_folder in structure) {
             routes.push({
                 path: '/' + site_folder,

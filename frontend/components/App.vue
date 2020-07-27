@@ -113,7 +113,7 @@ h1 {
   font-size: 2.3em;
   display: inline-block;
   padding-right: 1em;
-  margin-right: 1em;
+  margin: 1em 0 0 0;
 }
 h1 i {
   color: cornflowerblue;

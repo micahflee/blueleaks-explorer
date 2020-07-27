@@ -23,16 +23,10 @@ li .meta {
       </div>
     </template>
     <template v-else>
-      <h2>Choose a site to explore</h2>
-      <ul>
-        <li v-for="site in sites">
-          <div class="site-link">
-            <i class="fas fa-sitemap"></i>
-            <router-link v-bind:to="linkToSite(site.folder)">{{ site.name }}</router-link>
-          </div>
-          <div class="meta">BlueLeaks folder: {{ site.folder }}</div>
-        </li>
-      </ul>
+      <h2>
+        <i class="fas fa-tools"></i>
+        Define Structure
+      </h2>
     </template>
   </div>
 </template>
@@ -42,36 +36,33 @@ export default {
   data: function () {
     return {
       loading: false,
-      sites: null,
+      structure: null,
     };
   },
   created: function () {
-    this.getSites();
+    this.getStructure();
   },
   methods: {
-    getSites: function () {
+    getStructure: function () {
       var that = this;
       this.loading = true;
-      fetch("/api/sites")
+      fetch("/structure.json")
         .then(function (response) {
           if (response.status !== 200) {
             console.log(
-              "Error fetching sites, status code: " + response.status
+              "Error fetching structure, status code: " + response.status
             );
             return;
           }
           response.json().then(function (data) {
-            that.sites = data;
+            that.structure = data;
             that.loading = false;
           });
         })
         .catch(function (err) {
           that.loading = false;
-          console.log("Error fetching sites", err);
+          console.log("Error fetching structure", err);
         });
-    },
-    linkToSite: function (folder) {
-      return "/" + folder;
     },
   },
 };
