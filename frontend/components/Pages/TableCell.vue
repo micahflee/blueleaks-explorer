@@ -22,7 +22,7 @@
       <img v-bind:src="attachmentUrl(value)" />
     </span>
     <span v-else-if="fieldType == 'attachment'">
-      <a v-bind:href="attachmentUrl(value)">{{ value }}</a>
+      <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
     </span>
     <span v-else-if="fieldType == 'join'">TODO: join</span>
     <span v-else>Unimplemented field type: {{ fieldType }}</span>
