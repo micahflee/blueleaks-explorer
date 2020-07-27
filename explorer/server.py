@@ -79,6 +79,23 @@ def sql_select_item(site, table, item_id, headers):
     return rows
 
 
+def sql_select_join(site, table, item_id, join_from, join_to, headers):
+    conn = sqlite3.connect(get_database_filename(site))
+    c = conn.cursor()
+
+    item_id = item_id.replace("'", "''")
+    dest_table = join_to.split(".")[0]
+
+    sql = f"SELECT {dest_table}.* FROM {dest_table} JOIN {table} ON {join_to}={join_from} WHERE {table}.{headers[0]}='{item_id}'"
+
+    rows = []
+    for row in c.execute(sql):
+        rows.append(list(row))
+
+    conn.close()
+    return rows
+
+
 def get_table_display_name(site, table):
     if "display" in structure[site]["tables"][table]:
         return structure[site]["tables"][table]["display"]
@@ -248,6 +265,41 @@ def api_item(site, table, item_id):
             "rows": sql_select_item(site, table, item_id, headers),
             "important_fields": important_fields,
             "field_types": field_types,
+        }
+    )
+
+
+@app.route("/api/<site>/<table>/join/<header>/<item_id>")
+def api_join(site, table, header, item_id):
+    if site not in structure:
+        abort(500)
+    if table not in structure[site]["tables"]:
+        abort(500)
+    if header not in structure[site]["tables"][table]["field_types"]:
+        abort(500)
+    if header not in structure[site]["tables"][table]["joins"]:
+        abort(500)
+    if structure[site]["tables"][table]["field_types"][header] != "join":
+        abort(500)
+
+    headers = sql_headers(site, table)
+    join_from = structure[site]["tables"][table]["joins"][header]["from"]
+    join_to = structure[site]["tables"][table]["joins"][header]["to"]
+    rows = sql_select_join(site, table, item_id, join_from, join_to, headers)
+
+    join_table = join_to.split(".")[0]
+    join_headers = sql_headers(site, join_table)
+    join_important_fields = get_important_fields(site, join_table, join_headers)
+    join_field_types = get_field_types(site, join_table)
+
+    return jsonify(
+        {
+            "join_table": join_table,
+            "join_headers": join_headers,
+            "join_rows": rows,
+            "join_count": len(rows),
+            "join_important_fields": join_important_fields,
+            "join_field_types": join_field_types,
         }
     )
 

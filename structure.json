@@ -657,7 +657,7 @@
                     "File6Name"
                 ],
                 "field_types": {
-                    "BriefSummary": "html",
+                    "BriefSummary": "pre",
                     "File1": "attachment",
                     "File2": "attachment",
                     "File3": "attachment",

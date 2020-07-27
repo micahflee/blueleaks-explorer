@@ -23,6 +23,8 @@ ul.buttons li {
       <li v-for="field in importantFields" class="field">
         <TableCell
           v-bind:siteFolder="siteFolder"
+          v-bind:table="table"
+          v-bind:itemId="itemId"
           v-bind:header="field"
           v-bind:fieldType="fieldTypes[field]"
           v-bind:value="row[headers.indexOf(field)]"
@@ -33,6 +35,8 @@ ul.buttons li {
       <li v-for="field in hiddenFields" class="field">
         <TableCell
           v-bind:siteFolder="siteFolder"
+          v-bind:table="table"
+          v-bind:itemId="itemId"
           v-bind:header="field"
           v-bind:fieldType="fieldTypes[field]"
           v-bind:value="row[headers.indexOf(field)]"
@@ -56,13 +60,12 @@ import TableCell from "./TableCell.vue";
 export default {
   props: [
     "siteFolder",
+    "table",
     "row",
     "importantFields",
     "hiddenFields",
     "fieldTypes",
     "headers",
-    "siteFolder",
-    "table",
   ],
   data: function () {
     return {
@@ -81,6 +84,15 @@ export default {
       } else {
         this.showAllFields = true;
         this.toggleHiddenFieldsButtonText = "Hide";
+      }
+    },
+  },
+  computed: {
+    itemId: function () {
+      if (this.row.length > 0) {
+        return this.row[0];
+      } else {
+        return null;
       }
     },
   },

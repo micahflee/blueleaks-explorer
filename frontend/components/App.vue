@@ -98,6 +98,11 @@ div.loading {
   text-align: center;
   margin: 100px 0;
 }
+
+pre {
+  white-space: pre-wrap;
+  background-color: white;
+}
 </style>
 
 <style scoped>
