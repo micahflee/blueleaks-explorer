@@ -12,20 +12,26 @@
 </style>
 
 <template>
-  <div>
+  <div v-if="value != ''">
     <span class="label">{{ header }}:</span>
-    <span class="value" v-if="fieldType == 'text'">{{ value }}</span>
-    <span class="value" v-else-if="fieldType == 'html'">
+    <span v-if="fieldType == 'text'">{{ value }}</span>
+    <span v-else-if="fieldType == 'html'">
       <div class="html-value" v-html="htmlValue(value)"></div>
     </span>
-    <span class="value" v-else-if="fieldType == 'join'">TODO: join</span>
-    <span class="value" v-else>Unimplemented field type: {{ fieldType }}</span>
+    <span v-else-if="fieldType == 'image'">
+      <img v-bind:src="attachmentUrl(value)" />
+    </span>
+    <span v-else-if="fieldType == 'attachment'">
+      <a v-bind:href="attachmentUrl(value)">{{ value }}</a>
+    </span>
+    <span v-else-if="fieldType == 'join'">TODO: join</span>
+    <span v-else>Unimplemented field type: {{ fieldType }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["header", "fieldType", "value"],
+  props: ["siteFolder", "header", "fieldType", "value"],
   methods: {
     htmlValue: function (html) {
       var html = html
@@ -34,6 +40,15 @@ export default {
         .replace(/POSITION: absolute;/g, "")
         .replace(/position:absolute;/g, "");
       return html;
+    },
+    attachmentUrl: function (value) {
+      var url =
+        "/blueleaks-data/" +
+        this.siteFolder +
+        "/files/" +
+        value.replace("\\", "/");
+      console.log(url);
+      return url;
     },
   },
 };

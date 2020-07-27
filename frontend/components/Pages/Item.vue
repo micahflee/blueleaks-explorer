@@ -21,12 +21,12 @@
       <ul class="rows">
         <li v-for="row in rows" class="row">
           <TableRow
+            v-bind:siteFolder="siteFolder"
             v-bind:row="row"
             v-bind:importantFields="importantFields"
             v-bind:hiddenFields="hiddenFields"
             v-bind:fieldTypes="fieldTypes"
             v-bind:headers="headers"
-            v-bind:siteFolder="siteFolder"
             v-bind:table="table"
           ></TableRow>
         </li>

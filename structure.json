@@ -38,7 +38,8 @@
                     "Blog Posts"
                 ],
                 "field_types": {
-                    "BlogPosts": "join"
+                    "PageHeader": "html",
+                    "Blog Posts": "join"
                 },
                 "joins": {
                     "Blog Posts": {
@@ -656,6 +657,7 @@
                     "File6Name"
                 ],
                 "field_types": {
+                    "BriefSummary": "html",
                     "File1": "attachment",
                     "File2": "attachment",
                     "File3": "attachment",
