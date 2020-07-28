@@ -2,6 +2,7 @@ import click
 
 from .import_data import run as run_import_data
 from .server import run as run_server
+from .structure import run as run_structure
 
 
 def init():
@@ -30,3 +31,14 @@ def import_data(blueleaks_path):
 def server(blueleaks_path):
     init()
     run_server(blueleaks_path)
+
+
+@main.command(
+    "structure",
+    short_help="Build structure based on data, save to default-structure.json",
+)
+@click.option(
+    "--blueleaks-path", required=True, help="Path to extracted BlueLeaks data",
+)
+def structure(blueleaks_path):
+    run_structure(blueleaks_path)

@@ -4,30 +4,35 @@ import json
 import csv
 import sqlite3
 
+from .common import sanitize_field_name
+
 
 def exec_sql(c, sql):
     try:
         c.execute(sql)
     except sqlite3.OperationalError as e:
+        click.echo("")
         click.secho(sql, dim=True)
         raise e
 
 
-def sanitize_field_name(table):
-    valid_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
-    new_table = ""
-    for c in table:
-        if c == "-" or c == " ":
-            new_table += "_"
-        elif c in valid_chars:
-            new_table += c
-    return new_table
+def progress(structure, site, table=None, row_count=None):
+    # Clear previous output
+    click.echo("\r" + " " * 80, nl=False)
+
+    # Print progress
+    s = click.style(f"\r{structure[site]['name']} ({site})", bold=True)
+    if table:
+        s += " | " + f"{table}.csv"
+        if row_count:
+            s += " | " + click.style(f"{row_count} rows", dim=True)
+    click.echo(s, nl=False)
 
 
 def run(blueleaks_path):
     root_dir = "./"
 
-    structure_filename = os.path.join(root_dir, "structure.json")
+    structure_filename = os.path.join(root_dir, "default-structure.json")
     dbs_dirname = os.path.join(root_dir, "databases")
 
     with open(structure_filename) as f:
@@ -35,29 +40,32 @@ def run(blueleaks_path):
 
     # For each site
     for site in structure:
-        click.secho(f"{structure[site]['name']} ({site})", bold=True)
+        progress(structure, site)
 
         # Start the database
         database_filename = os.path.join(dbs_dirname, f"{site}.sqlite3")
         if os.path.exists(database_filename):
-            click.echo(f"{database_filename} already exists so deleting it")
-            os.remove(database_filename)
+            click.secho(f" | {database_filename} already exists so skipping", dim=True)
+            continue
 
         conn = sqlite3.connect(database_filename)
         c = conn.cursor()
 
         # For each table
         for table in structure[site]["tables"]:
-            click.echo(f"Importing table {table}.csv")
+            progress(structure, site, table)
 
             csv_filename = os.path.join(blueleaks_path, site, f"{table}.csv")
             with open(csv_filename) as csv_file:
                 reader = csv.DictReader(csv_file)
 
-                fields = ", ".join(
-                    [sanitize_field_name(field) for field in reader.fieldnames]
-                )
-                sql = f"CREATE TABLE {table} ({fields})"
+                fields = [sanitize_field_name(field) for field in reader.fieldnames]
+                for i in range(len(fields)):
+                    if fields[i] == None:
+                        fields[i] = ""
+                fields = ",".join([f"'{field}'" for field in fields])
+
+                sql = f"CREATE TABLE '{table}' ({fields})"
                 exec_sql(c, sql)
                 conn.commit()
 
@@ -65,22 +73,31 @@ def run(blueleaks_path):
 
                 # Import rows
                 for row in reader:
-                    values = (
-                        str(tuple([row[field] for field in row]))
-                        .replace("\\\\", "/")  # convert Windows paths to unix paths
-                        .replace("\\'", "''")
-                    )
-                    sql = f"INSERT INTO {table} VALUES {values}"
+                    values = []
+                    for field in row:
+                        if row[field] == None:
+                            values.append("")
+                        else:
+                            values.append(
+                                row[field].replace("\\\\", "/").replace("'", "''")
+                            )
+                    for i in range(len(values)):
+                        if values[i] == None:
+                            values[i] = ""
+                    values = ",".join([f"'{value}'" for value in values])
+
+                    sql = f"INSERT INTO '{table}' VALUES ({values})"
                     # click.secho(sql, dim=True)
                     exec_sql(c, sql)
 
                     row_count += 1
                     if row_count % 1000 == 0:
-                        click.secho(f"Loaded {row_count} rows", dim=True)
+                        progress(structure, site, table, row_count)
                         conn.commit()
 
                 conn.commit()
 
-            click.secho(f"Loaded {row_count} rows", dim=True)
+            progress(structure, site)
 
         conn.close()
+        click.echo()

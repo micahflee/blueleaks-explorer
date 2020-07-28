@@ -10,8 +10,7 @@ app = Flask(__name__)
 blueleaks_path = None
 
 # Load structure
-with open("./structure.json") as f:
-    structure = json.load(f)
+structure = {}
 
 
 def humansize(nbytes):
@@ -32,7 +31,7 @@ def sql_count(site, table):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
-    c.execute(f"SELECT COUNT(*) FROM {table}")
+    c.execute(f"SELECT COUNT(*) FROM '{table}'")
     row = c.fetchone()
 
     conn.close()
@@ -45,7 +44,7 @@ def sql_headers(site, table):
     c = conn.cursor()
 
     headers = []
-    for row in c.execute(f"PRAGMA table_info({table});"):
+    for row in c.execute(f"PRAGMA table_info('{table}');"):
         headers.append(row[1])
 
     conn.close()
@@ -58,7 +57,7 @@ def sql_select_rows(site, table):
     c = conn.cursor()
 
     rows = []
-    for row in c.execute(f"SELECT * FROM {table}"):
+    for row in c.execute(f"SELECT * FROM '{table}'"):
         rows.append(list(row))
 
     conn.close()
@@ -72,7 +71,7 @@ def sql_select_item(site, table, item_id, headers):
     item_id = item_id.replace("'", "''")
 
     rows = []
-    for row in c.execute(f"SELECT * FROM {table} WHERE {headers[0]}='{item_id}'"):
+    for row in c.execute(f"SELECT * FROM '{table}' WHERE '{headers[0]}'='{item_id}'"):
         rows.append(list(row))
 
     conn.close()
@@ -86,7 +85,7 @@ def sql_select_join(site, table, item_id, join_from, join_to, headers):
     item_id = item_id.replace("'", "''")
     dest_table = join_to.split(".")[0]
 
-    sql = f"SELECT {dest_table}.* FROM {dest_table} JOIN {table} ON {join_to}={join_from} WHERE {table}.{headers[0]}='{item_id}'"
+    sql = f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON {join_to}={join_from} WHERE '{table}'.'{headers[0]}'='{item_id}'"
 
     rows = []
     for row in c.execute(sql):
@@ -305,6 +304,11 @@ def api_join(site, table, header, item_id):
 
 
 def run(new_blueleaks_path):
-    global blueleaks_path
+    global blueleaks_path, structure
+
     blueleaks_path = new_blueleaks_path
+
+    with open("./structure.json") as f:
+        structure = json.load(f)
+
     app.run("127.0.0.1", "8080")
