@@ -184,11 +184,6 @@ def catch_all(path):
         return render_frontend()
 
 
-@app.route("/structure.json")
-def structure_json():
-    return jsonify(structure)
-
-
 @app.route("/api/structures")
 def api_structures():
     implemented_sites = []
