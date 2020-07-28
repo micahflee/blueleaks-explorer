@@ -1,4 +1,8 @@
 <style scoped>
+.dirty {
+  color: red;
+  font-style: italic;
+}
 </style>
 
 <template>
@@ -9,9 +13,16 @@
       </div>
     </template>
     <template v-else>
+      <template v-if="dirty">
+        <p class="dirty">
+          You have unsaved changed.
+          <button v-on:click="save">Save</button>
+        </p>
+      </template>
       <h2>
         <i class="fas fa-sitemap"></i>
         {{ structure["name"] }}
+        <button v-on:click="changeName">Change</button>
       </h2>
     </template>
   </div>
@@ -23,6 +34,7 @@ export default {
     return {
       loading: false,
       site: this.$route.path.split("/")[2],
+      dirty: false,
       structure: null,
     };
   },
@@ -57,12 +69,45 @@ export default {
           console.log("Error fetching structure", err);
         });
     },
-    linkToTable: function (table) {
-      return "/" + this.siteFolder + "/" + table;
+    save: function () {
+      var that = this;
+      this.loading = true;
+      fetch("/api/structure/" + this.site, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(this.structure),
+      })
+        .then(function (response) {
+          that.loading = false;
+
+          if (response.status !== 200) {
+            console.log(
+              "Error saving structure, status code: " + response.status
+            );
+            return;
+          }
+          response.json().then(function (data) {
+            if (data["error"]) {
+              alert(data["error_message"]);
+            } else {
+              that.dirty = false;
+            }
+          });
+        })
+        .catch(function (err) {
+          that.loading = false;
+          console.log("Error saving structure", err);
+        });
     },
-    numberWithCommas: function (x) {
-      if (!x) return "...";
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    changeName: function () {
+      var name = prompt(
+        "What's the name of this site?",
+        this.structure["name"]
+      );
+      if (name) {
+        this.structure["name"] = name;
+        this.dirty = true;
+      }
     },
   },
 };

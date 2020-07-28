@@ -237,7 +237,7 @@ def api_structure_create(site):
     return jsonify({"error": False})
 
 
-@app.route("/api/structure/<site>")
+@app.route("/api/structure/<site>", methods=["GET", "POST"])
 def api_structure(site):
     # Validate the site
     valid_sites = get_all_sites()
@@ -251,10 +251,19 @@ def api_structure(site):
             {"error": True, "error_message": "That site hasn't been implemented"}
         )
 
-    # Return the structure
-    with open(f"./structures/{site}.json") as f:
-        structure = json.load(f)
-    return jsonify({"error": False, "structure": structure})
+    if request.method == "GET":
+        # Return the structure
+        with open(f"./structures/{site}.json") as f:
+            structure = json.load(f)
+        return jsonify({"error": False, "structure": structure})
+    elif request.method == "POST":
+        # Save the structure
+        structure = request.json
+        with open(f"./structures/{site}.json", "w") as f:
+            f.write(json.dumps(structure, indent=4))
+        return jsonify({"error": False})
+    else:
+        abort(500)
 
 
 @app.route("/api/sites")
