@@ -20,7 +20,7 @@ ul.buttons li {
 <template>
   <div>
     <ul class="fields">
-      <li v-for="field in importantFields" class="field">
+      <li v-for="field in importantFields" class="field" v-bind:key="field">
         <TableCell
           v-bind:siteFolder="siteFolder"
           v-bind:table="table"
@@ -32,7 +32,7 @@ ul.buttons li {
       </li>
     </ul>
     <ul v-if="showAllFields" class="hidden-fields">
-      <li v-for="field in hiddenFields" class="field">
+      <li v-for="field in hiddenFields" class="field" v-bind:key="field">
         <TableCell
           v-bind:siteFolder="siteFolder"
           v-bind:table="table"
