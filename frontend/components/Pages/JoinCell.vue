@@ -12,7 +12,7 @@
 </style>
 
 <template>
-  <div v-if="value != ''">
+  <div v-if="value != '' && fieldType != 'join'">
     <span class="label">{{ header }}:</span>
     <span v-if="fieldType == 'text'">{{ value }}</span>
     <span v-else-if="fieldType == 'pre'">
@@ -27,7 +27,6 @@
     <span v-else-if="fieldType == 'attachment'">
       <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
     </span>
-    <span v-else-if="fieldType == 'join'"></span>
     <span v-else>Unimplemented field type: {{ fieldType }}</span>
   </div>
 </template>

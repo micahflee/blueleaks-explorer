@@ -190,14 +190,15 @@ def structure_json():
 
 @app.route("/api/structures")
 def api_structures():
-    with open("./default_structure.json") as f:
-        default_structure = json.load(f)
-
-    all_sites = [site for site in default_structure]
+    all_sites = []
+    for filename in os.listdir("./structures/default"):
+        if os.path.isfile(filename) and filename.endswith(".json"):
+            site = filename[:-5]
+        all_sites.append(site)
 
     implemented_sites = []
     for filename in os.listdir("./structures"):
-        if filename.endswith(".json"):
+        if os.path.isfile(filename) and filename.endswith(".json"):
             site = filename[:-5]
             with open(os.path.join("./structures", filename)) as f:
                 site_structure = json.load(f)
