@@ -107,6 +107,5 @@ venv.bak/
 .DS_Store
 .vscode/
 
-default-structure.json
 node_modules/
 bundle.js

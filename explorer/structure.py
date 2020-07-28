@@ -8,11 +8,11 @@ from .common import sanitize_field_name
 
 
 def run(blueleaks_path):
-    structure = {}
-
     # Find all folders that have tables (CSV files)
     for site in os.listdir(blueleaks_path):
         if os.path.isdir(os.path.join(blueleaks_path, site)):
+            structure = {}
+
             # Make a list of tables
             tables = []
             try:
@@ -28,7 +28,7 @@ def run(blueleaks_path):
                 continue
 
             # Start defining the structure
-            structure[site] = {"name": site, "tables": {}}
+            structure = {"name": site, "tables": {}}
 
             for table in tables:
                 # Get a list of columns for this table
@@ -41,12 +41,14 @@ def run(blueleaks_path):
                 for field in fields:
                     field_types[field] = "text"
 
-                structure[site]["tables"][table] = {
+                structure["tables"][table] = {
                     "display": table,
                     "important_fields": fields,
                     "field_types": field_types,
                     "joins": {},
                 }
 
-    with open("default-structure.json", "w") as f:
-        f.write(json.dumps(structure, indent=4))
+            json_filename = os.path.join("./structures/default", f"{site}.json")
+            with open(json_filename, "w") as f:
+                f.write(json.dumps(structure, indent=4))
+            click.secho(f"Wrote {json_filename}", dim=True)

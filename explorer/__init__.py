@@ -34,8 +34,7 @@ def server(blueleaks_path):
 
 
 @main.command(
-    "structure",
-    short_help="Build structure based on data, save to default-structure.json",
+    "structure", short_help="Build default structures based on data",
 )
 @click.option(
     "--blueleaks-path", required=True, help="Path to extracted BlueLeaks data",
