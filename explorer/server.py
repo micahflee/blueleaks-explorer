@@ -1,6 +1,7 @@
 import json
 import sqlite3
 import os
+import shutil
 from pathlib import Path
 from flask import Flask, jsonify, render_template, abort, send_file, request
 
@@ -190,21 +191,55 @@ def structure_json():
 
 @app.route("/api/structures")
 def api_structures():
-    all_sites = []
-    for filename in os.listdir("./structures/default"):
-        if os.path.isfile(filename) and filename.endswith(".json"):
-            site = filename[:-5]
-        all_sites.append(site)
-
     implemented_sites = []
     for filename in os.listdir("./structures"):
-        if os.path.isfile(filename) and filename.endswith(".json"):
+        if filename.endswith(".json"):
             site = filename[:-5]
             with open(os.path.join("./structures", filename)) as f:
                 site_structure = json.load(f)
             implemented_sites.append({"site": site, "name": site_structure["name"]})
 
-    return jsonify({"all_sites": all_sites, "implemented_sites": implemented_sites})
+    unimplemented_sites = []
+    for filename in os.listdir("./structures/default"):
+        if filename.endswith(".json"):
+            site = filename[:-5]
+
+            implemented = False
+            for implemented_site in implemented_sites:
+                if site == implemented_site["site"]:
+                    implemented = True
+            if not implemented:
+                unimplemented_sites.append(site)
+
+    return jsonify(
+        {
+            "implemented_sites": implemented_sites,
+            "unimplemented_sites": unimplemented_sites,
+        }
+    )
+
+
+@app.route("/api/structure/create/<site>", methods=["POST"])
+def api_structure_create(site):
+    # Make a list of valid sites
+    valid_sites = []
+    for filename in os.listdir("./structures/default"):
+        if filename.endswith(".json"):
+            valid_sites.append(filename[:-5])
+
+    # Validate the site
+    if site not in valid_sites:
+        return jsonify({"error": True, "error_message": "Invalid site"})
+
+    # Is this site already implemented?
+    if os.path.exists(f"./structures/{site}.json"):
+        return jsonify(
+            {"error": True, "error_message": "That site is already implemented"}
+        )
+
+    # Copy the default structure
+    shutil.copyfile(f"./structures/default/{site}.json", f"./structures/{site}.json")
+    return jsonify({"error": False})
 
 
 @app.route("/api/sites")

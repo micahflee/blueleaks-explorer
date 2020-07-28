@@ -114,15 +114,9 @@ h1 {
   display: inline-block;
   padding-right: 1em;
   margin: 1em 0 0 0;
-}
-h1 i {
   color: cornflowerblue;
 }
-h1 a:link,
-h1 a:visited,
-h1 a:active,
-h1 a:hover {
-  text-decoration: none;
+h1 i {
   color: cornflowerblue;
 }
 
@@ -153,17 +147,20 @@ ul li i {
   <div>
     <header>
       <h1>
-        <i class="fas fa-cat"></i>
-        <router-link to="/">BlueLeaks Explorer</router-link>
+        <i class="fas fa-cat"></i> BlueLeaks Explorer
       </h1>
       <ul>
         <li>
-          <i class="fas fa-folder-open"></i>
-          <a href="/blueleaks-data/">Browse Files</a>
+          <i class="fas fa-user-astronaut"></i>
+          <router-link to="/">Explore Data</router-link>
         </li>
         <li>
           <i class="fas fa-tools"></i>
           <router-link to="/structure">Define Structure</router-link>
+        </li>
+        <li>
+          <i class="fas fa-folder-open"></i>
+          <a href="/blueleaks-data/">Browse Files</a>
         </li>
       </ul>
     </header>
