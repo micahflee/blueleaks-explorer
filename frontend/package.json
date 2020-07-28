@@ -17,6 +17,7 @@
     "vue-router": "^3.3.4",
     "vue-server-renderer": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
+    "vuedraggable": "^2.24.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },

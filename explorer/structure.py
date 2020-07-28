@@ -35,16 +35,18 @@ def run(blueleaks_path):
                 csv_filename = os.path.join(blueleaks_path, site, f"{table}.csv")
                 with open(csv_filename) as csv_file:
                     reader = csv.DictReader(csv_file)
-                    fields = [sanitize_field_name(field) for field in reader.fieldnames]
-
-                field_types = {}
-                for field in fields:
-                    field_types[field] = "text"
+                    fields = [
+                        {
+                            "name": sanitize_field_name(field),
+                            "show": True,
+                            "type": "text",
+                        }
+                        for field in reader.fieldnames
+                    ]
 
                 structure["tables"][table] = {
                     "display": table,
-                    "important_fields": fields,
-                    "field_types": field_types,
+                    "fields": fields,
                     "joins": {},
                 }
 
