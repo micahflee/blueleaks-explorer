@@ -46,6 +46,7 @@ def run(blueleaks_path):
 
                 structure["tables"][table] = {
                     "display": table,
+                    "hidden": False,
                     "fields": fields,
                     "joins": {},
                 }

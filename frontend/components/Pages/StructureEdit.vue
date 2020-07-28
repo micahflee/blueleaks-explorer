@@ -17,60 +17,6 @@ ul {
 ul.tables li.table {
   margin-bottom: 2em;
 }
-
-.table-name {
-  font-size: 1.2em;
-}
-
-.fields .field:first-child {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
-.fields .field:last-child {
-  margin-bottom: 0;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-
-.fields .field {
-  position: relative;
-  display: block;
-  width: 610px;
-  padding: 10px 15px;
-  margin-bottom: -1px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-}
-
-.field-headers {
-  font-weight: bold;
-  position: relative;
-  display: block;
-  padding: 10px 15px;
-  margin-bottom: -1px;
-  border: 1px solid transparent;
-}
-.field-handle {
-  display: inline-block;
-  width: 40px;
-}
-i.field-handle {
-  color: #999999;
-  cursor: grab;
-}
-.field-name {
-  display: inline-block;
-  width: 450px;
-}
-.field-type {
-  display: inline-block;
-  width: 50px;
-}
-.field-show {
-  display: inline-block;
-  width: 50px;
-}
 </style>
 
 <template>
@@ -96,34 +42,8 @@ i.field-handle {
         </h2>
 
         <ul class="tables">
-          <li v-for="(table_data, table) in structure['tables']" class="table">
-            <p class="table-name">
-              <i class="fas fa-table"></i>
-              <strong>{{ table_data['display'] }}</strong>
-              <span class="meta">({{ table }})</span>
-              <button v-on:click="changeTableDisplay">Change</button>
-            </p>
-            <div class="field-headers">
-              <span class="field-handle">Sort</span>
-              <span class="field-name">Field Name</span>
-              <span class="field-type">Type</span>
-              <span class="field-show">Show</span>
-            </div>
-            <draggable
-              class="fields"
-              handle=".field-handle"
-              v-model="structure['tables'][table]['fields']"
-              @end="changeFieldOrder"
-            >
-              <div v-for="field in structure['tables'][table]['fields']" class="field">
-                <i class="field-handle fas fa-grip-horizontal"></i>
-                <span class="field-name">{{ field['name'] }}</span>
-                <span class="field-type">{{ field['type'] }}</span>
-                <span class="field-show">
-                  <input type="checkbox" />
-                </span>
-              </div>
-            </draggable>
+          <li v-for="(tableData, table) in structure['tables']" class="table">
+            <Table v-bind:table="table" v-bind:tableData="tableData" v-on:dirty="makeDirty()"></Table>
           </li>
         </ul>
       </template>
@@ -132,7 +52,7 @@ i.field-handle {
 </template>
 
 <script>
-import draggable from "vuedraggable";
+import Table from "./Structure/Table.vue";
 
 export default {
   data: function () {
@@ -214,22 +134,12 @@ export default {
         this.dirty = true;
       }
     },
-    changeTableDisplay: function (table) {
-      var display = prompt(
-        "New display name",
-        this.structure["tables"][table]["display"]
-      );
-      if (display) {
-        this.structure["tables"][table]["display"] = display;
-        this.dirty = true;
-      }
-    },
-    changeFieldOrder: function (event) {
+    makeDirty: function () {
       this.dirty = true;
     },
   },
   components: {
-    draggable: draggable,
+    Table: Table,
   },
 };
 </script>

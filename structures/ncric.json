@@ -1,21 +1,16 @@
 {
-    "name": "Northern California Regional Intelligence Center",
+    "name": "ncric",
     "tables": {
         "911Centers": {
-            "display": "911Centers",
+            "display": "911 Centers",
             "fields": [
                 {
-                    "name": "Address2",
+                    "name": "911CentersID",
                     "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Region",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "911CentersID",
                     "show": true,
                     "type": "text"
                 },
@@ -40,7 +35,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "Phone24x7",
+                    "name": "Address2",
                     "show": true,
                     "type": "text"
                 },
@@ -56,6 +51,11 @@
                 },
                 {
                     "name": "ZipCode",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Phone24x7",
                     "show": true,
                     "type": "text"
                 },
@@ -120,6 +120,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "911CentersBackup": {
@@ -241,6 +242,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "911CentersBackup2": {
@@ -362,6 +364,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "911CentersBackup3": {
@@ -483,6 +486,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "911CentersBackup4": {
@@ -604,6 +608,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "ASIOptions": {
@@ -730,22 +735,24 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "AgencyNames": {
             "display": "AgencyNames",
             "fields": [
                 {
-                    "name": "AgencyNamesID",
+                    "name": "AgencyNames",
                     "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "AgencyNames",
-                    "show": true,
+                    "name": "AgencyNamesID",
+                    "show": false,
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Align": {
@@ -762,6 +769,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "AllEmails": {
@@ -793,6 +801,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "ApprovalField": {
@@ -849,6 +858,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "AssociateToPopupAd": {
@@ -870,6 +880,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "Associates": {
@@ -1491,6 +1502,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "Audit": {
@@ -1517,6 +1529,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "AutoLogin": {
@@ -1558,6 +1571,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "BannerAds": {
@@ -1659,6 +1673,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": true,
             "joins": {}
         },
         "Blog": {
@@ -1805,6 +1820,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "BlogCategory": {
@@ -1941,6 +1957,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "BlogComments": {
@@ -2002,6 +2019,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "BlogOptions": {
@@ -2083,6 +2101,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "BouncedEmailOptions": {
@@ -2119,6 +2138,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Catalog": {
@@ -2775,6 +2795,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CatalogImages": {
@@ -2951,6 +2972,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CatalogListView": {
@@ -3032,6 +3054,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CatalogOptions": {
@@ -3648,6 +3671,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CatalogProperty2": {
@@ -3729,6 +3753,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CatalogPropertyStock": {
@@ -3765,6 +3790,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CatalogRelated": {
@@ -3791,6 +3817,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CatalogToCategory": {
@@ -3807,6 +3834,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CheckoutOptions": {
@@ -4563,6 +4591,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CommandCenter": {
@@ -4664,6 +4693,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CommandCenterComment": {
@@ -4725,6 +4755,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CommandCenterGroup": {
@@ -4766,6 +4797,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Company": {
@@ -5312,6 +5344,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ConnectedIncidents": {
@@ -5353,6 +5386,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Courses": {
@@ -5399,6 +5433,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CoursesCategory": {
@@ -5440,6 +5475,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CreditCardForm": {
@@ -5686,6 +5722,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CreditCardOptions": {
@@ -5882,6 +5919,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomGuid": {
@@ -5958,6 +5996,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomIcon": {
@@ -5979,6 +6018,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomMapping": {
@@ -6115,6 +6155,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomTableLayout": {
@@ -6196,6 +6237,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Customer": {
@@ -6442,6 +6484,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomerCount": {
@@ -6468,6 +6511,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomerProfile": {
@@ -6484,6 +6528,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomerProfileToCatalog": {
@@ -6515,6 +6560,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomerProfileToCatalogImage": {
@@ -6546,6 +6592,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomerRegion": {
@@ -6567,6 +6614,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "CustomerVendor": {
@@ -6593,6 +6641,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Deactivation": {
@@ -6684,6 +6733,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Directory": {
@@ -6995,6 +7045,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "DirectoryMapping": {
@@ -7266,6 +7317,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "DirectoryOptions": {
@@ -7442,6 +7494,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Document2Category": {
@@ -7548,6 +7601,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Document2Download": {
@@ -7594,6 +7648,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Document2Options": {
@@ -7800,6 +7855,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Document3Category": {
@@ -7906,6 +7962,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Document3Download": {
@@ -7952,6 +8009,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Document3Options": {
@@ -8158,6 +8216,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "DocumentCategory": {
@@ -8264,6 +8323,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "DocumentDownload": {
@@ -8310,6 +8370,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "DocumentOptions": {
@@ -8516,6 +8577,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Documents": {
@@ -8637,6 +8699,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Documents2": {
@@ -8758,6 +8821,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Documents2ToAsssocateFavorites": {
@@ -8774,6 +8838,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Documents3": {
@@ -8895,6 +8960,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Documents3ToAsssocateFavorites": {
@@ -8911,6 +8977,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "DocumentsToAsssocateFavorites": {
@@ -8927,6 +8994,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailAccounts": {
@@ -9018,6 +9086,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailApprovalList": {
@@ -9034,6 +9103,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilder": {
@@ -9445,6 +9515,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderApprovers": {
@@ -9466,6 +9537,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderCategory": {
@@ -9502,6 +9574,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderCustomConfiguration": {
@@ -9523,6 +9596,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderCustomList": {
@@ -9564,6 +9638,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderDetail": {
@@ -9600,6 +9675,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderDownload": {
@@ -9641,6 +9717,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderFormatting": {
@@ -9672,6 +9749,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderOptions": {
@@ -9888,6 +9966,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailBuilderTemplate": {
@@ -9914,6 +9993,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EmailProcessing": {
@@ -10000,6 +10080,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilder": {
@@ -10821,6 +10902,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilderApprovalLevel": {
@@ -10897,6 +10979,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilderCardProcessing": {
@@ -10988,6 +11071,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilderCategory": {
@@ -11004,6 +11088,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilderCosponsors": {
@@ -11030,6 +11115,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilderCustomList": {
@@ -11066,6 +11152,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilderEmailCertificate": {
@@ -11087,6 +11174,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilderOptions": {
@@ -11723,6 +11811,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventBuilderSummaryEmail": {
@@ -11764,6 +11853,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventOptions": {
@@ -11800,6 +11890,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventPDF": {
@@ -11821,6 +11912,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "EventRegistration": {
@@ -12442,6 +12534,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Events": {
@@ -12538,6 +12631,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "FAQ": {
@@ -12579,6 +12673,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Feedback": {
@@ -12665,6 +12760,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "FontFace": {
@@ -12681,6 +12777,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "FontSize": {
@@ -12692,6 +12789,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "FormBuilder": {
@@ -13288,6 +13386,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "FormBuilderOptions": {
@@ -13449,6 +13548,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "FrontPage": {
@@ -13615,6 +13715,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "FrontPageDetail": {
@@ -13881,6 +13982,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "FrontPageTypes": {
@@ -13902,6 +14004,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "GangProfile": {
@@ -13963,6 +14066,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "GangProfileOptions": {
@@ -13994,6 +14098,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "GiftCertificateUsage": {
@@ -14035,6 +14140,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "GiftCertificates": {
@@ -14141,6 +14247,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAGrantName": {
@@ -14162,6 +14269,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAInitiative": {
@@ -14238,6 +14346,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAInventory": {
@@ -14514,6 +14623,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAInventoryAuditors": {
@@ -14535,6 +14645,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAInventoryHistory": {
@@ -14666,6 +14777,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAInventoryStatus": {
@@ -14682,6 +14794,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAInventoryType": {
@@ -14698,6 +14811,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTALawEnforcement": {
@@ -15294,6 +15408,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAOptions": {
@@ -15315,6 +15430,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTAPoolLocations": {
@@ -15331,6 +15447,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTATaskforceCmdrs": {
@@ -15467,6 +15584,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "HIDTATraining": {
@@ -15913,6 +16031,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ImageGallery": {
@@ -16074,6 +16193,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ImageGalleryImage": {
@@ -16170,6 +16290,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ImageGalleryOptions": {
@@ -16201,6 +16322,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentMap": {
@@ -16812,6 +16934,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentMapCategory": {
@@ -17273,6 +17396,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentMapComments": {
@@ -17369,6 +17493,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentMapFollowIncident": {
@@ -17390,6 +17515,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentMapIcon": {
@@ -17416,6 +17542,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentMapOptions": {
@@ -17947,6 +18074,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentMapStatus": {
@@ -18058,6 +18186,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentMapSummaryEmail": {
@@ -18094,6 +18223,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IncidentmapViewOptions": {
@@ -18265,6 +18395,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "IndustryTypes": {
@@ -18281,6 +18412,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Invoice": {
@@ -18987,6 +19119,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "InvoiceDetail": {
@@ -19108,6 +19241,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ItemLookup": {
@@ -19129,6 +19263,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ItemLookupDetail": {
@@ -19170,6 +19305,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "LawEnforcementAgencies": {
@@ -19221,6 +19357,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "LinkCategory": {
@@ -19277,6 +19414,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "LinkDownloadHistory": {
@@ -19318,6 +19456,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Links": {
@@ -19364,6 +19503,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MailList": {
@@ -19415,6 +19555,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MailListOptions": {
@@ -19441,6 +19582,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MailListToCustomer": {
@@ -19477,6 +19619,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MemberEditForms": {
@@ -19613,6 +19756,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MenuGroup": {
@@ -19944,6 +20088,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MenuItem": {
@@ -20345,6 +20490,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MenuSub": {
@@ -20666,6 +20812,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MessageboardForums": {
@@ -20702,6 +20849,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MessageboardMessages": {
@@ -20758,6 +20906,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MessageboardOptions": {
@@ -20789,6 +20938,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MessageboardProfile": {
@@ -20825,6 +20975,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MessageboardThreadProfile": {
@@ -20851,6 +21002,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "MessageboardThreads": {
@@ -20902,6 +21054,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "NCRTTACRegistration": {
@@ -21568,6 +21721,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "NCRTTACTraining": {
@@ -21774,6 +21928,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "NewsLetter": {
@@ -21900,6 +22055,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "NewsLetterCategory": {
@@ -22131,6 +22287,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "NewsLetterPicture": {
@@ -22167,6 +22324,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "NewsletterComments": {
@@ -22213,6 +22371,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "NewsletterDocDownload": {
@@ -22244,6 +22403,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "NewsletterDownload": {
@@ -22275,6 +22435,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "OrganizationNames": {
@@ -22291,6 +22452,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PDFTableMerge": {
@@ -22317,6 +22479,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PageCount": {
@@ -22333,6 +22496,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PasswordChangeRequests": {
@@ -22374,6 +22538,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PasswordFailures": {
@@ -22410,6 +22575,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PasswordHistory": {
@@ -22441,6 +22607,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PinSecurity": {
@@ -22477,6 +22644,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Podcast": {
@@ -22543,6 +22711,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PodcastCategory": {
@@ -22574,6 +22743,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PodcastOptions": {
@@ -22660,6 +22830,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PointsCustomer": {
@@ -22796,6 +22967,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PointsCustomerHistory": {
@@ -22862,6 +23034,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PointsCustomerToCategory": {
@@ -22883,6 +23056,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PointsDistributor": {
@@ -22929,6 +23103,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PointsOptions": {
@@ -23130,6 +23305,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PointsPurchase": {
@@ -23191,6 +23367,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PopupAd": {
@@ -23237,6 +23414,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PressRelease": {
@@ -23303,6 +23481,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PressReleaseCategory": {
@@ -23364,6 +23543,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PrimarySector": {
@@ -23380,6 +23560,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ProductSelector": {
@@ -23451,6 +23632,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ProductSelectorTree": {
@@ -23492,6 +23674,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ProductSelectorTreeToCatalog": {
@@ -23513,6 +23696,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Profile": {
@@ -23619,6 +23803,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ProfileOptions": {
@@ -23650,6 +23835,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PromotionCode": {
@@ -23701,6 +23887,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "PublicSafetyAgencies": {
@@ -23717,6 +23904,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RSSFeed": {
@@ -23808,6 +23996,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RandomInfo": {
@@ -23834,6 +24023,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RandomInfoCategory": {
@@ -23860,6 +24050,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RecentlyUpdatedOptions": {
@@ -23881,6 +24072,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Registrations": {
@@ -24812,6 +25004,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RegistrationsToTaskForce": {
@@ -24828,6 +25021,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ReminderEmails": {
@@ -24899,6 +25093,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Renewals": {
@@ -25035,6 +25230,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Requests": {
@@ -25501,6 +25697,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RoutingCategory": {
@@ -25537,6 +25734,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RoutingContact": {
@@ -25623,6 +25821,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RoutingOptions": {
@@ -25649,6 +25848,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "RoutingRule": {
@@ -25775,6 +25975,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SARTest": {
@@ -26226,6 +26427,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SARs": {
@@ -26687,6 +26889,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SARsNew": {
@@ -26908,6 +27111,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SQLEmailReports": {
@@ -26959,6 +27163,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SalesTax": {
@@ -27005,6 +27210,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SecureForm": {
@@ -27036,6 +27242,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SecureMenuLog": {
@@ -27082,6 +27289,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SecurePortals": {
@@ -27123,6 +27331,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SecurePortalsOptions": {
@@ -27149,6 +27358,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Security": {
@@ -27225,6 +27435,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SecurityAgreement": {
@@ -27266,6 +27477,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SecurityOptions": {
@@ -27302,6 +27514,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SecurityRules": {
@@ -27358,6 +27571,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ShippingCost": {
@@ -27894,6 +28108,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Shockwave": {
@@ -27970,6 +28185,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ShoppingCart": {
@@ -28611,6 +28827,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "ShoppingCartDetail": {
@@ -28957,6 +29174,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SignupOptions": {
@@ -29038,6 +29256,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Style": {
@@ -29269,6 +29488,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "StyleSheets": {
@@ -29290,6 +29510,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Subscription": {
@@ -29416,6 +29637,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SubscriptionHistory": {
@@ -29462,6 +29684,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SubscriptionOptions": {
@@ -30073,6 +30296,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Survey": {
@@ -30109,6 +30333,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SurveyForm": {
@@ -30215,6 +30440,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "SurveyQuestion": {
@@ -30326,6 +30552,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Target": {
@@ -30342,6 +30569,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "TaskEmployees": {
@@ -30383,6 +30611,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "TaskNames": {
@@ -30404,6 +30633,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "TaskOptions": {
@@ -30425,6 +30655,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "TaskProjects": {
@@ -30441,6 +30672,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "TaskTimeEntries": {
@@ -30522,6 +30754,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "TextMessageHistory": {
@@ -30548,6 +30781,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Twitter": {
@@ -30589,6 +30823,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "TwitterOptions": {
@@ -30640,6 +30875,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "VCardForm": {
@@ -30726,6 +30962,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "VatTax": {
@@ -30747,6 +30984,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Vendors": {
@@ -30793,6 +31031,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "Video": {
@@ -30924,6 +31163,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "VideoCategory": {
@@ -31010,6 +31250,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "VideoDownload": {
@@ -31056,6 +31297,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "VideoHistory": {
@@ -31102,6 +31344,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         },
         "VideoOptions": {
@@ -31158,6 +31401,7 @@
                     "type": "text"
                 }
             ],
+            "hidden": false,
             "joins": {}
         }
     }
