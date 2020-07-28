@@ -23,7 +23,7 @@
       </h3>
       <div class="meta">Displaying {{ numberWithCommas(count) }} rows</div>
       <ul class="rows">
-        <li v-for="row in rows" class="row">
+        <li v-for="row in rows" class="row" v-bind:key="row[0]">
           <TableRow
             v-bind:siteFolder="siteFolder"
             v-bind:table="table"
@@ -35,19 +35,28 @@
           ></TableRow>
         </li>
       </ul>
+      <template v-if="count">
+        <Paging
+          v-bind:totalItems="count"
+          v-bind:perPageCount="perPageCount"
+          v-bind:offset="offset"
+          v-bind:pageNavigateHandler="pageNavigateHandler"
+        ></Paging>
+      </template>
     </template>
   </div>
 </template>
 
 <script>
-import TableRow from "./TableRow.vue";
+import TableRow from './TableRow.vue';
+import Paging from './Paging.vue';
 
 export default {
-  data: function () {
+  data: function() {
     return {
       loading: false,
-      siteFolder: this.$route.path.split("/")[1],
-      table: this.$route.path.split("/")[2],
+      siteFolder: this.$route.path.split('/')[1],
+      table: this.$route.path.split('/')[2],
       siteName: null,
       tableName: null,
       headers: null,
@@ -56,66 +65,74 @@ export default {
       importantFields: null,
       hiddenFields: null,
       fieldTypes: null,
+      offset: 0,
+      perPageCount: 50
     };
   },
-  created: function () {
+  created: function() {
     this.getRows();
   },
   methods: {
-    getRows: function () {
-      var that = this;
+    getRows: async function() {
       this.loading = true;
-      fetch("/api/" + this.siteFolder + "/" + this.table)
-        .then(function (response) {
-          if (response.status !== 200) {
-            that.loading = false;
-            console.log("Error fetching rows, status code: " + response.status);
-            return;
+      // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
+      try {
+        const response = await fetch(
+          `/api/${this.siteFolder}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`
+        );
+        if (response.status !== 200) {
+          this.loading = false;
+          console.log('Error fetching rows, status code: ' + response.status);
+          return;
+        }
+        const data = await response.json();
+
+        this.siteName = data['site_name'];
+        this.tableName = data['table_name'];
+        this.headers = data['headers'];
+        this.rows = data['rows'];
+        this.count = data['count'];
+        this.importantFields = data['important_fields'];
+        this.fieldTypes = data['field_types'];
+
+        // Fill in the hidden fields
+        this.hiddenFields = [];
+        for (var i in this.headers) {
+          if (!this.importantFields.includes(this.headers[i])) {
+            this.hiddenFields.push(this.headers[i]);
           }
-          response.json().then(function (data) {
-            that.siteName = data["site_name"];
-            that.tableName = data["table_name"];
-            that.headers = data["headers"];
-            that.rows = data["rows"];
-            that.count = data["count"];
-            that.importantFields = data["important_fields"];
-            that.fieldTypes = data["field_types"];
+        }
 
-            // Fill in the hidden fields
-            that.hiddenFields = [];
-            for (var i in that.headers) {
-              if (!that.importantFields.includes(that.headers[i])) {
-                that.hiddenFields.push(that.headers[i]);
-              }
-            }
+        // Fill in the default field types
+        for (var i in this.headers) {
+          if (!this.fieldTypes[this.headers[i]]) {
+            this.fieldTypes[this.headers[i]] = 'text';
+          }
+        }
 
-            // Fill in the default field types
-            for (var i in that.headers) {
-              if (!that.fieldTypes[that.headers[i]]) {
-                that.fieldTypes[that.headers[i]] = "text";
-              }
-            }
-
-            that.loading = false;
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error fetching rows", err);
-        });
+        this.loading = false;
+      } catch (err) {
+        this.loading = false;
+        console.log('Error fetching rows', err);
+      }
     },
-    numberWithCommas: function (x) {
-      if (!x) return "...";
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    numberWithCommas: function(x) {
+      if (!x) return '...';
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
+    pageNavigateHandler: function(page) {
+      this.offset = this.perPageCount * (page - 1);
+      this.getRows();
+    }
   },
   computed: {
-    linkToSite: function () {
-      return "/" + this.siteFolder;
-    },
+    linkToSite: function() {
+      return '/' + this.siteFolder;
+    }
   },
   components: {
-    TableRow: TableRow,
-  },
+    TableRow,
+    Paging
+  }
 };
 </script>

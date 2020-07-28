@@ -2,7 +2,7 @@ import json
 import sqlite3
 import os
 from pathlib import Path
-from flask import Flask, jsonify, render_template, abort, send_file
+from flask import Flask, jsonify, render_template, abort, send_file, request
 
 app = Flask(__name__)
 
@@ -53,12 +53,12 @@ def sql_headers(site, table):
     return headers
 
 
-def sql_select_rows(site, table):
+def sql_select_rows(site, table, limit, offset):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
     rows = []
-    for row in c.execute(f"SELECT * FROM {table}"):
+    for row in c.execute(f"SELECT * FROM {table} LIMIT {limit} OFFSET {offset}"):
         rows.append(list(row))
 
     conn.close()
@@ -126,7 +126,7 @@ def render_frontend():
 def catch_all(path):
     # Download a data file
     if path.startswith("blueleaks-data"):
-        listing_path = path[len("blueleaks-data") :]
+        listing_path = path[len("blueleaks-data"):]
         if listing_path == "":
             listing_path = "/"
         filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
@@ -153,17 +153,20 @@ def catch_all(path):
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                    "/blueleaks-data", listing_path.lstrip(
+                                        "/"), name
                                 ),
                             }
                         )
                     else:
-                        size_bytes = Path(os.path.join(filename, name)).stat().st_size
+                        size_bytes = Path(os.path.join(
+                            filename, name)).stat().st_size
                         files.append(
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                    "/blueleaks-data", listing_path.lstrip(
+                                        "/"), name
                                 ),
                                 "size": humansize(size_bytes),
                             }
@@ -222,11 +225,14 @@ def api_tables(site):
 
 @app.route("/api/<site>/<table>")
 def api_rows(site, table):
+
     if site not in structure:
         abort(500)
     if table not in structure[site]["tables"]:
         abort(500)
 
+    limit = request.args.get("count")
+    offset = request.args.get("offset")
     table_display_name = get_table_display_name(site, table)
     headers = sql_headers(site, table)
     important_fields = get_important_fields(site, table, headers)
@@ -237,7 +243,7 @@ def api_rows(site, table):
             "site_name": structure[site]["name"],
             "table_name": table_display_name,
             "headers": headers,
-            "rows": sql_select_rows(site, table),
+            "rows": sql_select_rows(site, table, limit, offset),
             "count": sql_count(site, table),
             "important_fields": important_fields,
             "field_types": field_types,
@@ -289,7 +295,8 @@ def api_join(site, table, header, item_id):
 
     join_table = join_to.split(".")[0]
     join_headers = sql_headers(site, join_table)
-    join_important_fields = get_important_fields(site, join_table, join_headers)
+    join_important_fields = get_important_fields(
+        site, join_table, join_headers)
     join_field_types = get_field_types(site, join_table)
 
     return jsonify(

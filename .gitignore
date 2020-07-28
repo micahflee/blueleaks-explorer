@@ -108,4 +108,4 @@ venv.bak/
 .vscode/
 
 node_modules/
-explorer/static/bundle.js
+bundle.js
