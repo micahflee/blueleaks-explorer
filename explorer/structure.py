@@ -48,7 +48,7 @@ def run(blueleaks_path):
                     "display": table,
                     "hidden": False,
                     "fields": fields,
-                    "joins": {},
+                    "joins": [],
                 }
 
             json_filename = os.path.join("./structures/default", f"{site}.json")

@@ -38,12 +38,17 @@ ul.tables li.table {
           <i class="fas fa-sitemap"></i>
           {{ structure["name"] }}
           <span class="meta">({{ site }})</span>
-          <button v-on:click="changeName">Change</button>
+          <button v-on:click="changeName">Rename</button>
         </h2>
 
         <ul class="tables">
           <li v-for="(tableData, table) in structure['tables']" class="table">
-            <Table v-bind:table="table" v-bind:tableData="tableData" v-on:dirty="makeDirty()"></Table>
+            <Table
+              v-bind:table="table"
+              v-bind:tableData="tableData"
+              v-bind:structure="structure"
+              v-on:dirty="makeDirty()"
+            ></Table>
           </li>
         </ul>
       </template>

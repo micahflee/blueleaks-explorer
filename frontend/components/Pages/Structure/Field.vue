@@ -1,9 +1,19 @@
 <style scoped>
-.field-handle {
+.field {
+  position: relative;
+  display: block;
+  width: 660px;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.handle {
   display: inline-block;
   width: 40px;
 }
-i.field-handle {
+i.handle {
   color: #999999;
   cursor: grab;
 }
@@ -22,8 +32,8 @@ i.field-handle {
 </style>
 
 <template>
-  <div>
-    <i class="field-handle fas fa-grip-horizontal"></i>
+  <div class="field">
+    <i class="handle fas fa-grip-horizontal"></i>
     <span class="field-name">{{ field['name'] }}</span>
     <span class="field-type">
       <select v-model="field['type']" v-on:change="makeDirty()">
