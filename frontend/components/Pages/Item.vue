@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import TableRow from "./TableRow.vue";
+import TableRow from "./Table/TableRow.vue";
 
 export default {
   data: function () {

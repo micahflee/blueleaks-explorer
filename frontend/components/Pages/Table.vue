@@ -48,15 +48,15 @@
 </template>
 
 <script>
-import TableRow from './TableRow.vue';
-import Paging from './Paging.vue';
+import TableRow from "./Table/TableRow.vue";
+import Paging from "./Table/Paging.vue";
 
 export default {
-  data: function() {
+  data: function () {
     return {
       loading: false,
-      siteFolder: this.$route.path.split('/')[1],
-      table: this.$route.path.split('/')[2],
+      siteFolder: this.$route.path.split("/")[1],
+      table: this.$route.path.split("/")[2],
       siteName: null,
       tableName: null,
       headers: null,
@@ -66,14 +66,14 @@ export default {
       hiddenFields: null,
       fieldTypes: null,
       offset: 0,
-      perPageCount: 50
+      perPageCount: 50,
     };
   },
-  created: function() {
+  created: function () {
     this.getRows();
   },
   methods: {
-    getRows: async function() {
+    getRows: async function () {
       this.loading = true;
       // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
       try {
@@ -82,18 +82,18 @@ export default {
         );
         if (response.status !== 200) {
           this.loading = false;
-          console.log('Error fetching rows, status code: ' + response.status);
+          console.log("Error fetching rows, status code: " + response.status);
           return;
         }
         const data = await response.json();
 
-        this.siteName = data['site_name'];
-        this.tableName = data['table_name'];
-        this.headers = data['headers'];
-        this.rows = data['rows'];
-        this.count = data['count'];
-        this.importantFields = data['important_fields'];
-        this.fieldTypes = data['field_types'];
+        this.siteName = data["site_name"];
+        this.tableName = data["table_name"];
+        this.headers = data["headers"];
+        this.rows = data["rows"];
+        this.count = data["count"];
+        this.importantFields = data["important_fields"];
+        this.fieldTypes = data["field_types"];
 
         // Fill in the hidden fields
         this.hiddenFields = [];
@@ -106,33 +106,33 @@ export default {
         // Fill in the default field types
         for (var i in this.headers) {
           if (!this.fieldTypes[this.headers[i]]) {
-            this.fieldTypes[this.headers[i]] = 'text';
+            this.fieldTypes[this.headers[i]] = "text";
           }
         }
 
         this.loading = false;
       } catch (err) {
         this.loading = false;
-        console.log('Error fetching rows', err);
+        console.log("Error fetching rows", err);
       }
     },
-    numberWithCommas: function(x) {
-      if (!x) return '...';
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    numberWithCommas: function (x) {
+      if (!x) return "...";
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
-    pageNavigateHandler: function(page) {
+    pageNavigateHandler: function (page) {
       this.offset = this.perPageCount * (page - 1);
       this.getRows();
-    }
+    },
   },
   computed: {
-    linkToSite: function() {
-      return '/' + this.siteFolder;
-    }
+    linkToSite: function () {
+      return "/" + this.siteFolder;
+    },
   },
   components: {
     TableRow,
-    Paging
-  }
+    Paging,
+  },
 };
 </script>
