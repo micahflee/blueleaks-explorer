@@ -28,6 +28,14 @@ def get_database_filename(site):
     return os.path.join("databases", f"{site}.sqlite3")
 
 
+def get_all_sites():
+    all_sites = []
+    for filename in os.listdir("./structures/default"):
+        if filename.endswith(".json"):
+            all_sites.append(filename[:-5])
+    return all_sites
+
+
 def sql_count(site, table):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
@@ -195,16 +203,13 @@ def api_structures():
             implemented_sites.append({"site": site, "name": site_structure["name"]})
 
     unimplemented_sites = []
-    for filename in os.listdir("./structures/default"):
-        if filename.endswith(".json"):
-            site = filename[:-5]
-
-            implemented = False
-            for implemented_site in implemented_sites:
-                if site == implemented_site["site"]:
-                    implemented = True
-            if not implemented:
-                unimplemented_sites.append(site)
+    for site in get_all_sites():
+        implemented = False
+        for implemented_site in implemented_sites:
+            if site == implemented_site["site"]:
+                implemented = True
+        if not implemented:
+            unimplemented_sites.append(site)
 
     return jsonify(
         {
@@ -216,13 +221,8 @@ def api_structures():
 
 @app.route("/api/structure/create/<site>", methods=["POST"])
 def api_structure_create(site):
-    # Make a list of valid sites
-    valid_sites = []
-    for filename in os.listdir("./structures/default"):
-        if filename.endswith(".json"):
-            valid_sites.append(filename[:-5])
-
     # Validate the site
+    valid_sites = get_all_sites()
     if site not in valid_sites:
         return jsonify({"error": True, "error_message": "Invalid site"})
 
@@ -235,6 +235,26 @@ def api_structure_create(site):
     # Copy the default structure
     shutil.copyfile(f"./structures/default/{site}.json", f"./structures/{site}.json")
     return jsonify({"error": False})
+
+
+@app.route("/api/structure/<site>")
+def api_structure(site):
+    # Validate the site
+    valid_sites = get_all_sites()
+    if site not in valid_sites:
+        print(f"invalid site: {site}")
+        return jsonify({"error": True, "error_message": "Invalid site"})
+
+    # Has it been implemented?
+    if not os.path.exists(f"./structures/{site}.json"):
+        return jsonify(
+            {"error": True, "error_message": "That site hasn't been implemented"}
+        )
+
+    # Return the structure
+    with open(f"./structures/{site}.json") as f:
+        structure = json.load(f)
+    return jsonify({"error": False, "structure": structure})
 
 
 @app.route("/api/sites")

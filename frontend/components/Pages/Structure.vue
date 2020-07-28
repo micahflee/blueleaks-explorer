@@ -105,7 +105,7 @@ export default {
             if (data["error"]) {
               alert(data["error_message"]);
             } else {
-              that.getStructures();
+              that.$router.push({ path: "/structure/" + site });
             }
           });
         })
