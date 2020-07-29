@@ -67,7 +67,7 @@ def sql_count(site, table):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
-    c.execute(f"SELECT COUNT(*) FROM {table}")
+    c.execute(f"SELECT COUNT(*) FROM '{table}'")
     row = c.fetchone()
 
     conn.close()
@@ -80,7 +80,7 @@ def sql_headers(site, table):
     c = conn.cursor()
 
     headers = []
-    for row in c.execute(f"PRAGMA table_info({table});"):
+    for row in c.execute(f"PRAGMA table_info('{table}');"):
         headers.append(row[1])
 
     conn.close()
@@ -94,9 +94,9 @@ def sql_select_rows(site, table, limit, offset, sort_col, sort_dir):
 
     if sort_col and sort_dir:
         print(f"{sort_col} {sort_dir}")
-        statement = f"SELECT * FROM {table} ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
+        statement = f"SELECT * FROM '{table}' ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
     else:
-        statement = f"SELECT * FROM {table} LIMIT {limit} OFFSET {offset}"
+        statement = f"SELECT * FROM '{table}' LIMIT {limit} OFFSET {offset}"
     rows = []
     for row in c.execute(statement):
         rows.append(list(row))
@@ -112,7 +112,7 @@ def sql_select_item(site, table, item_id, headers):
     item_id = item_id.replace("'", "''")
 
     rows = []
-    for row in c.execute(f"SELECT * FROM {table} WHERE {headers[0]}='{item_id}'"):
+    for row in c.execute(f"SELECT * FROM '{table}' WHERE {headers[0]}='{item_id}'"):
         rows.append(list(row))
 
     conn.close()
@@ -128,7 +128,7 @@ def sql_select_join(site, table, item_id, join_from, join_to, headers):
 
     rows = []
     for row in c.execute(
-        f"SELECT {dest_table}.* FROM {dest_table} JOIN {table} ON {join_to}={join_from} WHERE {table}.{headers[0]}='{item_id}'"
+        f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON '{join_to}'='{join_from}' WHERE '{table}'.{headers[0]}='{item_id}'"
     ):
         rows.append(list(row))
 
