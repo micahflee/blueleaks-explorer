@@ -85,18 +85,16 @@
         <p>
           Field
           <select v-model="newRelationshipFromField">
-            <option v-for="field in tableData['fields']">{{ field['name'] }}</option>
+            <option v-for="field in sortedFieldNames()">{{ field }}</option>
           </select>
           maps to table
           <select v-model="newRelationshipToTable">
-            <option v-for="(otherTableData, otherTable) in structure['tables']">{{ otherTable }}</option>
+            <option v-for="table in sortedTableNames()">{{ table }}</option>
           </select>
           <template v-if="newRelationshipToTable">
             field
             <select v-model="newRelationshipToField">
-              <option
-                v-for="field in structure['tables'][newRelationshipToTable]['fields']"
-              >{{ field['name'] }}</option>
+              <option v-for="field in sortedOtherFieldNames()">{{ field }}</option>
             </select>
             <button v-on:click="createRelationship">Create Relationship</button>
           </template>
@@ -122,6 +120,39 @@ export default {
     };
   },
   methods: {
+    sortedFieldNames: function () {
+      var sorted = [];
+      for (var i in this.tableData["fields"]) {
+        sorted.push(this.tableData["fields"][i]["name"]);
+      }
+      sorted.sort();
+      return sorted;
+    },
+    sortedTableNames: function () {
+      var sorted = [];
+      for (var table in this.structure["tables"]) {
+        if (table != this.table) {
+          sorted.push(table);
+        }
+      }
+      sorted.sort();
+      return sorted;
+    },
+    sortedOtherFieldNames: function () {
+      if (this.newRelationshipToTable == "") return [];
+      var sorted = [];
+      for (var i in this.structure["tables"][this.newRelationshipToTable][
+        "fields"
+      ]) {
+        sorted.push(
+          this.structure["tables"][this.newRelationshipToTable]["fields"][i][
+            "name"
+          ]
+        );
+      }
+      sorted.sort();
+      return sorted;
+    },
     changeDisplay: function () {
       var display = prompt("New display name", this.tableData["display"]);
       if (display) {
