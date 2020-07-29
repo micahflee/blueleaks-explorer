@@ -4,7 +4,7 @@ import json
 import csv
 from glob import glob
 
-from .common import sanitize_field_name
+from .common import sanitize_field_name, get_default_structures_dir
 
 
 def run(blueleaks_path):
@@ -51,7 +51,7 @@ def run(blueleaks_path):
                     "joins": [],
                 }
 
-            json_filename = os.path.join("./structures/default", f"{site}.json")
+            json_filename = os.path.join(get_default_structures_dir(), f"{site}.json")
             with open(json_filename, "w") as f:
                 f.write(json.dumps(structure, indent=4))
             click.secho(f"Wrote {json_filename}", dim=True)

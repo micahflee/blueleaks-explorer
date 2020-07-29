@@ -5,6 +5,8 @@ import shutil
 from pathlib import Path
 from flask import Flask, jsonify, render_template, abort, send_file, request
 
+from .common import get_databases_dir, get_structures_dir, get_default_structures_dir
+
 app = Flask(__name__)
 
 # This gets set below in run()
@@ -16,7 +18,7 @@ structures = {}
 
 def get_structure(site):
     if site not in structures:
-        with open(f"./structures/{site}.json") as f:
+        with open(os.path.join(get_structures_dir(), f"{site}.json")) as f:
             structures[site] = json.load(f)
 
     return structures[site]
@@ -33,12 +35,12 @@ def humansize(nbytes):
 
 
 def get_database_filename(site):
-    return os.path.join("databases", f"{site}.sqlite3")
+    return os.path.join(get_databases_dir(), f"{site}.sqlite3")
 
 
 def get_all_sites():
     all_sites = []
-    for filename in os.listdir("./structures/default"):
+    for filename in os.listdir(get_default_structures_dir()):
         if filename.endswith(".json"):
             all_sites.append(filename[:-5])
     return all_sites
@@ -46,7 +48,7 @@ def get_all_sites():
 
 def get_implemented_sites():
     implemented_sites = []
-    for filename in os.listdir("./structures"):
+    for filename in os.listdir(get_structures_dir()):
         if filename.endswith(".json"):
             implemented_sites.append(filename[:-5])
     return implemented_sites
@@ -57,8 +59,7 @@ def get_implemented_sites_with_names():
     implemented_sites_with_names = []
     for site in implemented_sites:
         structure = get_structure(site)
-        implemented_sites_with_names.append(
-            {"site": site, "name": structure["name"]})
+        implemented_sites_with_names.append({"site": site, "name": structure["name"]})
     return implemented_sites_with_names
 
 
@@ -159,7 +160,7 @@ def render_frontend():
 def catch_all(path):
     # Download a data file
     if path.startswith("blueleaks-data"):
-        listing_path = path[len("blueleaks-data"):]
+        listing_path = path[len("blueleaks-data") :]
         if listing_path == "":
             listing_path = "/"
         filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
@@ -186,20 +187,17 @@ def catch_all(path):
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip(
-                                        "/"), name
+                                    "/blueleaks-data", listing_path.lstrip("/"), name
                                 ),
                             }
                         )
                     else:
-                        size_bytes = Path(os.path.join(
-                            filename, name)).stat().st_size
+                        size_bytes = Path(os.path.join(filename, name)).stat().st_size
                         files.append(
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip(
-                                        "/"), name
+                                    "/blueleaks-data", listing_path.lstrip("/"), name
                                 ),
                                 "size": humansize(size_bytes),
                             }
@@ -248,14 +246,16 @@ def api_structure_create(site):
         return jsonify({"error": True, "error_message": "Invalid site"})
 
     # Is this site already implemented?
-    if os.path.exists(f"./structures/{site}.json"):
+    if os.path.exists(os.path.join(get_structures_dir(), f"{site}.json")):
         return jsonify(
             {"error": True, "error_message": "That site is already implemented"}
         )
 
     # Copy the default structure
     shutil.copyfile(
-        f"./structures/default/{site}.json", f"./structures/{site}.json")
+        os.path.join(get_default_structures_dir(), f"{site}.json"),
+        os.path.join(get_structure(), f"{site}.json"),
+    )
     return jsonify({"error": False})
 
 
@@ -269,21 +269,21 @@ def api_structure(site):
         return jsonify({"error": True, "error_message": "Invalid site"})
 
     # Has it been implemented?
-    if not os.path.exists(f"./structures/{site}.json"):
+    if not os.path.exists(os.path.join(get_structures_dir(), f"{site}.json")):
         return jsonify(
             {"error": True, "error_message": "That site hasn't been implemented"}
         )
 
     if request.method == "GET":
         # Return the structure
-        with open(f"./structures/{site}.json") as f:
+        with open(os.path.join(get_structures_dir(), f"{site}.json")) as f:
             structure = json.load(f)
         return jsonify({"error": False, "structure": structure})
     elif request.method == "POST":
         # Save the structure
         structure = request.json
         structures[site] = structure
-        with open(f"./structures/{site}.json", "w") as f:
+        with open(os.path.join(get_structures_dir(), f"{site}.json"), "w") as f:
             f.write(json.dumps(structure, indent=4))
         return jsonify({"error": False})
     else:
@@ -389,8 +389,7 @@ def api_join(site, table, join_name, item_id):
         abort(500)
 
     headers = sql_headers(site, table)
-    rows = sql_select_join(site, table, item_id,
-                           join["from"], join["to"], headers)
+    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
 
     join_table = join["to"].split(".")[0]
     join_headers = sql_headers(site, join_table)
@@ -410,4 +409,4 @@ def api_join(site, table, join_name, item_id):
 def run(new_blueleaks_path):
     global blueleaks_path, structure
     blueleaks_path = new_blueleaks_path
-    app.run("127.0.0.1", "8080")
+    app.run("0.0.0.0", "8080")

@@ -4,7 +4,7 @@ import json
 import csv
 import sqlite3
 
-from .common import sanitize_field_name
+from .common import sanitize_field_name, get_databases_dir, get_default_structures_dir
 
 
 def exec_sql(c, sql):
@@ -51,8 +51,7 @@ def load_file(dbs_dirname, blueleaks_path, path):
         # Start the database
         database_filename = os.path.join(dbs_dirname, f"{site}.sqlite3")
         if os.path.exists(database_filename):
-            click.secho(
-                f" | {database_filename} already exists so skipping", dim=True)
+            click.secho(f" | {database_filename} already exists so skipping", dim=True)
             return
         conn = sqlite3.connect(database_filename)
         c = conn.cursor()
@@ -65,8 +64,7 @@ def load_file(dbs_dirname, blueleaks_path, path):
             with open(csv_filename) as csv_file:
                 reader = csv.DictReader(csv_file)
 
-                fields = [sanitize_field_name(field)
-                          for field in reader.fieldnames]
+                fields = [sanitize_field_name(field) for field in reader.fieldnames]
                 for i in range(len(fields)):
                     if fields[i] == None:
                         fields[i] = ""
@@ -86,8 +84,7 @@ def load_file(dbs_dirname, blueleaks_path, path):
                             values.append("")
                         else:
                             values.append(
-                                row[field].replace(
-                                    "\\\\", "/").replace("'", "''")
+                                row[field].replace("\\\\", "/").replace("'", "''")
                             )
                     for i in range(len(values)):
                         if values[i] == None:
@@ -116,12 +113,15 @@ def is_struct_json(filename):
 
 
 def run(blueleaks_path):
-    root_dir = "./"
+    root_dir = "../"
 
-    dbs_dirname = os.path.join(root_dir, "databases")
-    default_struct_dir = os.path.join(root_dir, "structures", "default")
+    dbs_dirname = get_databases_dir()
+    default_structures_dir = get_default_structures_dir()
 
-    for filename in os.listdir(default_struct_dir):
+    for filename in os.listdir(default_structures_dir):
         if is_struct_json(filename):
-            load_file(dbs_dirname, blueleaks_path,
-                      os.path.join(default_struct_dir, filename))
+            load_file(
+                dbs_dirname,
+                blueleaks_path,
+                os.path.join(default_structures_dir, filename),
+            )

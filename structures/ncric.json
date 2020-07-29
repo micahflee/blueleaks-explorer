@@ -1823,8 +1823,8 @@
             "hidden": false,
             "joins": [
                 {
-                    "name": "Category",
                     "from": "Blog.BlogCategoryID",
+                    "name": "Category",
                     "to": "BlogCategory.BlogCategoryID"
                 }
             ]
