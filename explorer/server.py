@@ -330,10 +330,6 @@ def api_rows(site, table):
     offset = request.args.get("offset")
     sort_col = request.args.get("sortCol")
     sort_dir = request.args.get("sortDir")
-    table_display_name = get_table_display_name(site, table)
-    headers = sql_headers(site, table)
-    important_fields = get_important_fields(site, table, headers)
-    field_types = get_field_types(site, table)
 
     return jsonify(
         {
