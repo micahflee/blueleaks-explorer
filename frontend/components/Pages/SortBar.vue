@@ -2,8 +2,8 @@
 .sortbar {
   margin: 10px 0 5px 0;
   background-color: aliceblue;
-  padding: 10px 5px 8px 10px;
-  width: 35vw;
+  padding: 10px 10px 8px 10px;
+  display: inline-block;
 }
 
 .sort-header {
