@@ -118,7 +118,6 @@ def is_struct_json(filename):
 def run(blueleaks_path):
     root_dir = "./"
 
-    structure_filename = os.path.join(root_dir, "default-structure.json")
     dbs_dirname = os.path.join(root_dir, "databases")
     default_struct_dir = os.path.join(root_dir, "structures", "default")
 
@@ -126,73 +125,3 @@ def run(blueleaks_path):
         if is_struct_json(filename):
             load_file(dbs_dirname, blueleaks_path,
                       os.path.join(default_struct_dir, filename))
-
-    # with open(structure_filename) as f:
-    #     structure = json.load(f)
-
-    # # For each site
-    # for site in structure:
-    #     progress(structure, site)
-
-    #     # Start the database
-    #     database_filename = os.path.join(dbs_dirname, f"{site}.sqlite3")
-    #     if os.path.exists(database_filename):
-    #         click.secho(
-    #             f" | {database_filename} already exists so skipping", dim=True)
-    #         continue
-
-    #     conn = sqlite3.connect(database_filename)
-    #     c = conn.cursor()
-
-    #     # For each table
-    #     for table in structure[site]["tables"]:
-    #         progress(structure, site, table)
-
-    #         csv_filename = os.path.join(blueleaks_path, site, f"{table}.csv")
-    #         with open(csv_filename) as csv_file:
-    #             reader = csv.DictReader(csv_file)
-
-    #             fields = [sanitize_field_name(field)
-    #                       for field in reader.fieldnames]
-    #             for i in range(len(fields)):
-    #                 if fields[i] == None:
-    #                     fields[i] = ""
-    #             fields = ",".join([f"'{field}'" for field in fields])
-
-    #             sql = f"CREATE TABLE '{table}' ({fields})"
-    #             exec_sql(c, sql)
-    #             conn.commit()
-
-    #             row_count = 0
-
-    #             # Import rows
-    #             for row in reader:
-    #                 values = []
-    #                 for field in row:
-    #                     if row[field] == None:
-    #                         values.append("")
-    #                     else:
-    #                         values.append(
-    #                             row[field].replace(
-    #                                 "\\\\", "/").replace("'", "''")
-    #                         )
-    #                 for i in range(len(values)):
-    #                     if values[i] == None:
-    #                         values[i] = ""
-    #                 values = ",".join([f"'{value}'" for value in values])
-
-    #                 sql = f"INSERT INTO '{table}' VALUES ({values})"
-    #                 # click.secho(sql, dim=True)
-    #                 exec_sql(c, sql)
-
-    #                 row_count += 1
-    #                 if row_count % 1000 == 0:
-    #                     progress(structure, site, table, row_count)
-    #                     conn.commit()
-
-    #             conn.commit()
-
-    #         progress(structure, site)
-
-    #     conn.close()
-    #     click.echo()
