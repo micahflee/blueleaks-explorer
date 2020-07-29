@@ -57,7 +57,8 @@ def get_implemented_sites_with_names():
     implemented_sites_with_names = []
     for site in implemented_sites:
         structure = get_structure(site)
-        implemented_sites_with_names.append({"site": site, "name": structure["name"]})
+        implemented_sites_with_names.append(
+            {"site": site, "name": structure["name"]})
     return implemented_sites_with_names
 
 
@@ -86,12 +87,17 @@ def sql_headers(site, table):
     return headers
 
 
-def sql_select_rows(site, table, limit, offset):
+def sql_select_rows(site, table, limit, offset, sort_col, sort_dir):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
+    if sort_col and sort_dir:
+        print(f"{sort_col} {sort_dir}")
+        statement = f"SELECT * FROM {table} ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
+    else:
+        statement = f"SELECT * FROM {table} LIMIT {limit} OFFSET {offset}"
     rows = []
-    for row in c.execute(f"SELECT * FROM {table} LIMIT {limit} OFFSET {offset}"):
+    for row in c.execute(statement):
         rows.append(list(row))
 
     conn.close()
@@ -153,7 +159,7 @@ def render_frontend():
 def catch_all(path):
     # Download a data file
     if path.startswith("blueleaks-data"):
-        listing_path = path[len("blueleaks-data") :]
+        listing_path = path[len("blueleaks-data"):]
         if listing_path == "":
             listing_path = "/"
         filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
@@ -180,17 +186,20 @@ def catch_all(path):
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                    "/blueleaks-data", listing_path.lstrip(
+                                        "/"), name
                                 ),
                             }
                         )
                     else:
-                        size_bytes = Path(os.path.join(filename, name)).stat().st_size
+                        size_bytes = Path(os.path.join(
+                            filename, name)).stat().st_size
                         files.append(
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                    "/blueleaks-data", listing_path.lstrip(
+                                        "/"), name
                                 ),
                                 "size": humansize(size_bytes),
                             }
@@ -245,7 +254,8 @@ def api_structure_create(site):
         )
 
     # Copy the default structure
-    shutil.copyfile(f"./structures/default/{site}.json", f"./structures/{site}.json")
+    shutil.copyfile(
+        f"./structures/default/{site}.json", f"./structures/{site}.json")
     return jsonify({"error": False})
 
 
@@ -318,13 +328,19 @@ def api_rows(site, table):
     headers = sql_headers(site, table)
     limit = request.args.get("count")
     offset = request.args.get("offset")
+    sort_col = request.args.get("sortCol")
+    sort_dir = request.args.get("sortDir")
+    table_display_name = get_table_display_name(site, table)
+    headers = sql_headers(site, table)
+    important_fields = get_important_fields(site, table, headers)
+    field_types = get_field_types(site, table)
 
     return jsonify(
         {
             "site_name": structure["name"],
             "table_name": get_table_display_name(site, table),
             "headers": headers,
-            "rows": sql_select_rows(site, table, limit, offset),
+            "rows": sql_select_rows(site, table, limit, offset, sort_col, sort_dir),
             "count": sql_count(site, table),
             "fields": get_fields(site, table),
             "joins": get_joins(site, table),
@@ -377,7 +393,8 @@ def api_join(site, table, join_name, item_id):
         abort(500)
 
     headers = sql_headers(site, table)
-    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
+    rows = sql_select_join(site, table, item_id,
+                           join["from"], join["to"], headers)
 
     join_table = join["to"].split(".")[0]
     join_headers = sql_headers(site, join_table)

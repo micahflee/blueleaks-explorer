@@ -22,6 +22,12 @@
         {{ tableName }}
       </h3>
       <div class="meta">Displaying {{ numberWithCommas(count) }} rows</div>
+      <SortBar
+        v-bind:headers="importantFields"
+        v-bind:currentSort="currentSort"
+        v-bind:sortChangeHandler="sortChangeHandler"
+      >
+      </SortBar>
       <ul class="rows">
         <li v-for="row in rows" class="row" v-bind:key="row[0]">
           <TableRow
@@ -47,15 +53,16 @@
 </template>
 
 <script>
-import TableRow from "./Table/TableRow.vue";
-import Paging from "./Table/Paging.vue";
+import TableRow from './Table/TableRow.vue';
+import Paging from './Table/Paging.vue';
+import SortBar from './SortBar.vue';
 
 export default {
-  data: function () {
+  data: function() {
     return {
       loading: false,
-      site: this.$route.path.split("/")[1],
-      table: this.$route.path.split("/")[2],
+      site: this.$route.path.split('/')[1],
+      table: this.$route.path.split('/')[2],
       siteName: null,
       tableName: null,
       headers: null,
@@ -65,57 +72,74 @@ export default {
       joins: null,
       offset: 0,
       perPageCount: 50,
+      currentSort: null
     };
   },
-  created: function () {
+  created: function() {
     this.getRows();
   },
   methods: {
-    getRows: async function () {
+    buildURL: function() {
+      if (this.currentSort) {
+        const [sortCol, sortDir] = this.currentSort.split('##');
+        return `/api/${this.siteFolder}/${this.table}?count=${
+          this.perPageCount
+        }&offset=${this.offset}&sortCol=${encodeURIComponent(
+          sortCol
+        )}&sortDir=${sortDir}`;
+      }
+      return `/api/${this.siteFolder}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`;
+    },
+    getRows: async function() {
       this.loading = true;
+      // console.log(`current sort: ${this.currentSort}`);
       // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
       try {
-        const response = await fetch(
-          `/api/${this.site}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`
-        );
+        const response = await fetch(this.buildURL());
         if (response.status !== 200) {
           this.loading = false;
-          console.log("Error fetching rows, status code: " + response.status);
+          console.log('Error fetching rows, status code: ' + response.status);
           return;
         }
         const data = await response.json();
 
-        this.siteName = data["site_name"];
-        this.tableName = data["table_name"];
-        this.headers = data["headers"];
-        this.rows = data["rows"];
-        this.count = data["count"];
-        this.fields = data["fields"];
-        this.joins = data["joins"];
+        this.siteName = data['site_name'];
+        this.tableName = data['table_name'];
+        this.headers = data['headers'];
+        this.rows = data['rows'];
+        this.count = data['count'];
+        this.fields = data['fields'];
+        this.joins = data['joins'];
 
         this.loading = false;
       } catch (err) {
         this.loading = false;
-        console.log("Error fetching rows", err);
+        console.log('Error fetching rows', err);
       }
     },
-    numberWithCommas: function (x) {
-      if (!x) return "...";
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    numberWithCommas: function(x) {
+      if (!x) return '...';
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
-    pageNavigateHandler: function (page) {
+    pageNavigateHandler: function(page) {
       this.offset = this.perPageCount * (page - 1);
       this.getRows();
     },
+    sortChangeHandler: function(evt) {
+      const sortOption = evt.target.selectedOptions[0].value;
+      this.currentSort = sortOption;
+      this.getRows();
+    }
   },
   computed: {
-    linkToSite: function () {
-      return "/" + this.site;
-    },
+    linkToSite: function() {
+      return '/' + this.site;
+    }
   },
   components: {
     TableRow,
     Paging,
-  },
+    SortBar
+  }
 };
 </script>
