@@ -1823,8 +1823,8 @@
             "hidden": false,
             "joins": [
                 {
-                    "from": "Blog.BlogID",
                     "name": "Category",
+                    "from": "Blog.BlogCategoryID",
                     "to": "BlogCategory.BlogCategoryID"
                 }
             ]
@@ -8720,8 +8720,8 @@
             "hidden": false,
             "joins": [
                 {
-                    "name": "Category",
                     "from": "Documents.DocumentCategoryID",
+                    "name": "Category",
                     "to": "DocumentCategory.DocumentCategoryID"
                 }
             ]
@@ -9025,11 +9025,6 @@
             "display": "Email Accounts",
             "fields": [
                 {
-                    "name": "EmailAccountsID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "FullName",
                     "show": true,
                     "type": "text"
@@ -9040,73 +9035,78 @@
                     "type": "text"
                 },
                 {
-                    "name": "AliasEmailAddresses",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LoginPassword",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MailBoxSize",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AutoReply",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AutoReplyMessage",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SpamCheck",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "VirusCheck",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SpamTrapMailbox",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ForwardOnly",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DisableWebAccess",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "UseSpamTrapFolder",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "ForwardEmailAddress",
                     "show": true,
                     "type": "text"
                 },
                 {
+                    "name": "EmailAccountsID",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "AliasEmailAddresses",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "LoginPassword",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "MailBoxSize",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "AutoReply",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "AutoReplyMessage",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "SpamCheck",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "VirusCheck",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "SpamTrapMailbox",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "ForwardOnly",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "DisableWebAccess",
+                    "show": false,
+                    "type": "text"
+                },
+                {
+                    "name": "UseSpamTrapFolder",
+                    "show": false,
+                    "type": "text"
+                },
+                {
                     "name": "AutoReplySubject",
-                    "show": true,
+                    "show": false,
                     "type": "text"
                 },
                 {
                     "name": "DisableGreyListing",
-                    "show": true,
+                    "show": false,
                     "type": "text"
                 }
             ],
