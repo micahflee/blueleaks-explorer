@@ -44,9 +44,18 @@ def run(blueleaks_path):
                         for field in reader.fieldnames
                     ]
 
+                    count = 0
+                    for row in reader:
+                        count += 1
+
+                if count == 0:
+                    hidden = True
+                else:
+                    hidden = False
+
                 structure["tables"][table] = {
                     "display": table,
-                    "hidden": False,
+                    "hidden": hidden,
                     "fields": fields,
                     "joins": [],
                 }
