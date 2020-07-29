@@ -59,7 +59,9 @@ li.join {
             <img v-bind:src="attachmentUrl(value)" />
           </span>
           <span v-else-if="field['type'] == 'attachment'">
-            <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
+            <a v-bind:href="attachmentUrl(value)" target="_blank">{{
+              value
+            }}</a>
           </span>
           <span v-else>Unimplemented field type: {{ field['type'] }}</span>
         </template>
@@ -69,79 +71,96 @@ li.join {
 </template>
 
 <script>
-import JoinRow from "./JoinRow.vue";
+import JoinRow from './JoinRow.vue';
 
 export default {
-  props: ["site", "table", "itemId", "field", "value", "join"],
-  data: function () {
+  props: ['site', 'table', 'itemId', 'field', 'value', 'join'],
+  data: function() {
     return {
       loading: false,
       joinTable: null,
       joinHeaders: null,
       joinRows: null,
       joinCount: null,
-      joinFields: null,
+      joinFields: null
     };
   },
-  created: function () {
+  created: function() {
     if (this.join) {
       this.getJoin();
     }
   },
   methods: {
-    getJoin: function () {
+    getJoin: function() {
       var that = this;
       this.loading = true;
       fetch(
-        "/api/" +
+        '/api/' +
           this.site +
-          "/" +
+          '/' +
           this.table +
-          "/join/" +
-          this.join["name"] +
-          "/" +
+          '/join/' +
+          this.join['name'] +
+          '/' +
           this.itemId
       )
-        .then(function (response) {
+        .then(function(response) {
           if (response.status !== 200) {
             that.loading = false;
             console.log(
-              "Error fetching join rows, status code: " + response.status
+              'Error fetching join rows, status code: ' + response.status
             );
             return;
           }
-          response.json().then(function (data) {
+          response.json().then(function(data) {
             that.loading = false;
-            that.joinTable = data["join_table"];
-            that.joinHeaders = data["join_headers"];
-            that.joinRows = data["join_rows"];
-            that.joinCount = data["join_count"];
-            that.joinFields = data["join_fields"];
+            that.joinTable = data['join_table'];
+            that.joinHeaders = data['join_headers'];
+            that.joinRows = data['join_rows'];
+            that.joinCount = data['join_count'];
+            that.joinFields = data['join_fields'];
           });
         })
-        .catch(function (err) {
+        .catch(function(err) {
           that.loading = false;
-          console.log("Error fetching join rows", err);
+          console.log('Error fetching join rows', err);
         });
     },
-    htmlValue: function (value) {
-      return value
-        .replace(/\\n/g, " ")
-        .replace(/\\t/g, " ")
-        .replace(/POSITION: absolute;/g, "")
-        .replace(/position:absolute;/g, "");
+    stripScripts: function(htmlString) {
+      const div = document.createElement('div');
+      div.innerHTML = htmlString;
+      const scripts = div.getElementsByTagName('script');
+      let i = scripts.length;
+      while (i--) {
+        scripts[i].parentNode.removeChild(scripts[i]);
+      }
+
+      const base = div.getElementsByTagName('base');
+      i = base.length;
+      while (i--) {
+        base[i].parentNode.removeChild(base[i]);
+      }
+
+      return div.innerHTML;
     },
-    preValue: function (value) {
-      return value.replace(/\\n/g, "\n");
+    htmlValue: function(value) {
+      return this.stripScripts(value)
+        .replace(/\\n/g, ' ')
+        .replace(/\\t/g, ' ')
+        .replace(/POSITION: absolute;/g, '')
+        .replace(/position:absolute;/g, '');
     },
-    attachmentUrl: function (value) {
+    preValue: function(value) {
+      return value.replace(/\\n/g, '\n');
+    },
+    attachmentUrl: function(value) {
       var url =
-        "/blueleaks-data/" + this.site + "/files/" + value.replace("\\", "/");
+        '/blueleaks-data/' + this.site + '/files/' + value.replace('\\', '/');
       return url;
-    },
+    }
   },
   components: {
-    JoinRow: JoinRow,
-  },
+    JoinRow: JoinRow
+  }
 };
 </script>
