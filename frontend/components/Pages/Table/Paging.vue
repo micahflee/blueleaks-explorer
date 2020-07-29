@@ -5,6 +5,8 @@ ul {
   display: flex;
   justify-items: flex-start;
   align-items: flex-start;
+  width: 95vw;
+  flex-wrap: wrap;
 }
 
 li {
