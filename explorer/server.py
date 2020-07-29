@@ -119,10 +119,10 @@ def sql_select_join(site, table, item_id, join_from, join_to, headers):
     item_id = item_id.replace("'", "''")
     dest_table = join_to.split(".")[0]
 
-    sql = f"SELECT {dest_table}.* FROM {dest_table} JOIN {table} ON {join_to}={join_from} WHERE {table}.{headers[0]}='{item_id}'"
-
     rows = []
-    for row in c.execute(sql):
+    for row in c.execute(
+        f"SELECT {dest_table}.* FROM {dest_table} JOIN {table} ON {join_to}={join_from} WHERE {table}.{headers[0]}='{item_id}'"
+    ):
         rows.append(list(row))
 
     conn.close()
@@ -251,6 +251,7 @@ def api_structure_create(site):
 
 @app.route("/api/structure/<site>", methods=["GET", "POST"])
 def api_structure(site):
+    global structures
     # Validate the site
     valid_sites = get_all_sites()
     if site not in valid_sites:
@@ -271,6 +272,7 @@ def api_structure(site):
     elif request.method == "POST":
         # Save the structure
         structure = request.json
+        structures[site] = structure
         with open(f"./structures/{site}.json", "w") as f:
             f.write(json.dumps(structure, indent=4))
         return jsonify({"error": False})
