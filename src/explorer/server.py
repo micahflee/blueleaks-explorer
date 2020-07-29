@@ -128,7 +128,7 @@ def sql_select_join(site, table, item_id, join_from, join_to, headers):
 
     rows = []
     for row in c.execute(
-        f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON '{join_to}'='{join_from}' WHERE '{table}'.{headers[0]}='{item_id}'"
+        f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON {join_to}={join_from} WHERE '{table}'.{headers[0]}='{item_id}'"
     ):
         rows.append(list(row))
 
