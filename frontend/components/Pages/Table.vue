@@ -23,7 +23,7 @@
       </h3>
       <div class="meta">Displaying {{ numberWithCommas(count) }} rows</div>
       <SortBar
-        v-bind:headers="importantFields"
+        v-bind:headers="sortFields"
         v-bind:currentSort="currentSort"
         v-bind:sortChangeHandler="sortChangeHandler"
       >
@@ -82,13 +82,13 @@ export default {
     buildURL: function() {
       if (this.currentSort) {
         const [sortCol, sortDir] = this.currentSort.split('##');
-        return `/api/${this.siteFolder}/${this.table}?count=${
+        return `/api/${this.site}/${this.table}?count=${
           this.perPageCount
         }&offset=${this.offset}&sortCol=${encodeURIComponent(
           sortCol
         )}&sortDir=${sortDir}`;
       }
-      return `/api/${this.siteFolder}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`;
+      return `/api/${this.site}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`;
     },
     getRows: async function() {
       this.loading = true;
@@ -134,6 +134,14 @@ export default {
   computed: {
     linkToSite: function() {
       return '/' + this.site;
+    },
+    sortFields: function() {
+      const badOptions = ['content'];
+      return this.fields
+        .filter(
+          (f) => f.show && badOptions.indexOf(f.name.toLowerCase()) === -1
+        )
+        .map((f) => f.name);
     }
   },
   components: {

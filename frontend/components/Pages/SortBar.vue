@@ -29,10 +29,9 @@ export default {
   methods: {},
   computed: {
     options: function() {
-      const badOptions = ['tags', 'content', 'category'];
       return [{ val: null, display: 'Sort Option' }].concat(
         this.headers
-          .filter((h) => badOptions.indexOf(h.toLowerCase()) === -1)
+          //   .filter((h) => badOptions.indexOf(h.toLowerCase()) === -1)
           .reduce((acc, header) => {
             return acc.concat([
               {
