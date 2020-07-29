@@ -10,12 +10,12 @@
   overflow: auto;
 }
 
-ul.join-rows {
+ul {
   list-style: none;
-  padding: 0 0 0 1em;
+  padding: 0;
 }
 
-li.join-row {
+li.join {
   margin-bottom: 1em;
   padding: 1em;
   background-color: #ddeaf5;
@@ -31,37 +31,39 @@ li.join-row {
       </div>
     </template>
     <template v-else>
-      <div v-if="value != ''">
-        <span class="label">{{ header }}:</span>
-        <span v-if="fieldType == 'text'">{{ value }}</span>
-        <span v-else-if="fieldType == 'pre'">
-          <pre>{{ preValue(value) }}</pre>
-        </span>
-        <span v-else-if="fieldType == 'html'">
-          <div class="html-value" v-html="htmlValue(value)"></div>
-        </span>
-        <span v-else-if="fieldType == 'image'">
-          <img v-bind:src="attachmentUrl(value)" />
-        </span>
-        <span v-else-if="fieldType == 'attachment'">
-          <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
-        </span>
-        <span v-else-if="fieldType == 'join'">
-          <ul class="join-rows">
-            <li v-for="joinRow in joinRows" class="join-row">
-              <JoinRow
-                v-bind:siteFolder="siteFolder"
-                v-bind:table="joinTable"
-                v-bind:row="joinRow"
-                v-bind:importantFields="joinImportantFields"
-                v-bind:fieldTypes="joinFieldTypes"
-                v-bind:headers="joinHeaders"
-              ></JoinRow>
-            </li>
-          </ul>
-        </span>
-        <span v-else>Unimplemented field type: {{ fieldType }}</span>
-      </div>
+      <template v-if="join">
+        <span class="label">{{ join['name'] }}:</span>
+        <ul class="join-rows">
+          <li v-for="joinRow in joinRows" class="join">
+            <JoinRow
+              v-bind:site="site"
+              v-bind:table="joinTable"
+              v-bind:row="joinRow"
+              v-bind:fields="joinFields"
+              v-bind:headers="joinHeaders"
+            ></JoinRow>
+          </li>
+        </ul>
+      </template>
+      <template v-else>
+        <template v-if="value != ''">
+          <span class="label">{{ field['name'] }}:</span>
+          <span v-if="field['type'] == 'text'">{{ value }}</span>
+          <span v-else-if="field['type'] == 'pre'">
+            <pre>{{ preValue(value) }}</pre>
+          </span>
+          <span v-else-if="field['type'] == 'html'">
+            <div class="html-value" v-html="htmlValue(value)"></div>
+          </span>
+          <span v-else-if="field['type'] == 'image'">
+            <img v-bind:src="attachmentUrl(value)" />
+          </span>
+          <span v-else-if="field['type'] == 'attachment'">
+            <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
+          </span>
+          <span v-else>Unimplemented field type: {{ field['type'] }}</span>
+        </template>
+      </template>
     </template>
   </div>
 </template>
@@ -70,7 +72,7 @@ li.join-row {
 import JoinRow from "./JoinRow.vue";
 
 export default {
-  props: ["siteFolder", "table", "itemId", "header", "fieldType", "value"],
+  props: ["site", "table", "itemId", "field", "value", "join"],
   data: function () {
     return {
       loading: false,
@@ -78,12 +80,11 @@ export default {
       joinHeaders: null,
       joinRows: null,
       joinCount: null,
-      joinImportantFields: null,
-      joinFieldTypes: null,
+      joinFields: null,
     };
   },
   created: function () {
-    if (this.fieldType == "join") {
+    if (this.join) {
       this.getJoin();
     }
   },
@@ -93,11 +94,11 @@ export default {
       this.loading = true;
       fetch(
         "/api/" +
-          this.siteFolder +
+          this.site +
           "/" +
           this.table +
           "/join/" +
-          this.header +
+          this.join["name"] +
           "/" +
           this.itemId
       )
@@ -115,15 +116,7 @@ export default {
             that.joinHeaders = data["join_headers"];
             that.joinRows = data["join_rows"];
             that.joinCount = data["join_count"];
-            that.joinImportantFields = data["join_important_fields"];
-            that.joinFieldTypes = data["join_field_types"];
-
-            // Fill in the default field types
-            for (var i in that.joinHeaders) {
-              if (!that.joinFieldTypes[that.joinHeaders[i]]) {
-                that.joinFieldTypes[that.joinHeaders[i]] = "text";
-              }
-            }
+            that.joinFields = data["join_fields"];
           });
         })
         .catch(function (err) {
@@ -143,10 +136,7 @@ export default {
     },
     attachmentUrl: function (value) {
       var url =
-        "/blueleaks-data/" +
-        this.siteFolder +
-        "/files/" +
-        value.replace("\\", "/");
+        "/blueleaks-data/" + this.site + "/files/" + value.replace("\\", "/");
       return url;
     },
   },

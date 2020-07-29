@@ -4,6 +4,10 @@ ul {
   padding: 0;
 }
 
+li {
+  margin-bottom: 1em;
+}
+
 li .site-link {
   font-weight: bold;
   font-size: 1.2em;
@@ -26,11 +30,9 @@ li .meta {
       <h2>Choose a site to explore</h2>
       <ul>
         <li v-for="site in sites">
-          <div class="site-link">
-            <i class="fas fa-sitemap"></i>
-            <router-link v-bind:to="linkToSite(site.folder)">{{ site.name }}</router-link>
-          </div>
-          <div class="meta">BlueLeaks folder: {{ site.folder }}</div>
+          <i class="fas fa-sitemap"></i>
+          <router-link class="site-link" v-bind:to="linkToSite(site.site)">{{ site.name }}</router-link>
+          <span class="meta">({{ site.site }})</span>
         </li>
       </ul>
     </template>

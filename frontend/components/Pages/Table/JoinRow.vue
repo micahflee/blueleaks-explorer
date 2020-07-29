@@ -20,13 +20,12 @@ ul.buttons li {
 <template>
   <div>
     <ul class="fields">
-      <li v-for="field in importantFields" class="field">
+      <li v-for="field in fields" class="field">
         <JoinCell
-          v-bind:siteFolder="siteFolder"
+          v-bind:site="site"
           v-bind:table="table"
-          v-bind:header="field"
-          v-bind:fieldType="fieldTypes[field]"
-          v-bind:value="row[headers.indexOf(field)]"
+          v-bind:field="field"
+          v-bind:value="row[headers.indexOf(field['name'])]"
         ></JoinCell>
       </li>
     </ul>
@@ -42,17 +41,10 @@ ul.buttons li {
 import JoinCell from "./JoinCell.vue";
 
 export default {
-  props: [
-    "siteFolder",
-    "table",
-    "row",
-    "importantFields",
-    "fieldTypes",
-    "headers",
-  ],
+  props: ["site", "table", "row", "fields", "headers"],
   methods: {
     permalink: function (id) {
-      return "/" + this.siteFolder + "/" + this.table + "/" + id;
+      return "/" + this.site + "/" + this.table + "/" + id;
     },
   },
   components: {

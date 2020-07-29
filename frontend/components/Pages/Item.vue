@@ -21,12 +21,11 @@
       <ul class="rows">
         <li v-for="row in rows" class="row">
           <TableRow
-            v-bind:siteFolder="siteFolder"
+            v-bind:site="site"
             v-bind:table="table"
             v-bind:row="row"
-            v-bind:importantFields="importantFields"
-            v-bind:hiddenFields="hiddenFields"
-            v-bind:fieldTypes="fieldTypes"
+            v-bind:fields="fields"
+            v-bind:joins="joins"
             v-bind:headers="headers"
           ></TableRow>
         </li>
@@ -42,15 +41,14 @@ export default {
   data: function () {
     return {
       loading: false,
-      siteFolder: this.$route.path.split("/")[1],
+      site: this.$route.path.split("/")[1],
       table: this.$route.path.split("/")[2],
       siteName: null,
       tableName: null,
       headers: null,
       rows: null,
-      importantFields: null,
-      hiddenFields: null,
-      fieldTypes: null,
+      fields: null,
+      joins: null,
     };
   },
   created: function () {
@@ -61,12 +59,7 @@ export default {
       var that = this;
       this.loading = true;
       fetch(
-        "/api/" +
-          this.siteFolder +
-          "/" +
-          this.table +
-          "/" +
-          this.$route.params.id
+        "/api/" + this.site + "/" + this.table + "/" + this.$route.params.id
       )
         .then(function (response) {
           that.loading = false;
@@ -80,23 +73,8 @@ export default {
             that.tableName = data["table_name"];
             that.headers = data["headers"];
             that.rows = data["rows"];
-            that.importantFields = data["important_fields"];
-            that.fieldTypes = data["field_types"];
-
-            // Fill in the hidden fields
-            that.hiddenFields = [];
-            for (var i in that.headers) {
-              if (!that.importantFields.includes(that.headers[i])) {
-                that.hiddenFields.push(that.headers[i]);
-              }
-            }
-
-            // Fill in the default field types
-            for (var i in that.headers) {
-              if (!that.fieldTypes[that.headers[i]]) {
-                that.fieldTypes[that.headers[i]] = "text";
-              }
-            }
+            that.fields = data["fields"];
+            that.joins = data["joins"];
           });
         })
         .catch(function (err) {
@@ -107,10 +85,10 @@ export default {
   },
   computed: {
     linkToSite: function () {
-      return "/" + this.siteFolder;
+      return "/" + this.site;
     },
     linkToTable: function () {
-      return "/" + this.siteFolder + "/" + this.table;
+      return "/" + this.site + "/" + this.table;
     },
   },
   components: {

@@ -10,8 +10,16 @@ app = Flask(__name__)
 # This gets set below in run()
 blueleaks_path = None
 
-# Load structure
-structure = {}
+# Keep track of structures in memory
+structures = {}
+
+
+def get_structure(site):
+    if site not in structures:
+        with open(f"./structures/{site}.json") as f:
+            structures[site] = json.load(f)
+
+    return structures[site]
 
 
 def humansize(nbytes):
@@ -36,11 +44,28 @@ def get_all_sites():
     return all_sites
 
 
+def get_implemented_sites():
+    implemented_sites = []
+    for filename in os.listdir("./structures"):
+        if filename.endswith(".json"):
+            implemented_sites.append(filename[:-5])
+    return implemented_sites
+
+
+def get_implemented_sites_with_names():
+    implemented_sites = get_implemented_sites()
+    implemented_sites_with_names = []
+    for site in implemented_sites:
+        structure = get_structure(site)
+        implemented_sites_with_names.append({"site": site, "name": structure["name"]})
+    return implemented_sites_with_names
+
+
 def sql_count(site, table):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
-    c.execute(f"SELECT COUNT(*) FROM '{table}'")
+    c.execute(f"SELECT COUNT(*) FROM {table}")
     row = c.fetchone()
 
     conn.close()
@@ -53,7 +78,7 @@ def sql_headers(site, table):
     c = conn.cursor()
 
     headers = []
-    for row in c.execute(f"PRAGMA table_info('{table}');"):
+    for row in c.execute(f"PRAGMA table_info({table});"):
         headers.append(row[1])
 
     conn.close()
@@ -80,7 +105,7 @@ def sql_select_item(site, table, item_id, headers):
     item_id = item_id.replace("'", "''")
 
     rows = []
-    for row in c.execute(f"SELECT * FROM '{table}' WHERE '{headers[0]}'='{item_id}'"):
+    for row in c.execute(f"SELECT * FROM {table} WHERE {headers[0]}='{item_id}'"):
         rows.append(list(row))
 
     conn.close()
@@ -94,7 +119,7 @@ def sql_select_join(site, table, item_id, join_from, join_to, headers):
     item_id = item_id.replace("'", "''")
     dest_table = join_to.split(".")[0]
 
-    sql = f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON {join_to}={join_from} WHERE '{table}'.'{headers[0]}'='{item_id}'"
+    sql = f"SELECT {dest_table}.* FROM {dest_table} JOIN {table} ON {join_to}={join_from} WHERE {table}.{headers[0]}='{item_id}'"
 
     rows = []
     for row in c.execute(sql):
@@ -105,24 +130,18 @@ def sql_select_join(site, table, item_id, join_from, join_to, headers):
 
 
 def get_table_display_name(site, table):
-    if "display" in structure[site]["tables"][table]:
-        return structure[site]["tables"][table]["display"]
-    else:
-        return table
+    structure = get_structure(site)
+    return structure["tables"][table]["display"]
 
 
-def get_important_fields(site, table, headers):
-    if "important_fields" in structure[site]["tables"][table]:
-        return structure[site]["tables"][table]["important_fields"]
-    else:
-        return headers
+def get_fields(site, table):
+    structure = get_structure(site)
+    return structure["tables"][table]["fields"]
 
 
-def get_field_types(site, table):
-    if "field_types" in structure[site]["tables"][table]:
-        return structure[site]["tables"][table]["field_types"]
-    else:
-        return {}
+def get_joins(site, table):
+    structure = get_structure(site)
+    return structure["tables"][table]["joins"]
 
 
 def render_frontend():
@@ -194,14 +213,7 @@ def catch_all(path):
 
 @app.route("/api/structures")
 def api_structures():
-    implemented_sites = []
-    for filename in os.listdir("./structures"):
-        if filename.endswith(".json"):
-            site = filename[:-5]
-            with open(os.path.join("./structures", filename)) as f:
-                site_structure = json.load(f)
-            implemented_sites.append({"site": site, "name": site_structure["name"]})
-
+    implemented_sites = get_implemented_sites_with_names()
     unimplemented_sites = []
     for site in get_all_sites():
         implemented = False
@@ -268,109 +280,106 @@ def api_structure(site):
 
 @app.route("/api/sites")
 def api_sites():
-    sites = []
-    for site in structure:
-        sites.append({"folder": site, "name": structure[site]["name"]})
-    return jsonify(sites)
+    return jsonify(get_implemented_sites_with_names())
 
 
 @app.route("/api/<site>/tables")
 def api_tables(site):
-    if site not in structure:
+    if site not in get_implemented_sites():
         abort(500)
 
-    tables = []
-    for table in structure[site]["tables"]:
-        # Get table display name
-        if "display" in structure[site]["tables"][table]:
-            display_name = structure[site]["tables"][table]["display"]
-        else:
-            display_name = table
+    structure = get_structure(site)
 
-        tables.append(
-            {
-                "name": table,
-                "display_name": display_name,
-                "count": sql_count(site, table),
-            }
-        )
-    return jsonify({"site_name": structure[site]["name"], "tables": tables})
+    tables = []
+    for table in structure["tables"]:
+        if not structure["tables"][table]["hidden"]:
+            tables.append(
+                {
+                    "name": table,
+                    "display_name": structure["tables"][table]["display"],
+                    "count": sql_count(site, table),
+                }
+            )
+    return jsonify({"site_name": structure["name"], "tables": tables})
 
 
 @app.route("/api/<site>/<table>")
 def api_rows(site, table):
-
-    if site not in structure:
-        abort(500)
-    if table not in structure[site]["tables"]:
+    if site not in get_implemented_sites():
         abort(500)
 
+    structure = get_structure(site)
+
+    if table not in structure["tables"]:
+        abort(500)
+
+    headers = sql_headers(site, table)
     limit = request.args.get("count")
     offset = request.args.get("offset")
-    table_display_name = get_table_display_name(site, table)
-    headers = sql_headers(site, table)
-    important_fields = get_important_fields(site, table, headers)
-    field_types = get_field_types(site, table)
 
     return jsonify(
         {
-            "site_name": structure[site]["name"],
-            "table_name": table_display_name,
+            "site_name": structure["name"],
+            "table_name": get_table_display_name(site, table),
             "headers": headers,
             "rows": sql_select_rows(site, table, limit, offset),
             "count": sql_count(site, table),
-            "important_fields": important_fields,
-            "field_types": field_types,
+            "fields": get_fields(site, table),
+            "joins": get_joins(site, table),
         }
     )
 
 
 @app.route("/api/<site>/<table>/<item_id>")
 def api_item(site, table, item_id):
-    if site not in structure:
-        abort(500)
-    if table not in structure[site]["tables"]:
+    if site not in get_implemented_sites():
         abort(500)
 
-    table_display_name = get_table_display_name(site, table)
+    structure = get_structure(site)
+
+    if table not in structure["tables"]:
+        abort(500)
+
     headers = sql_headers(site, table)
-    important_fields = get_important_fields(site, table, headers)
-    field_types = get_field_types(site, table)
+    limit = request.args.get("count")
+    offset = request.args.get("offset")
 
     return jsonify(
         {
-            "site_name": structure[site]["name"],
-            "table_name": table_display_name,
+            "site_name": structure["name"],
+            "table_name": get_table_display_name(site, table),
             "headers": headers,
             "rows": sql_select_item(site, table, item_id, headers),
-            "important_fields": important_fields,
-            "field_types": field_types,
+            "fields": get_fields(site, table),
+            "joins": get_joins(site, table),
         }
     )
 
 
-@app.route("/api/<site>/<table>/join/<header>/<item_id>")
-def api_join(site, table, header, item_id):
-    if site not in structure:
+@app.route("/api/<site>/<table>/join/<join_name>/<item_id>")
+def api_join(site, table, join_name, item_id):
+    if site not in get_implemented_sites():
         abort(500)
-    if table not in structure[site]["tables"]:
+
+    structure = get_structure(site)
+
+    if table not in structure["tables"]:
         abort(500)
-    if header not in structure[site]["tables"][table]["field_types"]:
-        abort(500)
-    if header not in structure[site]["tables"][table]["joins"]:
-        abort(500)
-    if structure[site]["tables"][table]["field_types"][header] != "join":
+
+    found_join = False
+    for join in structure["tables"][table]["joins"]:
+        if join["name"] == join_name:
+            found_join = True
+            break
+    if not found_join:
         abort(500)
 
     headers = sql_headers(site, table)
-    join_from = structure[site]["tables"][table]["joins"][header]["from"]
-    join_to = structure[site]["tables"][table]["joins"][header]["to"]
-    rows = sql_select_join(site, table, item_id, join_from, join_to, headers)
+    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
 
-    join_table = join_to.split(".")[0]
+    join_table = join["to"].split(".")[0]
     join_headers = sql_headers(site, join_table)
-    join_important_fields = get_important_fields(site, join_table, join_headers)
-    join_field_types = get_field_types(site, join_table)
+    join_fields = get_fields(site, join_table)
 
     return jsonify(
         {
@@ -378,18 +387,12 @@ def api_join(site, table, header, item_id):
             "join_headers": join_headers,
             "join_rows": rows,
             "join_count": len(rows),
-            "join_important_fields": join_important_fields,
-            "join_field_types": join_field_types,
+            "join_fields": join_fields,
         }
     )
 
 
 def run(new_blueleaks_path):
     global blueleaks_path, structure
-
     blueleaks_path = new_blueleaks_path
-
-    with open("./structure.json") as f:
-        structure = json.load(f)
-
     app.run("127.0.0.1", "8080")

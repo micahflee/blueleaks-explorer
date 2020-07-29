@@ -1,6 +1,5 @@
 <style scoped>
-ul.fields,
-ul.hidden-fields {
+ul {
   list-style: none;
   padding: 0;
 }
@@ -20,27 +19,39 @@ ul.buttons li {
 <template>
   <div>
     <ul class="fields">
-      <li v-for="field in importantFields" class="field" v-bind:key="field">
+      <li v-for="field in fields" class="field">
+        <template v-if="field['show']">
+          <TableCell
+            v-bind:site="site"
+            v-bind:table="table"
+            v-bind:itemId="itemId"
+            v-bind:field="field"
+            v-bind:value="row[headers.indexOf(field['name'])]"
+          ></TableCell>
+        </template>
+      </li>
+    </ul>
+    <ul class="join-fields">
+      <li v-for="join in joins" class="field">
         <TableCell
-          v-bind:siteFolder="siteFolder"
+          v-bind:site="site"
           v-bind:table="table"
           v-bind:itemId="itemId"
-          v-bind:header="field"
-          v-bind:fieldType="fieldTypes[field]"
-          v-bind:value="row[headers.indexOf(field)]"
+          v-bind:join="join"
         ></TableCell>
       </li>
     </ul>
     <ul v-if="showAllFields" class="hidden-fields">
-      <li v-for="field in hiddenFields" class="field" v-bind:key="field">
-        <TableCell
-          v-bind:siteFolder="siteFolder"
-          v-bind:table="table"
-          v-bind:itemId="itemId"
-          v-bind:header="field"
-          v-bind:fieldType="fieldTypes[field]"
-          v-bind:value="row[headers.indexOf(field)]"
-        ></TableCell>
+      <li v-for="field in fields" class="field">
+        <template v-if="!field['show']">
+          <TableCell
+            v-bind:site="site"
+            v-bind:table="table"
+            v-bind:itemId="itemId"
+            v-bind:field="field"
+            v-bind:value="row[headers.indexOf(field['name'])]"
+          ></TableCell>
+        </template>
       </li>
     </ul>
     <ul class="buttons">
@@ -56,17 +67,10 @@ ul.buttons li {
 
 <script>
 import TableCell from "./TableCell.vue";
+import JoinRow from "./JoinRow.vue";
 
 export default {
-  props: [
-    "siteFolder",
-    "table",
-    "row",
-    "importantFields",
-    "hiddenFields",
-    "fieldTypes",
-    "headers",
-  ],
+  props: ["site", "table", "row", "fields", "joins", "headers"],
   data: function () {
     return {
       showAllFields: false,
@@ -75,7 +79,7 @@ export default {
   },
   methods: {
     permalink: function (id) {
-      return "/" + this.siteFolder + "/" + this.table + "/" + id;
+      return "/" + this.site + "/" + this.table + "/" + id;
     },
     toggleHiddenFields: function () {
       if (this.showAllFields) {
@@ -98,6 +102,7 @@ export default {
   },
   components: {
     TableCell: TableCell,
+    JoinRow: JoinRow,
   },
 };
 </script>

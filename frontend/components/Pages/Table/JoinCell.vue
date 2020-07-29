@@ -12,28 +12,28 @@
 </style>
 
 <template>
-  <div v-if="value != '' && fieldType != 'join'">
-    <span class="label">{{ header }}:</span>
-    <span v-if="fieldType == 'text'">{{ value }}</span>
-    <span v-else-if="fieldType == 'pre'">
+  <div v-if="field['show'] && value != ''">
+    <span class="label">{{ field['name'] }}:</span>
+    <span v-if="field['type'] == 'text'">{{ value }}</span>
+    <span v-else-if="field['type'] == 'pre'">
       <pre>{{ preValue(value) }}</pre>
     </span>
-    <span v-else-if="fieldType == 'html'">
+    <span v-else-if="field['type'] == 'html'">
       <div class="html-value" v-html="htmlValue(value)"></div>
     </span>
-    <span v-else-if="fieldType == 'image'">
+    <span v-else-if="field['type'] == 'image'">
       <img v-bind:src="attachmentUrl(value)" />
     </span>
-    <span v-else-if="fieldType == 'attachment'">
+    <span v-else-if="field['type'] == 'attachment'">
       <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
     </span>
-    <span v-else>Unimplemented field type: {{ fieldType }}</span>
+    <span v-else>Unimplemented field type: {{ field['type'] }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["siteFolder", "table", "header", "fieldType", "value"],
+  props: ["site", "table", "field", "value"],
   methods: {
     htmlValue: function (html) {
       var html = html
@@ -48,10 +48,7 @@ export default {
     },
     attachmentUrl: function (value) {
       var url =
-        "/blueleaks-data/" +
-        this.siteFolder +
-        "/files/" +
-        value.replace("\\", "/");
+        "/blueleaks-data/" + this.site + "/files/" + value.replace("\\", "/");
       return url;
     },
   },

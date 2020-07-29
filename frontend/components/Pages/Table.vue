@@ -25,12 +25,11 @@
       <ul class="rows">
         <li v-for="row in rows" class="row" v-bind:key="row[0]">
           <TableRow
-            v-bind:siteFolder="siteFolder"
+            v-bind:site="site"
             v-bind:table="table"
             v-bind:row="row"
-            v-bind:importantFields="importantFields"
-            v-bind:hiddenFields="hiddenFields"
-            v-bind:fieldTypes="fieldTypes"
+            v-bind:fields="fields"
+            v-bind:joins="joins"
             v-bind:headers="headers"
           ></TableRow>
         </li>
@@ -55,16 +54,15 @@ export default {
   data: function () {
     return {
       loading: false,
-      siteFolder: this.$route.path.split("/")[1],
+      site: this.$route.path.split("/")[1],
       table: this.$route.path.split("/")[2],
       siteName: null,
       tableName: null,
       headers: null,
       rows: null,
       count: null,
-      importantFields: null,
-      hiddenFields: null,
-      fieldTypes: null,
+      fields: null,
+      joins: null,
       offset: 0,
       perPageCount: 50,
     };
@@ -78,7 +76,7 @@ export default {
       // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
       try {
         const response = await fetch(
-          `/api/${this.siteFolder}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`
+          `/api/${this.site}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`
         );
         if (response.status !== 200) {
           this.loading = false;
@@ -92,23 +90,8 @@ export default {
         this.headers = data["headers"];
         this.rows = data["rows"];
         this.count = data["count"];
-        this.importantFields = data["important_fields"];
-        this.fieldTypes = data["field_types"];
-
-        // Fill in the hidden fields
-        this.hiddenFields = [];
-        for (var i in this.headers) {
-          if (!this.importantFields.includes(this.headers[i])) {
-            this.hiddenFields.push(this.headers[i]);
-          }
-        }
-
-        // Fill in the default field types
-        for (var i in this.headers) {
-          if (!this.fieldTypes[this.headers[i]]) {
-            this.fieldTypes[this.headers[i]] = "text";
-          }
-        }
+        this.fields = data["fields"];
+        this.joins = data["joins"];
 
         this.loading = false;
       } catch (err) {
@@ -127,7 +110,7 @@ export default {
   },
   computed: {
     linkToSite: function () {
-      return "/" + this.siteFolder;
+      return "/" + this.site;
     },
   },
   components: {

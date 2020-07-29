@@ -50,7 +50,7 @@ export default {
   data: function () {
     return {
       loading: false,
-      siteFolder: this.$route.path.split("/")[1],
+      site: this.$route.path.split("/")[1],
       siteName: null,
       tables: null,
     };
@@ -62,7 +62,7 @@ export default {
     getTables: function () {
       var that = this;
       this.loading = true;
-      fetch("/api/" + this.siteFolder + "/tables")
+      fetch("/api/" + this.site + "/tables")
         .then(function (response) {
           that.loading = false;
 
@@ -83,7 +83,7 @@ export default {
         });
     },
     linkToTable: function (table) {
-      return "/" + this.siteFolder + "/" + table;
+      return "/" + this.site + "/" + table;
     },
     numberWithCommas: function (x) {
       if (!x) return "...";
