@@ -59,7 +59,8 @@ def get_implemented_sites_with_names():
     implemented_sites_with_names = []
     for site in implemented_sites:
         structure = get_structure(site)
-        implemented_sites_with_names.append({"site": site, "name": structure["name"]})
+        implemented_sites_with_names.append(
+            {"site": site, "name": structure["name"]})
     return implemented_sites_with_names
 
 
@@ -68,6 +69,20 @@ def sql_count(site, table):
     c = conn.cursor()
 
     c.execute(f"SELECT COUNT(*) FROM '{table}'")
+    row = c.fetchone()
+
+    conn.close()
+
+    return row[0]
+
+
+def sql_count_search(site, table, cols, search_term):
+    conn = sqlite3.connect(get_database_filename(site))
+    c = conn.cursor()
+
+    where_clause = build_where_clause(cols, search_term)
+
+    c.execute(f"SELECT COUNT(*) FROM '{table}' WHERE {where_clause}")
     row = c.fetchone()
 
     conn.close()
@@ -98,6 +113,30 @@ def sql_select_rows(site, table, limit, offset, sort_col, sort_dir):
     else:
         statement = f"SELECT * FROM '{table}' LIMIT {limit} OFFSET {offset}"
     rows = []
+    for row in c.execute(statement):
+        rows.append(list(row))
+
+    conn.close()
+    return rows
+
+
+def build_where_clause(cols, search_term):
+    return " OR ".join([f"{col} LIKE '%{search_term}%'" for col in cols])
+
+
+def sql_search_table(site, table, cols, search_term, limit, offset, sort_col, sort_dir):
+    conn = sqlite3.connect(get_database_filename(site))
+    c = conn.cursor()
+
+    where_clause = build_where_clause(cols, search_term)
+
+    if sort_col and sort_dir:
+        print(f"{sort_col} {sort_dir}")
+        statement = f"SELECT * FROM '{table}' WHERE {where_clause} ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
+    else:
+        statement = f"SELECT * FROM '{table}' WHERE {where_clause} LIMIT {limit} OFFSET {offset}"
+    rows = []
+
     for row in c.execute(statement):
         rows.append(list(row))
 
@@ -160,7 +199,7 @@ def render_frontend():
 def catch_all(path):
     # Download a data file
     if path.startswith("blueleaks-data"):
-        listing_path = path[len("blueleaks-data") :]
+        listing_path = path[len("blueleaks-data"):]
         if listing_path == "":
             listing_path = "/"
         filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
@@ -187,17 +226,20 @@ def catch_all(path):
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                    "/blueleaks-data", listing_path.lstrip(
+                                        "/"), name
                                 ),
                             }
                         )
                     else:
-                        size_bytes = Path(os.path.join(filename, name)).stat().st_size
+                        size_bytes = Path(os.path.join(
+                            filename, name)).stat().st_size
                         files.append(
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                    "/blueleaks-data", listing_path.lstrip(
+                                        "/"), name
                                 ),
                                 "size": humansize(size_bytes),
                             }
@@ -344,6 +386,42 @@ def api_rows(site, table):
     )
 
 
+@app.route("/api/<site>/<table>/search")
+def api_search(site, table):
+    if site not in get_implemented_sites():
+        abort(500)
+
+    structure = get_structure(site)
+
+    if table not in structure["tables"]:
+        abort(500)
+
+    search_term = request.args.get("search_term")
+
+    if search_term is None:
+        abort(500)
+
+    headers = sql_headers(site, table)
+    fields = get_fields(site, table)
+    search_cols = [field["name"] for field in fields if field["show"]]
+    limit = request.args.get("count")
+    offset = request.args.get("offset")
+    sort_col = request.args.get("sortCol")
+    sort_dir = request.args.get("sortDir")
+
+    return jsonify(
+        {
+            "site_name": structure["name"],
+            "table_name": get_table_display_name(site, table),
+            "headers": headers,
+            "rows": sql_search_table(site, table, search_cols, search_term, limit, offset, sort_col, sort_dir),
+            "count": sql_count_search(site, table, search_cols, search_term),
+            "fields": fields,
+            "joins": get_joins(site, table),
+        }
+    )
+
+
 @app.route("/api/<site>/<table>/<item_id>")
 def api_item(site, table, item_id):
     if site not in get_implemented_sites():
@@ -389,7 +467,8 @@ def api_join(site, table, join_name, item_id):
         abort(500)
 
     headers = sql_headers(site, table)
-    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
+    rows = sql_select_join(site, table, item_id,
+                           join["from"], join["to"], headers)
 
     join_table = join["to"].split(".")[0]
     join_headers = sql_headers(site, join_table)
