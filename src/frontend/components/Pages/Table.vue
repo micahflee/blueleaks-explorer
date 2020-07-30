@@ -167,11 +167,13 @@ export default {
     },
     sortFields: function () {
       const badOptions = ["content"];
-      return this.fields
+      var fields = this.fields
         .filter(
           (f) => f.show && badOptions.indexOf(f.name.toLowerCase()) === -1
         )
         .map((f) => f.name);
+      fields.unshift("Chronologically");
+      return fields;
     },
   },
   components: {

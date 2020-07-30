@@ -108,7 +108,11 @@ def sql_select_rows(site, table, limit, offset, sort_col, sort_dir):
 
     if sort_col and sort_dir:
         print(f"{sort_col} {sort_dir}")
-        statement = f"SELECT * FROM '{table}' ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
+        if sort_col == "Chronologically":
+            headers = sql_headers(site, table)
+            statement = f"SELECT * FROM '{table}' ORDER BY CAST({headers[0]} AS INTEGER) {sort_dir} LIMIT {limit} OFFSET {offset}"
+        else:
+            statement = f"SELECT * FROM '{table}' ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
     else:
         statement = f"SELECT * FROM '{table}' LIMIT {limit} OFFSET {offset}"
     rows = []
