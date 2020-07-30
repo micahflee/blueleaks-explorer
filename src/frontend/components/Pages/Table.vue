@@ -37,6 +37,7 @@
             v-bind:fields="fields"
             v-bind:joins="joins"
             v-bind:headers="headers"
+            v-bind:isItem="false"
           ></TableRow>
         </li>
       </ul>

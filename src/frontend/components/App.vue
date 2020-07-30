@@ -103,6 +103,11 @@ pre {
   white-space: pre-wrap;
   background-color: white;
 }
+
+.meta {
+  color: #333333;
+  font-style: italic;
+}
 </style>
 
   <style scoped>

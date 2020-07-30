@@ -32,18 +32,31 @@ li.join {
     </template>
     <template v-else>
       <template v-if="join">
-        <span class="label">{{ join['name'] }}:</span>
-        <ul class="join-rows">
-          <li v-for="joinRow in joinRows" class="join">
-            <JoinRow
-              v-bind:site="site"
-              v-bind:table="joinTable"
-              v-bind:row="joinRow"
-              v-bind:fields="joinFields"
-              v-bind:headers="joinHeaders"
-            ></JoinRow>
-          </li>
-        </ul>
+        <template v-if="joinCount > 0">
+          <span class="label">{{ join['name'] }}:</span>
+          <template v-if="joinRows.length != joinCount">
+            <p>
+              <span class="meta">Showing {{ joinRows.length }} out of {{ joinCount }} items</span>
+              <router-link class="button" v-bind:to="permalink()">See All Items</router-link>
+            </p>
+          </template>
+          <template v-else>
+            <p>
+              <span class="meta">Showing {{ joinCount }} items</span>
+            </p>
+          </template>
+          <ul class="join-rows">
+            <li v-for="joinRow in joinRows" class="join">
+              <JoinRow
+                v-bind:site="site"
+                v-bind:table="joinTable"
+                v-bind:row="joinRow"
+                v-bind:fields="joinFields"
+                v-bind:headers="joinHeaders"
+              ></JoinRow>
+            </li>
+          </ul>
+        </template>
       </template>
       <template v-else>
         <template v-if="value != ''">
@@ -59,9 +72,11 @@ li.join {
             <img v-bind:src="attachmentUrl(value)" />
           </span>
           <span v-else-if="field['type'] == 'attachment'">
-            <a v-bind:href="attachmentUrl(value)" target="_blank">{{
+            <a v-bind:href="attachmentUrl(value)" target="_blank">
+              {{
               value
-            }}</a>
+              }}
+            </a>
           </span>
           <span v-else>Unimplemented field type: {{ field['type'] }}</span>
         </template>
@@ -71,71 +86,77 @@ li.join {
 </template>
 
 <script>
-import JoinRow from './JoinRow.vue';
+import JoinRow from "./JoinRow.vue";
 
 export default {
-  props: ['site', 'table', 'itemId', 'field', 'value', 'join'],
-  data: function() {
+  props: ["site", "table", "itemId", "field", "value", "join", "isItem"],
+  data: function () {
     return {
       loading: false,
       joinTable: null,
       joinHeaders: null,
       joinRows: null,
       joinCount: null,
-      joinFields: null
+      joinFields: null,
     };
   },
-  created: function() {
+  created: function () {
     if (this.join) {
       this.getJoin();
     }
   },
   methods: {
-    getJoin: function() {
+    getJoin: function () {
       var that = this;
       this.loading = true;
-      fetch(
-        '/api/' +
-          this.site +
-          '/' +
-          this.table +
-          '/join/' +
-          this.join['name'] +
-          '/' +
-          this.itemId
-      )
-        .then(function(response) {
+
+      var url =
+        "/api/" +
+        this.site +
+        "/" +
+        this.table +
+        "/join/" +
+        this.join["name"] +
+        "/" +
+        this.itemId;
+      // If this is viewing an item instead of a table, get all join rows instead of a limited set of them
+      if (this.isItem) {
+        url += "/all";
+      }
+
+      fetch(url)
+        .then(function (response) {
           if (response.status !== 200) {
             that.loading = false;
             console.log(
-              'Error fetching join rows, status code: ' + response.status
+              "Error fetching join rows, status code: " + response.status
             );
             return;
           }
-          response.json().then(function(data) {
+          response.json().then(function (data) {
             that.loading = false;
-            that.joinTable = data['join_table'];
-            that.joinHeaders = data['join_headers'];
-            that.joinRows = data['join_rows'];
-            that.joinCount = data['join_count'];
-            that.joinFields = data['join_fields'];
+            that.joinTable = data["join_table"];
+            that.joinHeaders = data["join_headers"];
+            that.joinRows = data["join_rows"];
+            that.joinCount = data["join_count"];
+            that.joinFields = data["join_fields"];
           });
         })
-        .catch(function(err) {
+        .catch(function (err) {
           that.loading = false;
-          console.log('Error fetching join rows', err);
+          console.log("Error fetching join rows", err);
         });
     },
-    stripScripts: function(htmlString) {
-      const div = document.createElement('div');
+    stripScripts: function (htmlString) {
+      const div = document.createElement("div");
       div.innerHTML = htmlString;
-      const scripts = div.getElementsByTagName('script');
+      const scripts = div.getElementsByTagName("script");
       let i = scripts.length;
       while (i--) {
         scripts[i].parentNode.removeChild(scripts[i]);
       }
 
-      const base = div.getElementsByTagName('base');
+      const base = div.getElementsByTagName("base");
       i = base.length;
       while (i--) {
         base[i].parentNode.removeChild(base[i]);
@@ -143,24 +164,27 @@ export default {
 
       return div.innerHTML;
     },
-    htmlValue: function(value) {
+    htmlValue: function (value) {
       return this.stripScripts(value)
-        .replace(/\\n/g, ' ')
-        .replace(/\\t/g, ' ')
-        .replace(/POSITION: absolute;/g, '')
-        .replace(/position:absolute;/g, '');
+        .replace(/\\n/g, " ")
+        .replace(/\\t/g, " ")
+        .replace(/POSITION: absolute;/g, "")
+        .replace(/position:absolute;/g, "");
     },
-    preValue: function(value) {
-      return value.replace(/\\n/g, '\n');
+    preValue: function (value) {
+      return value.replace(/\\n/g, "\n");
     },
-    attachmentUrl: function(value) {
+    attachmentUrl: function (value) {
       var url =
-        '/blueleaks-data/' + this.site + '/files/' + value.replace('\\', '/');
+        "/blueleaks-data/" + this.site + "/files/" + value.replace("\\", "/");
       return url;
-    }
+    },
+    permalink: function () {
+      return "/" + this.site + "/" + this.table + "/" + this.itemId;
+    },
   },
   components: {
-    JoinRow: JoinRow
-  }
+    JoinRow: JoinRow,
+  },
 };
 </script>

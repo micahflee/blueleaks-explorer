@@ -59,8 +59,7 @@ def get_implemented_sites_with_names():
     implemented_sites_with_names = []
     for site in implemented_sites:
         structure = get_structure(site)
-        implemented_sites_with_names.append(
-            {"site": site, "name": structure["name"]})
+        implemented_sites_with_names.append({"site": site, "name": structure["name"]})
     return implemented_sites_with_names
 
 
@@ -199,7 +198,7 @@ def render_frontend():
 def catch_all(path):
     # Download a data file
     if path.startswith("blueleaks-data"):
-        listing_path = path[len("blueleaks-data"):]
+        listing_path = path[len("blueleaks-data") :]
         if listing_path == "":
             listing_path = "/"
         filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
@@ -226,20 +225,17 @@ def catch_all(path):
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip(
-                                        "/"), name
+                                    "/blueleaks-data", listing_path.lstrip("/"), name
                                 ),
                             }
                         )
                     else:
-                        size_bytes = Path(os.path.join(
-                            filename, name)).stat().st_size
+                        size_bytes = Path(os.path.join(filename, name)).stat().st_size
                         files.append(
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip(
-                                        "/"), name
+                                    "/blueleaks-data", listing_path.lstrip("/"), name
                                 ),
                                 "size": humansize(size_bytes),
                             }
@@ -414,7 +410,9 @@ def api_search(site, table):
             "site_name": structure["name"],
             "table_name": get_table_display_name(site, table),
             "headers": headers,
-            "rows": sql_search_table(site, table, search_cols, search_term, limit, offset, sort_col, sort_dir),
+            "rows": sql_search_table(
+                site, table, search_cols, search_term, limit, offset, sort_col, sort_dir
+            ),
             "count": sql_count_search(site, table, search_cols, search_term),
             "fields": fields,
             "joins": get_joins(site, table),
@@ -448,6 +446,43 @@ def api_item(site, table, item_id):
     )
 
 
+@app.route("/api/<site>/<table>/join/<join_name>/<item_id>/all")
+def api_join_all(site, table, join_name, item_id):
+    if site not in get_implemented_sites():
+        abort(500)
+
+    structure = get_structure(site)
+
+    if table not in structure["tables"]:
+        abort(500)
+
+    found_join = False
+    for join in structure["tables"][table]["joins"]:
+        if join["name"] == join_name:
+            found_join = True
+            break
+    if not found_join:
+        abort(500)
+
+    headers = sql_headers(site, table)
+    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
+    row_count = len(rows)
+
+    join_table = join["to"].split(".")[0]
+    join_headers = sql_headers(site, join_table)
+    join_fields = get_fields(site, join_table)
+
+    return jsonify(
+        {
+            "join_table": join_table,
+            "join_headers": join_headers,
+            "join_rows": rows,
+            "join_count": row_count,
+            "join_fields": join_fields,
+        }
+    )
+
+
 @app.route("/api/<site>/<table>/join/<join_name>/<item_id>")
 def api_join(site, table, join_name, item_id):
     if site not in get_implemented_sites():
@@ -467,8 +502,10 @@ def api_join(site, table, join_name, item_id):
         abort(500)
 
     headers = sql_headers(site, table)
-    rows = sql_select_join(site, table, item_id,
-                           join["from"], join["to"], headers)
+    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
+    row_count = len(rows)
+    if row_count > 5:
+        rows = rows[0:5]
 
     join_table = join["to"].split(".")[0]
     join_headers = sql_headers(site, join_table)
@@ -479,7 +516,7 @@ def api_join(site, table, join_name, item_id):
             "join_table": join_table,
             "join_headers": join_headers,
             "join_rows": rows,
-            "join_count": len(rows),
+            "join_count": row_count,
             "join_fields": join_fields,
         }
     )

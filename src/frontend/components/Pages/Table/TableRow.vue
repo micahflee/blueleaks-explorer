@@ -27,6 +27,7 @@ ul.buttons li {
             v-bind:itemId="itemId"
             v-bind:field="field"
             v-bind:value="row[headers.indexOf(field['name'])]"
+            v-bind:isItem="isItem"
           ></TableCell>
         </template>
       </li>
@@ -38,6 +39,7 @@ ul.buttons li {
           v-bind:table="table"
           v-bind:itemId="itemId"
           v-bind:join="join"
+          v-bind:isItem="isItem"
         ></TableCell>
       </li>
     </ul>
@@ -50,6 +52,7 @@ ul.buttons li {
             v-bind:itemId="itemId"
             v-bind:field="field"
             v-bind:value="row[headers.indexOf(field['name'])]"
+            v-bind:isItem="isItem"
           ></TableCell>
         </template>
       </li>
@@ -70,7 +73,7 @@ import TableCell from "./TableCell.vue";
 import JoinRow from "./JoinRow.vue";
 
 export default {
-  props: ["site", "table", "row", "fields", "joins", "headers"],
+  props: ["site", "table", "row", "fields", "joins", "headers", "isItem"],
   data: function () {
     return {
       showAllFields: false,

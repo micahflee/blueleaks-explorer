@@ -12,11 +12,6 @@ li .site-link {
   font-weight: bold;
   font-size: 1.2em;
 }
-
-li .meta {
-  color: #333333;
-  font-style: italic;
-}
 </style>
 
 <template>
