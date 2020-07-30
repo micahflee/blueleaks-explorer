@@ -31,7 +31,7 @@ ul.buttons li {
     </ul>
     <ul class="buttons">
       <li>
-        <router-link class="button" v-bind:to="permalink(row[0])">Permalink</router-link>
+        <router-link class="button secondary" v-bind:to="permalink(row[0])">Permalink</router-link>
       </li>
     </ul>
   </div>

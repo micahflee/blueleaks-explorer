@@ -37,13 +37,15 @@ li.join {
           <template v-if="joinRows.length != joinCount">
             <p>
               <span class="meta">Showing {{ joinRows.length }} out of {{ joinCount }} items</span>
-              <router-link class="button" v-bind:to="permalink()">See All Items</router-link>
+              <router-link class="button secondary" v-bind:to="permalink()">See All Items</router-link>
             </p>
           </template>
           <template v-else>
-            <p>
-              <span class="meta">Showing {{ joinCount }} items</span>
-            </p>
+            <template v-if="joinCount > 1">
+              <p>
+                <span class="meta">Showing {{ joinCount }} items</span>
+              </p>
+            </template>
           </template>
           <ul class="join-rows">
             <li v-for="joinRow in joinRows" class="join">

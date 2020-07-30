@@ -82,6 +82,14 @@ button:active {
   top: 1px;
 }
 
+a.button.secondary,
+button.secondary {
+  background: white;
+  color: #c123de;
+  padding: 0 7px;
+  text-decoration: underline;
+}
+
 ul.rows {
   list-style: none;
   padding: 0;
