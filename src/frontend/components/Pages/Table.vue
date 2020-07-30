@@ -27,6 +27,7 @@
         v-bind:currentSort="currentSort"
         v-bind:sortChangeHandler="sortChangeHandler"
       ></SortBar>
+      <SearchBar v-bind:searchTerm="searchTerm" v-bind:handleSearchSubmit="searchHandler"></SearchBar>
       <ul class="rows">
         <li v-for="row in rows" class="row" v-bind:key="row[0]">
           <TableRow
@@ -54,7 +55,8 @@
 <script>
 import TableRow from "./Table/TableRow.vue";
 import Paging from "./Table/Paging.vue";
-import SortBar from "./SortBar.vue";
+import SortBar from "./Table/SortBar.vue";
+import SearchBar from "./Table/SearchBar.vue";
 
 export default {
   data: function () {
@@ -72,6 +74,7 @@ export default {
       offset: 0,
       perPageCount: 50,
       currentSort: null,
+      searchTerm: null,
     };
   },
   created: function () {
@@ -81,13 +84,31 @@ export default {
     buildURL: function () {
       if (this.currentSort) {
         const [sortCol, sortDir] = this.currentSort.split("##");
+
+        if (this.searchTerm) {
+          return `/api/${this.site}/${
+            this.table
+          }/search?search_term=${encodeURIComponent(this.searchTerm)}&count=${
+            this.perPageCount
+          }&offset=${this.offset}&sortCol=${encodeURIComponent(
+            sortCol
+          )}&sortDir=${sortDir}`;
+        }
+
         return `/api/${this.site}/${this.table}?count=${
           this.perPageCount
         }&offset=${this.offset}&sortCol=${encodeURIComponent(
           sortCol
         )}&sortDir=${sortDir}`;
       }
-      return `/api/${this.site}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`;
+
+      return this.searchTerm
+        ? `/api/${this.site}/${
+            this.table
+          }/search?search_term=${encodeURIComponent(this.searchTerm)}&count=${
+            this.perPageCount
+          }&offset=${this.offset}`
+        : `/api/${this.site}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`;
     },
     getRows: async function () {
       this.loading = true;
@@ -130,6 +151,14 @@ export default {
       this.currentSort = sortOption;
       this.getRows();
     },
+    searchHandler: function (evt) {
+      const fd = new FormData(evt.target);
+      const term = fd.get("searchTerm");
+      if (term) {
+        this.searchTerm = term;
+        this.getRows();
+      }
+    },
   },
   computed: {
     linkToSite: function () {
@@ -148,6 +177,7 @@ export default {
     TableRow,
     Paging,
     SortBar,
+    SearchBar,
   },
 };
 </script>
