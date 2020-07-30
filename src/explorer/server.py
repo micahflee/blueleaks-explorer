@@ -292,7 +292,7 @@ def api_structure_create(site):
     # Copy the default structure
     shutil.copyfile(
         os.path.join(get_default_structures_dir(), f"{site}.json"),
-        os.path.join(get_structure(), f"{site}.json"),
+        os.path.join(get_structures_dir(), f"{site}.json"),
     )
     return jsonify({"error": False})
 
