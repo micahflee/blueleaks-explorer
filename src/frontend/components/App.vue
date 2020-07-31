@@ -13,6 +13,10 @@ li {
   line-height: 150%;
 }
 
+img {
+  max-width: 100%;
+}
+
 a:link,
 a:visited {
   color: #28404f;
