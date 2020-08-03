@@ -43,6 +43,7 @@ def get_all_sites():
     for filename in os.listdir(get_default_structures_dir()):
         if filename.endswith(".json"):
             all_sites.append(filename[:-5])
+    all_sites.sort()
     return all_sites
 
 
@@ -51,6 +52,7 @@ def get_implemented_sites():
     for filename in os.listdir(get_structures_dir()):
         if filename.endswith(".json"):
             implemented_sites.append(filename[:-5])
+    implemented_sites.sort()
     return implemented_sites
 
 
@@ -263,6 +265,7 @@ def catch_all(path):
 @app.route("/api/structures")
 def api_structures():
     implemented_sites = get_implemented_sites_with_names()
+
     unimplemented_sites = []
     for site in get_all_sites():
         implemented = False
