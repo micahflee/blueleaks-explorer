@@ -1,8 +1,6 @@
 <style scoped>
 .join {
-  position: relative;
-  display: block;
-  width: 840px;
+  display: inline-block;
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
@@ -23,7 +21,7 @@ i.handle {
 }
 .join-relationship {
   display: inline-block;
-  width: 450px;
+  width: 500px;
 }
 .join-delete {
   display: inline-block;

@@ -1,8 +1,6 @@
 <style scoped>
 .field {
-  position: relative;
-  display: block;
-  width: 660px;
+  display: inline-block;
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
@@ -23,11 +21,11 @@ i.handle {
 }
 .field-type {
   display: inline-block;
-  width: 100px;
+  width: 130px;
 }
 .field-show {
   display: inline-block;
-  width: 50px;
+  width: 80px;
 }
 </style>
 
@@ -42,6 +40,7 @@ i.handle {
         <option>pre</option>
         <option>image</option>
         <option>attachment</option>
+        <option>survey</option>
       </select>
     </span>
     <span class="field-show">

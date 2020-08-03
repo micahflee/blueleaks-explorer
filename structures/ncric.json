@@ -30555,7 +30555,7 @@
                 {
                     "name": "SurveyData",
                     "show": true,
-                    "type": "pre"
+                    "type": "survey"
                 },
                 {
                     "name": "IPAddress",
@@ -30694,8 +30694,8 @@
                     "to": "SurveyQuestion.SurveyFormID"
                 },
                 {
-                    "name": "Results",
                     "from": "SurveyForm.SurveyFormName",
+                    "name": "Results",
                     "to": "Survey.SurveyName"
                 }
             ]

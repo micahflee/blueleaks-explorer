@@ -23,11 +23,11 @@
 }
 .field-type {
   display: inline-block;
-  width: 100px;
+  width: 130px;
 }
 .field-show {
   display: inline-block;
-  width: 50px;
+  width: 80px;
 }
 
 .join-name {
@@ -36,7 +36,7 @@
 }
 .join-relationship {
   display: inline-block;
-  width: 450px;
+  width: 500px;
 }
 .join-delete {
   display: inline-block;
