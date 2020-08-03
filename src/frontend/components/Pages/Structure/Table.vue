@@ -59,7 +59,10 @@
         <span class="handle">Sort</span>
         <span class="field-name">Field Name</span>
         <span class="field-type">Type</span>
-        <span class="field-show">Show</span>
+        <span class="field-show">
+          Show
+          <input type="checkbox" v-model="showToggleCheckbox" v-on:change="showToggle()" />
+        </span>
       </div>
       <draggable class="fields" handle=".handle" v-model="tableData['fields']" @end="makeDirty">
         <div v-for="field in tableData['fields']" class="field">
@@ -117,6 +120,7 @@ export default {
       newRelationshipFromField: "",
       newRelationshipToTable: "",
       newRelationshipToField: "",
+      showToggleCheckbox: true,
     };
   },
   methods: {
@@ -184,6 +188,12 @@ export default {
         this.tableData["joins"].splice(index, 1);
         this.$emit("dirty");
       }
+    },
+    showToggle: function () {
+      for (var i = 0; i < this.tableData["fields"].length; i++) {
+        this.tableData["fields"][i]["show"] = this.showToggleCheckbox;
+      }
+      this.makeDirty();
     },
     makeDirty: function () {
       this.$emit("dirty");
