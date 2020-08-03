@@ -33,18 +33,18 @@
 
 <script>
 export default {
-  props: ['site', 'table', 'field', 'value'],
+  props: ["site", "table", "field", "value"],
   methods: {
-    stripScripts: function(htmlString) {
-      const div = document.createElement('div');
+    stripScripts: function (htmlString) {
+      const div = document.createElement("div");
       div.innerHTML = htmlString;
-      const scripts = div.getElementsByTagName('script');
+      const scripts = div.getElementsByTagName("script");
       let i = scripts.length;
       while (i--) {
         scripts[i].parentNode.removeChild(scripts[i]);
       }
 
-      const base = div.getElementsByTagName('base');
+      const base = div.getElementsByTagName("base");
       i = base.length;
       while (i--) {
         base[i].parentNode.removeChild(base[i]);
@@ -52,22 +52,22 @@ export default {
 
       return div.innerHTML;
     },
-    htmlValue: function(html) {
-      var html = stripScripts(html)
-        .replace(/\\n/g, ' ')
-        .replace(/\\t/g, ' ')
-        .replace(/POSITION: absolute;/g, '')
-        .replace(/position:absolute;/g, '');
+    htmlValue: function (html) {
+      var html = this.stripScripts(html)
+        .replace(/\\n/g, " ")
+        .replace(/\\t/g, " ")
+        .replace(/POSITION: absolute;/g, "")
+        .replace(/position:absolute;/g, "");
       return html;
     },
-    preValue: function(value) {
-      return value.replace(/\\n/g, '\n');
+    preValue: function (value) {
+      return value.replace(/\\n/g, "\n");
     },
-    attachmentUrl: function(value) {
+    attachmentUrl: function (value) {
       var url =
-        '/blueleaks-data/' + this.site + '/files/' + value.replace('\\', '/');
+        "/blueleaks-data/" + this.site + "/files/" + value.replace("\\", "/");
       return url;
-    }
-  }
+    },
+  },
 };
 </script>
