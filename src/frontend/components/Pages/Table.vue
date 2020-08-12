@@ -74,7 +74,7 @@ export default {
       joins: null,
       offset: 0,
       perPageCount: 50,
-      currentSort: null,
+      currentSort: "Chronologically##DESC",
       searchTerm: null,
     };
   },
