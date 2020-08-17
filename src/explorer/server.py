@@ -136,8 +136,6 @@ def sql_search_table(site, table, cols, search_term, limit, offset, sort_col, so
 
     where_clause = build_where_clause(cols, search_term)
 
-    print(where_clause)
-
     if sort_col and sort_dir:
         print(f"{sort_col} {sort_dir}")
         if sort_col == "Chronologically":
@@ -409,9 +407,7 @@ def api_search(site, table):
     if table not in structure["tables"]:
         abort(500)
 
-    print(request.args.get("search_term"))
     search_term = request.args.get("search_term")
-    print(search_term)
 
     if search_term is None:
         abort(500)
