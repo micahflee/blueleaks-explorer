@@ -61,7 +61,8 @@ def get_implemented_sites_with_names():
     implemented_sites_with_names = []
     for site in implemented_sites:
         structure = get_structure(site)
-        implemented_sites_with_names.append({"site": site, "name": structure["name"]})
+        implemented_sites_with_names.append(
+            {"site": site, "name": structure["name"]})
     return implemented_sites_with_names
 
 
@@ -135,9 +136,15 @@ def sql_search_table(site, table, cols, search_term, limit, offset, sort_col, so
 
     where_clause = build_where_clause(cols, search_term)
 
+    print(where_clause)
+
     if sort_col and sort_dir:
         print(f"{sort_col} {sort_dir}")
-        statement = f"SELECT * FROM '{table}' WHERE {where_clause} ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
+        if sort_col == "Chronologically":
+            headers = sql_headers(site, table)
+            statement = f"SELECT * FROM '{table}' WHERE {where_clause} ORDER BY CAST({headers[0]} AS INTEGER) {sort_dir} LIMIT {limit} OFFSET {offset}"
+        else:
+            statement = f"SELECT * FROM '{table}' WHERE {where_clause} ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
     else:
         statement = f"SELECT * FROM '{table}' WHERE {where_clause} LIMIT {limit} OFFSET {offset}"
     rows = []
@@ -204,7 +211,7 @@ def render_frontend():
 def catch_all(path):
     # Download a data file
     if path.startswith("blueleaks-data"):
-        listing_path = path[len("blueleaks-data") :]
+        listing_path = path[len("blueleaks-data"):]
         if listing_path == "":
             listing_path = "/"
         filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
@@ -231,17 +238,20 @@ def catch_all(path):
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                    "/blueleaks-data", listing_path.lstrip(
+                                        "/"), name
                                 ),
                             }
                         )
                     else:
-                        size_bytes = Path(os.path.join(filename, name)).stat().st_size
+                        size_bytes = Path(os.path.join(
+                            filename, name)).stat().st_size
                         files.append(
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip("/"), name
+                                    "/blueleaks-data", listing_path.lstrip(
+                                        "/"), name
                                 ),
                                 "size": humansize(size_bytes),
                             }
@@ -399,7 +409,9 @@ def api_search(site, table):
     if table not in structure["tables"]:
         abort(500)
 
+    print(request.args.get("search_term"))
     search_term = request.args.get("search_term")
+    print(search_term)
 
     if search_term is None:
         abort(500)
@@ -472,7 +484,8 @@ def api_join_all(site, table, join_name, item_id):
         abort(500)
 
     headers = sql_headers(site, table)
-    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
+    rows = sql_select_join(site, table, item_id,
+                           join["from"], join["to"], headers)
     row_count = len(rows)
 
     join_table = join["to"].split(".")[0]
@@ -509,7 +522,8 @@ def api_join(site, table, join_name, item_id):
         abort(500)
 
     headers = sql_headers(site, table)
-    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
+    rows = sql_select_join(site, table, item_id,
+                           join["from"], join["to"], headers)
     row_count = len(rows)
     if row_count > 5:
         rows = rows[0:5]
