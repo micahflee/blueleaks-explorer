@@ -12864,37 +12864,37 @@
                 },
                 {
                     "name": "FormReceiptEmailFrom",
-                    "show": true,
+                    "show": false,
                     "type": "text"
                 },
                 {
                     "name": "FormReceiptEmailSubject",
-                    "show": true,
+                    "show": false,
                     "type": "text"
                 },
                 {
                     "name": "EnableFormReceipt",
-                    "show": true,
+                    "show": false,
                     "type": "text"
                 },
                 {
                     "name": "FormReceiptEmailMessage",
-                    "show": true,
+                    "show": false,
                     "type": "html"
                 },
                 {
                     "name": "DatabaseTablename",
-                    "show": true,
+                    "show": false,
                     "type": "text"
                 },
                 {
                     "name": "DisableDatabaseEntry",
-                    "show": true,
+                    "show": false,
                     "type": "text"
                 },
                 {
                     "name": "ThankYouPage",
-                    "show": true,
+                    "show": false,
                     "type": "html"
                 },
                 {
