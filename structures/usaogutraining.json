@@ -1,5 +1,5 @@
 {
-    "name": "ICEFISHX - Minnesota Fusion Center",
+    "name": "U.S. Attorney's Office Districts of Guam and the Northern Mariana Islands",
     "tables": {
         "ASIOptions": {
             "display": "ASIOptions",
@@ -358,11 +358,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "Password",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "PublicPassword",
                     "show": true,
                     "type": "text"
@@ -384,11 +379,6 @@
                 },
                 {
                     "name": "NavMenuGroupName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CreditCard",
                     "show": true,
                     "type": "text"
                 },
@@ -503,17 +493,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "LastSubscriptionLogins",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "DirectSubscriptionLink",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LastSubscriptionUUIDs",
                     "show": true,
                     "type": "text"
                 },
@@ -833,6 +813,26 @@
                     "type": "text"
                 },
                 {
+                    "name": "Password",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CreditCard",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "LastSubscriptionLogins",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "LastSubscriptionUUIDs",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "Deactivated",
                     "show": true,
                     "type": "text"
@@ -1036,6 +1036,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "Picture1",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "Picture2",
                     "show": true,
                     "type": "text"
@@ -1052,11 +1057,6 @@
                 },
                 {
                     "name": "Topics",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ExternalURL",
                     "show": true,
                     "type": "text"
                 },
@@ -1106,11 +1106,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "Picture1",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "Picture4",
                     "show": true,
                     "type": "text"
@@ -1151,6 +1146,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "ExternalURL",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "EmailAddress",
                     "show": true,
                     "type": "text"
@@ -1161,7 +1161,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "BlogCategory": {
@@ -1173,17 +1173,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "BlogCategoryName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "SecurityTable",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovalField",
                     "show": true,
                     "type": "text"
                 },
@@ -1194,6 +1184,16 @@
                 },
                 {
                     "name": "PageFooter",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "BlogCategoryName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "ApprovalField",
                     "show": true,
                     "type": "text"
                 },
@@ -1298,7 +1298,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "BlogComments": {
@@ -1360,7 +1360,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "BlogOptions": {
@@ -1442,7 +1442,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "BouncedEmailOptions": {
@@ -1479,7 +1479,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "Catalog": {
@@ -3175,7 +3175,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": true,
+            "hidden": false,
             "joins": []
         },
         "CheckoutOptions": {
@@ -4568,7 +4568,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": true,
+            "hidden": false,
             "joins": []
         },
         "CoursesCategory": {
@@ -5131,7 +5131,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "CustomIcon": {
@@ -5153,7 +5153,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "CustomMapping": {
@@ -5290,7 +5290,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "CustomTableLayout": {
@@ -5332,11 +5332,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "ExportPassword",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "PageHeader",
                     "show": true,
                     "type": "text"
@@ -5362,6 +5357,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "ExportPassword",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "AllowedIPAddresses",
                     "show": true,
                     "type": "text"
@@ -5372,7 +5372,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "Customer": {
@@ -5390,11 +5390,6 @@
                 },
                 {
                     "name": "Userid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Password",
                     "show": true,
                     "type": "text"
                 },
@@ -5589,6 +5584,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "Password",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "ApprovedMenu",
                     "show": true,
                     "type": "text"
@@ -5619,7 +5619,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "CustomerCount": {
@@ -5779,73 +5779,6 @@
             "hidden": true,
             "joins": []
         },
-        "DailyNews": {
-            "display": "DailyNews",
-            "fields": [
-                {
-                    "name": "DailyNewsID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PublishedDate",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Sector",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Title",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Source",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Link",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "City",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "StateCountry",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Latitude",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Longitude",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IconName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DoNotDisplay",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
         "Deactivation": {
             "display": "Deactivation",
             "fields": [
@@ -5977,6 +5910,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "Title",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "SubTitle",
                     "show": true,
                     "type": "text"
@@ -6008,6 +5946,11 @@
                 },
                 {
                     "name": "FirstName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "FAX",
                     "show": true,
                     "type": "text"
                 },
@@ -6048,6 +5991,11 @@
                 },
                 {
                     "name": "DirectoryName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Password",
                     "show": true,
                     "type": "text"
                 },
@@ -6208,21 +6156,6 @@
                 },
                 {
                     "name": "NotInDirectory",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Password",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FAX",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Title",
                     "show": true,
                     "type": "text"
                 },
@@ -6519,7 +6452,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "DirectoryOptions": {
@@ -6586,17 +6519,17 @@
                     "type": "text"
                 },
                 {
-                    "name": "DoNotImmediatelyDisplayRecords",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "ResultsToShow",
                     "show": true,
                     "type": "text"
                 },
                 {
                     "name": "DirectoryHelp",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "DoNotImmediatelyDisplayRecords",
                     "show": true,
                     "type": "text"
                 },
@@ -6696,7 +6629,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "Document2Category": {
@@ -6882,17 +6815,17 @@
                     "type": "text"
                 },
                 {
-                    "name": "ShowLastUpdatedDate",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "MostRecentDocumentTitle",
                     "show": true,
                     "type": "text"
                 },
                 {
                     "name": "HideDocumentCategories",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "ShowLastUpdatedDate",
                     "show": true,
                     "type": "text"
                 },
@@ -7525,7 +7458,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "DocumentDownload": {
@@ -7572,7 +7505,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "DocumentOptions": {
@@ -7604,17 +7537,17 @@
                     "type": "text"
                 },
                 {
-                    "name": "ShowLastUpdatedDate",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "MostRecentDocumentTitle",
                     "show": true,
                     "type": "text"
                 },
                 {
                     "name": "HideDocumentCategories",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "ShowLastUpdatedDate",
                     "show": true,
                     "type": "text"
                 },
@@ -7764,12 +7697,12 @@
                     "type": "text"
                 },
                 {
-                    "name": "UploadFileForm",
+                    "name": "ApprovedToUploadFile",
                     "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "ApprovedToUploadFile",
+                    "name": "UploadFileForm",
                     "show": true,
                     "type": "text"
                 },
@@ -7779,7 +7712,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "Documents": {
@@ -7841,12 +7774,12 @@
                     "type": "text"
                 },
                 {
-                    "name": "URL",
+                    "name": "URLLaunchNewBrowser",
                     "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "URLLaunchNewBrowser",
+                    "name": "URL",
                     "show": true,
                     "type": "text"
                 },
@@ -7901,7 +7834,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "Documents2": {
@@ -7958,12 +7891,12 @@
                     "type": "text"
                 },
                 {
-                    "name": "URL",
+                    "name": "URLLaunchNewBrowser",
                     "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "URLLaunchNewBrowser",
+                    "name": "URL",
                     "show": true,
                     "type": "text"
                 },
@@ -8223,11 +8156,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "LoginPassword",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "MailBoxSize",
                     "show": true,
                     "type": "text"
@@ -8263,11 +8191,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "ForwardEmailAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "DisableWebAccess",
                     "show": true,
                     "type": "text"
@@ -8278,7 +8201,17 @@
                     "type": "text"
                 },
                 {
+                    "name": "ForwardEmailAddress",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "AutoReplySubject",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "LoginPassword",
                     "show": true,
                     "type": "text"
                 },
@@ -8322,14 +8255,9 @@
                     "type": "text"
                 },
                 {
-                    "name": "EmailFrom",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "EmailBody",
                     "show": true,
-                    "type": "html"
+                    "type": "text"
                 },
                 {
                     "name": "EmailTable",
@@ -8349,15 +8277,10 @@
                 {
                     "name": "SentEmailList",
                     "show": true,
-                    "type": "attachment"
-                },
-                {
-                    "name": "Approved",
-                    "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "ApprovedBy",
+                    "name": "Approved",
                     "show": true,
                     "type": "text"
                 },
@@ -8378,26 +8301,21 @@
                 },
                 {
                     "name": "EmailFormattingHeaderID",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "EmailFormattingFooterID",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "RecipientDataOnPdf",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "TurnWatermarksOff",
-                    "show": false,
-                    "type": "text"
-                },
-                {
-                    "name": "CreatorEmail",
                     "show": true,
                     "type": "text"
                 },
@@ -8418,57 +8336,57 @@
                 },
                 {
                     "name": "UseDiagonalWatermark",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "UseEmailWatermark",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "UseApprovedDomains",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomEmailList",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "EventBuilderSelected",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "EmailBuilderCustomConfigurationID",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "DocumentNumberAndCategory",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "EmailFieldList",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CreateAutoLoginLinks",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "ALSMDate",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "DocumentTitle",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
@@ -8479,22 +8397,22 @@
                 {
                     "name": "Attachment1",
                     "show": true,
-                    "type": "attachment"
+                    "type": "text"
                 },
                 {
                     "name": "Attachment2",
                     "show": true,
-                    "type": "attachment"
+                    "type": "text"
                 },
                 {
                     "name": "Attachment3",
                     "show": true,
-                    "type": "attachment"
+                    "type": "text"
                 },
                 {
                     "name": "Attachment4",
                     "show": true,
-                    "type": "attachment"
+                    "type": "text"
                 },
                 {
                     "name": "Attachment5",
@@ -8508,32 +8426,32 @@
                 },
                 {
                     "name": "EventStartDate",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "EventEndDate",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Location",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "EnableIcsLink",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "SMSMessage",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "DatabaseIDField",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
@@ -8548,172 +8466,187 @@
                 },
                 {
                     "name": "LinkExpiration",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "UseCancellationLink",
-                    "show": false,
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "EmailFrom",
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "BlogTitle",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "BlogNumberAndCategory",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment7",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment8",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "NewsletterAndCategory",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "NewsletterTitle",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings",
-                    "show": false,
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "ApprovedBy",
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "LinkLocation",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings2",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings3",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings4",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings5",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings6",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings7",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings8",
-                    "show": false,
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CreatorEmail",
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "UnlimitedDownloads",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "TotalSMSCost",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment9",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment10",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment11",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment12",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment13",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment14",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Attachment15",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings9",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings10",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings11",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings12",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings13",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings14",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "CustomGuidSettings15",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 },
                 {
                     "name": "ForceAttachmentLinksToDownload",
-                    "show": false,
+                    "show": true,
                     "type": "text"
                 }
             ],
@@ -8739,7 +8672,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "EmailBuilderCategory": {
@@ -8857,11 +8790,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "DetailName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "DetailSQLFragment",
                     "show": true,
                     "type": "text"
@@ -8873,6 +8801,11 @@
                 },
                 {
                     "name": "PreSelected",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "DetailName",
                     "show": true,
                     "type": "text"
                 }
@@ -8919,7 +8852,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "EmailBuilderFormatting": {
@@ -8951,7 +8884,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "EmailBuilderOptions": {
@@ -9024,11 +8957,6 @@
                 },
                 {
                     "name": "AllowPdfCopy",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DefaultFromEmailAddress",
                     "show": true,
                     "type": "text"
                 },
@@ -9128,6 +9056,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "DefaultFromEmailAddress",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "TwilioAccountID",
                     "show": true,
                     "type": "text"
@@ -9180,12 +9113,12 @@
                     "type": "text"
                 },
                 {
-                    "name": "EmailBuilderTemplateName",
+                    "name": "EmailBuilderTemplateHtml",
                     "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "EmailBuilderTemplateHtml",
+                    "name": "EmailBuilderTemplateName",
                     "show": true,
                     "type": "text"
                 },
@@ -9285,98 +9218,6 @@
             "hidden": true,
             "joins": []
         },
-        "Event": {
-            "display": "Event",
-            "fields": [
-                {
-                    "name": "Eventid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Picture",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Attachment",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSFormName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EventCategory",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Title",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SubTitle",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EventDate",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EndDate",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DetailedDescription",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Link",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LinkText",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PictureCaption",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AttachmentText",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "guid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IPAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FormTimeStamp",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
         "EventBuilder": {
             "display": "EventBuilder",
             "fields": [
@@ -9402,6 +9243,11 @@
                 },
                 {
                     "name": "RegistrationHeader",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "MaxAttend",
                     "show": true,
                     "type": "text"
                 },
@@ -9436,6 +9282,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "FlyerPDF",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "FlyerWordDoc",
                     "show": true,
                     "type": "text"
@@ -9466,17 +9317,17 @@
                     "type": "text"
                 },
                 {
+                    "name": "NotifiedOfMax",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "Secure",
                     "show": true,
                     "type": "text"
                 },
                 {
                     "name": "Private",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NotifiedOfMax",
                     "show": true,
                     "type": "text"
                 },
@@ -9507,6 +9358,71 @@
                 },
                 {
                     "name": "DoNotShowFlyerOnEventList",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_HIDTAAbbrev",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_Duration",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_MinAttend",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_Provider",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_ProviderAbbrv",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_ProviderState",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_Instructors",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_CostPerClass",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_CourseCategory",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_DataEntryFN",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_DataEntryLN",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_FinalRoster",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Custom_Audience",
                     "show": true,
                     "type": "text"
                 },
@@ -9616,6 +9532,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "Custom_ContinuingEdNumber",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "InternalNotes",
                     "show": true,
                     "type": "text"
@@ -9686,6 +9607,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "CertificateCityState",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "EventBuilderCosponsorsID",
                     "show": true,
                     "type": "text"
@@ -9741,31 +9667,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "EventBuilderCardProcessingID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FlyerPDF2Label",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CertificateDescription",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FlyerPDF",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FlyerPDF2",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "ConfirmationAttachment1FileName",
                     "show": true,
                     "type": "text"
@@ -9796,12 +9697,27 @@
                     "type": "text"
                 },
                 {
-                    "name": "SecondSendToHeader",
+                    "name": "EventBuilderCardProcessingID",
                     "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "MaxAttend",
+                    "name": "FlyerPDF2",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "FlyerPDF2Label",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CertificateDescription",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SecondSendToHeader",
                     "show": true,
                     "type": "text"
                 },
@@ -9867,11 +9783,6 @@
                 },
                 {
                     "name": "SecondSendToApproval",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CertificateCityState",
                     "show": true,
                     "type": "text"
                 },
@@ -10086,7 +9997,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": true,
+            "hidden": false,
             "joins": []
         },
         "EventBuilderApprovalLevel": {
@@ -10358,7 +10269,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": true,
+            "hidden": false,
             "joins": []
         },
         "EventBuilderOptions": {
@@ -10995,7 +10906,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": true,
+            "hidden": false,
             "joins": []
         },
         "EventBuilderSummaryEmail": {
@@ -11074,7 +10985,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "EventPDF": {
@@ -11096,7 +11007,304 @@
                     "type": "text"
                 }
             ],
-            "hidden": true,
+            "hidden": false,
+            "joins": []
+        },
+        "EventRegistration": {
+            "display": "EventRegistration",
+            "fields": [
+                {
+                    "name": "EventRegistrationID",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "FormTimeStamp",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "FirstName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "LastName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "fullname",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "PositionTitleRank",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Affiliation",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "AffiliationOther",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Address",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "City",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "State",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "ZipCode",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "EmailAddress",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "PhoneWork",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "MobilePhone",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "EventFormName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "EventFormNameWaitingList",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "EventFormNameCancelled",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Cancelled",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "DateCancelled",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "DidNotAttend",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SpecialNeeds",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "ContinuingEdCredits",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "ContinuingEdCreditsOther",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "EventCost",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SupervisorApproval",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "WorkshopPreference1",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "WorkshopPreference2",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "WorkshopPreference3",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "WorkshopPreference4",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CCFirstName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CCLastName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CCAddress",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CCNumber",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CCExpire",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CCSecurityCode",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CCZip",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CCCountry",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "AuthorizationCode",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "IPAddress",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "DoNotSend",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "guid",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "RespondByStart",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SentCertificate",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SurveyCompleted",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "EventBuilderApprovalLevelID",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SupervisorName",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SupervisorPositionTitleRank",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SupervisorPhone",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SupervisorEmailAddress",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "InternalNotes",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SubmitReg",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "AgencyOrganization",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Phone",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Presenter",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "RegFormType",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "WorkPhone",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Processed",
+                    "show": true,
+                    "type": "text"
+                }
+            ],
+            "hidden": false,
             "joins": []
         },
         "Events": {
@@ -11193,7 +11401,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "FAQ": {
@@ -11235,7 +11443,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "FontFace": {
@@ -11461,11 +11669,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "EmailSubject",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "DisableEmails",
                     "show": true,
                     "type": "text"
@@ -11502,16 +11705,6 @@
                 },
                 {
                     "name": "SendToEmail",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FormReceiptEmailSubject",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedLetterSubject",
                     "show": true,
                     "type": "text"
                 },
@@ -11766,6 +11959,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "FormReceiptEmailSubject",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "EmbedImages",
                     "show": true,
                     "type": "text"
@@ -11792,6 +11990,16 @@
                 },
                 {
                     "name": "RestrictAccessByIPAddress",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "EmailSubject",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "ApprovedLetterSubject",
                     "show": true,
                     "type": "text"
                 },
@@ -12190,7 +12398,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "FrontPageDetail": {
@@ -12203,11 +12411,6 @@
                 },
                 {
                     "name": "FrontPageID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Type",
                     "show": true,
                     "type": "text"
                 },
@@ -12432,6 +12635,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "Type",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "FrontPageLeftPanel",
                     "show": true,
                     "type": "text"
@@ -12457,7 +12665,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "FrontPageTypes": {
@@ -12725,1074 +12933,11 @@
             "hidden": true,
             "joins": []
         },
-        "ICEFISHSubmitIntel": {
-            "display": "ICEFISHSubmitIntel",
-            "fields": [
-                {
-                    "name": "ICEFISHSubmitIntelID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ContactName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Title",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EmailAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DaytimePhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "County",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "State",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SurveillanceActivity",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MiscTerrorismActivity",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LostStolenDocuments",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "HotelMotelVisits",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LostStolenUniformID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "RecruitmentTechniques",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "WeaponsAcquisition",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SuspiciousItems",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "VehicleEqupTheft",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SuspiciousTransportation",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CriminalIntelligence",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ForeignIntelligence",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CaseSensitive",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "BriefSummary",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DocumentAttached",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AttachmentFileName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Submit",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IncidentNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FormTimeStamp",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "InternalNotes",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AssignedTo",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DateCompleted",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GuardianReferenceNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IPAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReferringURL",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AgencyName",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
-        "ICEFishMemberType": {
-            "display": "ICEFishMemberType",
-            "fields": [
-                {
-                    "name": "ICEFISHMemberTypeID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MemberType",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
-        "ICEFishRegistration": {
-            "display": "ICEFishRegistration",
-            "fields": [
-                {
-                    "name": "ICEFishRegistrationID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FormTimeStamp",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MemberType",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApplicationType",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ContactName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FirstName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LastName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AgencyORI",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Address2",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "City",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "County",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "State",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Zip",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EmailAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ConfirmEmailAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NotificationPreference",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DaytimePhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MobilePhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceiveTextMessages",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MobileProvider",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MobileEmail",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TextMessaging",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Phone24Hour",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PagerProvider",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PagerNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PagerEmail",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SupervisorDaytimePhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Submit",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DescriptionOfFacility",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GPSCoordinates",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReviewedBy",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DateReviewed",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "InternalNotes",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Approved",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedLawEnforcementMilitary",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedCorporateOrganization",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedFirstRespondersGovt",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LeadersList",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Disapproved",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SendApprovalLetter",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DeleteAndEmail",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Password",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TCSPApplicant",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TCSPApplied",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TCSPApproved",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CompanyName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LastUpdate",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SupervisorName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IPAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SectorOther",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CellProvider",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CellEmail",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Address1",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SpecialList",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SupervisorEmailAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SupervisorTitle",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReferringURL",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Terms",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IAgree",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DoNotSend",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LEAgencyType",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRSectorNotSpecified",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRAgricultureAndFood",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRBankingAndFinance",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRChemical",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCommercialFacilities",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCommunications",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCriticalManufacturing",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRDams",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRDefenseIndustrialBase",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKREmergencyServices",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKREnergy",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRGovernmentFacilities",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRInformationTechnology",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRNuclearReactorsMaterialWaste",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRNationalMonumentsAndIcons",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRNuclearReactors",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRPostalAndShipping",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRPublicHealthAndHealthCare",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRTransportationSystems",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIRKWater",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NoDailyBrief",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "C_NSDTS",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSBounceSoft",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSBounceHard",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "guid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GovtState",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "OfficerDeputy",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GovtCounty",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NationalGuard",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GovtCity",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Hazmat",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Army",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AirForce",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CorporateSecurity",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ITSecurity",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ExecManagement",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Intelligence",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SWAT",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EmergencyManager",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ChiefPoliceSheriff",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Detective",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "HostageNegotiators",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CollegesUniversities",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Analyst",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GovtFederalAgency",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "BombSquad",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Fire",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Transportation",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "WomensClinic",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CargoCarriers",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Paramedic",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GovtLocalAgency",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PublicHealthAgency",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LicensedPrivateSecurity",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "RetailFacilities",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "BanksCreditUnions",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CommercialOfficeBldgs",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "HighRiseBuildings",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PerformanceFacility",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ShoppingMall",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "StadiumArenaConvention",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MovieTheatres",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Highways",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Trucking",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Rail",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Maritime",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Aviation",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Navy",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ChemicalTransport",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Elected",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GovtJusticeLegal",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Hospitals",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Petroleum",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Chemicals",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Telecommunications",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "HotelResortFacilities",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApartmentsCondos",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "K12",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Agriculture",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "WasteWaterTreatment",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "RadioactiveMedical",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Marines",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "BacterialAgentHandling",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ViralAgentHandling",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CoastGuard",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Electrical",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CorrectionalInstitutions",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "VolunteerOrganization",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Title",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Laboratory",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MassTransit",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ChemicalMfgStorage",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CarTruckRental",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ExplosivesMfgStorage",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ExplosivesTransport",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AmusementParks",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ResearchAcademic",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "WaterSupply",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TravelAgents",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Pipeline",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Terminals",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GasProviders",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Nuclear",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Securities",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TankFarms",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ChemicalAgriculture",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TLO",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedNarcotics",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
-        "ICEFishTeamMembers": {
-            "display": "ICEFishTeamMembers",
-            "fields": [
-                {
-                    "name": "CTIGTeamMembersID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TeamMember",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
         "ImageGallery": {
             "display": "ImageGallery",
             "fields": [
                 {
                     "name": "ImageGalleryID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "GalleryName",
                     "show": true,
                     "type": "text"
                 },
@@ -13940,9 +13085,14 @@
                     "name": "GUID",
                     "show": true,
                     "type": "text"
+                },
+                {
+                    "name": "GalleryName",
+                    "show": true,
+                    "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "ImageGalleryImage": {
@@ -14039,7 +13189,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "ImageGalleryOptions": {
@@ -14223,11 +13373,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "NSTrackingNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "Anonymous",
                     "show": true,
                     "type": "text"
@@ -14263,22 +13408,12 @@
                     "type": "text"
                 },
                 {
-                    "name": "Keywords",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "PublicStatusNotes",
                     "show": true,
                     "type": "text"
                 },
                 {
                     "name": "LastUpdated",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Email",
                     "show": true,
                     "type": "text"
                 },
@@ -14309,31 +13444,6 @@
                 },
                 {
                     "name": "SubmitterFullName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File1",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File2",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File3",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File4",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File5",
                     "show": true,
                     "type": "text"
                 },
@@ -14388,6 +13498,11 @@
                     "type": "text"
                 },
                 {
+                    "name": "ProblemTime",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "GenericField21",
                     "show": true,
                     "type": "text"
@@ -14438,11 +13553,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "ProblemTime",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "Problem",
                     "show": true,
                     "type": "text"
@@ -14469,31 +13579,6 @@
                 },
                 {
                     "name": "MostWantedTop10",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File6",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File7",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File8",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File9",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File10",
                     "show": true,
                     "type": "text"
                 },
@@ -14538,17 +13623,62 @@
                     "type": "text"
                 },
                 {
-                    "name": "CompanyName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Address",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "PhoneNumber",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "NSTrackingNumber",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File1",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File2",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File3",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File4",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File5",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File6",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File7",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File8",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File9",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "File10",
                     "show": true,
                     "type": "text"
                 },
@@ -14618,7 +13748,22 @@
                     "type": "text"
                 },
                 {
+                    "name": "Address",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "CallSign",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Keywords",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CompanyName",
                     "show": true,
                     "type": "text"
                 },
@@ -14666,9 +13811,14 @@
                     "name": "MostWantedStatusEmail",
                     "show": true,
                     "type": "text"
+                },
+                {
+                    "name": "Email",
+                    "show": true,
+                    "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "IncidentMapCategory": {
@@ -14801,11 +13951,6 @@
                 },
                 {
                     "name": "SuspectsLabelText",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PostCommentTitle",
                     "show": true,
                     "type": "text"
                 },
@@ -15020,17 +14165,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "CommentNotifyLabel1",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "CommentNotifyField2",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CommentNotifyLabel2",
                     "show": true,
                     "type": "text"
                 },
@@ -15040,27 +14175,12 @@
                     "type": "text"
                 },
                 {
-                    "name": "CommentNotifyLabel3",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "CommentNotifyField4",
                     "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "CommentNotifyLabel4",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "CommentNotifyField5",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CommentNotifyLabel5",
                     "show": true,
                     "type": "text"
                 },
@@ -15115,7 +14235,37 @@
                     "type": "text"
                 },
                 {
+                    "name": "CommentNotifyLabel1",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CommentNotifyLabel2",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CommentNotifyLabel3",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CommentNotifyLabel4",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CommentNotifyLabel5",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "FieldsToPreselect",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "PostCommentTitle",
                     "show": true,
                     "type": "text"
                 },
@@ -15130,7 +14280,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "IncidentMapComments": {
@@ -15276,7 +14426,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "IncidentMapOptions": {
@@ -15808,7 +14958,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "IncidentMapStatus": {
@@ -17042,33 +16192,11 @@
             "hidden": true,
             "joins": []
         },
-        "LEAgencyType": {
-            "display": "LEAgencyType",
-            "fields": [
-                {
-                    "name": "LEAgencyTypeID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LEAgencyType",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": true,
-            "joins": []
-        },
         "LinkCategory": {
             "display": "LinkCategory",
             "fields": [
                 {
                     "name": "LinkCategoryID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CategoryDescription",
                     "show": true,
                     "type": "text"
                 },
@@ -17093,11 +16221,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "Category",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "CategoryCSS",
                     "show": true,
                     "type": "text"
@@ -17108,12 +16231,22 @@
                     "type": "text"
                 },
                 {
+                    "name": "Category",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "CategoryDescription",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "HideDescription",
                     "show": true,
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "LinkDownloadHistory": {
@@ -17155,7 +16288,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "Links": {
@@ -17202,7 +16335,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "MailList": {
@@ -17737,11 +16870,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "LostYourPasswordPhrase",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "ForgotPasswordEmailPrompt",
                     "show": true,
                     "type": "text"
@@ -17773,6 +16901,11 @@
                 },
                 {
                     "name": "MenugroupWidth",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "LostYourPasswordPhrase",
                     "show": true,
                     "type": "text"
                 },
@@ -18241,11 +17374,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "Style",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "ActiveMenuImage",
                     "show": true,
                     "type": "text"
@@ -18406,12 +17534,17 @@
                     "type": "text"
                 },
                 {
-                    "name": "DirectLinkPDF",
+                    "name": "DisableClickThrough",
                     "show": true,
                     "type": "text"
                 },
                 {
-                    "name": "DisableClickThrough",
+                    "name": "Style",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "DirectLinkPDF",
                     "show": true,
                     "type": "text"
                 },
@@ -18511,7 +17644,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "MessageboardForums": {
@@ -18548,7 +17681,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "MessageboardMessages": {
@@ -18637,7 +17770,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "MessageboardProfile": {
@@ -18674,7 +17807,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "MessageboardThreadProfile": {
@@ -18753,7 +17886,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "NewsLetter": {
@@ -18796,11 +17929,6 @@
                 },
                 {
                     "name": "RealMediaFile",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "URLDescription",
                     "show": true,
                     "type": "text"
                 },
@@ -18878,9 +18006,14 @@
                     "name": "guid",
                     "show": true,
                     "type": "text"
+                },
+                {
+                    "name": "URLDescription",
+                    "show": true,
+                    "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "NewsLetterCategory": {
@@ -19112,7 +18245,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "NewsLetterPicture": {
@@ -19149,7 +18282,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "NewsletterComments": {
@@ -19263,118 +18396,6 @@
             "hidden": true,
             "joins": []
         },
-        "Organizations": {
-            "display": "Organizations",
-            "fields": [
-                {
-                    "name": "OrganizationsID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Organization",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Type",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "StateName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "OA",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MainPhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Email",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Hours",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LeadPhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Address1",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Address2",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "City",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "State",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Zip",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Website",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "RFIDocument",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "InternalNotes",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DoNotSend",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "guid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSBounceSoft",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSBounceHard",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
         "PDFTableMerge": {
             "display": "PDFTableMerge",
             "fields": [
@@ -19441,7 +18462,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "PasswordFailures": {
@@ -20446,7 +19467,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "ProductSelector": {
@@ -20865,7 +19886,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "RandomInfo": {
@@ -20919,7 +19940,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "RecentlyUpdatedOptions": {
@@ -20942,608 +19963,6 @@
                 }
             ],
             "hidden": true,
-            "joins": []
-        },
-        "Registrations": {
-            "display": "Registrations",
-            "fields": [
-                {
-                    "name": "RegistrationsID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FormTimeStamp",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSFormName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MemberType",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PositionTitleRank",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AgencyORI",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AgencyOrganization",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "AgencyType",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FirstName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LastName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Address1",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "City",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "County",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "State",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Zip",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EmailAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DaytimePhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MobilePhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MobileProvider",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MobileEmail",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceiveTextMessages",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Phone24Hour",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PagerNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "password",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SupervisorName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SupervisorTitle",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SupervisorDaytimePhone",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SupervisorEmailAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRAgricultureAndFood",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRAgricultureAndFoodSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRBankingAndFinance",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRBankingAndFinanceSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRChemical",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRChemicalSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCommercialFacilites",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCommercialFacilitiesSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCommunications",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCommunicationsSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCriticalManufacturing",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRCriticalManufacturingSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRDams",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRDamsSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRDefenseIndustrialBase",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRDefenseIndustrialBaseSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKREnergy",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKREnergySubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKREmergencyServices",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKREmergencyServicesSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRGovernmentFacilities",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRGovernmentFacilitiesSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRHealthcareAndPublicHealth",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRHealthcareAndPublicHealthSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRInformationTechnology",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRInformationTechnologySubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRNuclearReactorsMaterialWaste",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRNuclearReactorsMaterialsWasteSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRTransportationSystems",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRTransportationSystemsSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRWater",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRWaterSubset",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "CIKRSectorNotSpecified",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DescriptionOfFacility",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedMenu",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedNav",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedSecondNav",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedLawEnforcement",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedNarcotics",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedMilitaryForceProtection",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedFirstResponder",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedRegionalLiasonOfficer",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedGovernment",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedPrivateSector",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedGang",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SendApprovalLetter",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "InternalNotes",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IAgree",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LastUpdate",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "guid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IPAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DoNotSend",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NoDailyBrief",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReviewedBy",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DateReviewed",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LeadersList",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SpecialList",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedTLO",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Address2",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSBounceSoft",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSBounceHard",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReferringURL",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NotInDirectory",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Latitude",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Longitude",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IconName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "DoNotDisplay",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Attachment",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "C_NSXSS",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "BypassPinSecurity",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EmailAttachmentsOnly",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedSchoolResourceOfficer",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Deactivated",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Declined",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ApprovedFOUOPartners",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "TennessenWarning",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EmailAddressConfirm",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceivePartnersBrief",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceiveNarcoticsBulletin",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceiveSROBulletin",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceiveMNDOCVORReport",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceiveTrainingBulletins",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceiveLawEnforcementBrief",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Receive_S_R_O_Bulletin",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReceiveTrainingBulletin",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Canadian",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Tennessen_Warning",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SpecialList2",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SpecialList3",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "C_NSDTS",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "fullname",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
             "joins": []
         },
         "ReminderEmails": {
@@ -21789,7 +20208,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "RoutingContact": {
@@ -22208,7 +20627,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "SecurePortals": {
@@ -22490,7 +20909,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "ShippingCost": {
@@ -23104,7 +21523,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "ShoppingCart": {
@@ -23773,6 +22192,31 @@
                     "type": "text"
                 },
                 {
+                    "name": "properties",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "Totalquan",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "VendorID",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "VendorAccount",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "OneTimeSetupFee",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "price",
                     "show": true,
                     "type": "text"
@@ -23794,11 +22238,6 @@
                 },
                 {
                     "name": "casequan",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "properties",
                     "show": true,
                     "type": "text"
                 },
@@ -23848,11 +22287,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "Totalquan",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "FreeShipping",
                     "show": true,
                     "type": "text"
@@ -23874,16 +22308,6 @@
                 },
                 {
                     "name": "SalesTaxExempt",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "VendorID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "VendorAccount",
                     "show": true,
                     "type": "text"
                 },
@@ -23929,11 +22353,6 @@
                 },
                 {
                     "name": "DetailScreenType",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "OneTimeSetupFee",
                     "show": true,
                     "type": "text"
                 },
@@ -24429,7 +22848,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "Subscription": {
@@ -25227,11 +23646,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "SurveyName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "SurveyData",
                     "show": true,
                     "type": "text"
@@ -25243,6 +23657,11 @@
                 },
                 {
                     "name": "SurveyDateTime",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SurveyName",
                     "show": true,
                     "type": "text"
                 },
@@ -25260,11 +23679,6 @@
             "fields": [
                 {
                     "name": "SurveyFormID",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "SurveyFormName",
                     "show": true,
                     "type": "text"
                 },
@@ -25345,6 +23759,11 @@
                 },
                 {
                     "name": "CreationDate",
+                    "show": true,
+                    "type": "text"
+                },
+                {
+                    "name": "SurveyFormName",
                     "show": true,
                     "type": "text"
                 },
@@ -25703,98 +24122,6 @@
             "hidden": true,
             "joins": []
         },
-        "TrainingRequest": {
-            "display": "TrainingRequest",
-            "fields": [
-                {
-                    "name": "TrainingRequestid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FormTimeStamp",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSFormName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FirstName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "LastName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "EmailAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PhoneNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PhoneExtension",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "MemberType",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "PostNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "guid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IPAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSTrackingNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Approved",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "InternalNotes",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReferringURL",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "fullname",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
         "Twitter": {
             "display": "Twitter",
             "fields": [
@@ -25998,98 +24325,6 @@
             "hidden": true,
             "joins": []
         },
-        "VehicleConcealment": {
-            "display": "VehicleConcealment",
-            "fields": [
-                {
-                    "name": "VehicleConcealmentid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "FormTimeStamp",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSTrackingNumber",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "NSFormName",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "VehicleType",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "VehicleMake",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "VehicleModel",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ConcealmentLocation",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ConcealmentNotes",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File1",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File2",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File3",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "File4",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "IPAddress",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "guid",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "ReferringURL",
-                    "show": true,
-                    "type": "text"
-                },
-                {
-                    "name": "Approved",
-                    "show": true,
-                    "type": "text"
-                }
-            ],
-            "hidden": false,
-            "joins": []
-        },
         "Vendors": {
             "display": "Vendors",
             "fields": [
@@ -26236,11 +24471,6 @@
                     "type": "text"
                 },
                 {
-                    "name": "VideoTitle",
-                    "show": true,
-                    "type": "text"
-                },
-                {
                     "name": "SubmitToTwitter",
                     "show": true,
                     "type": "text"
@@ -26264,9 +24494,14 @@
                     "name": "Tags",
                     "show": true,
                     "type": "text"
+                },
+                {
+                    "name": "VideoTitle",
+                    "show": true,
+                    "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "VideoCategory": {
@@ -26353,7 +24588,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "VideoDownload": {
@@ -26400,7 +24635,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "VideoHistory": {
@@ -26504,7 +24739,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         }
     }
