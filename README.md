@@ -16,72 +16,41 @@ For example, for each table you choose which fields are interesting and should b
 
 To run BlueLeaks Explorer on your computer, you need [Docker](https://www.docker.com/products/docker-desktop/) installed.
 
-When you run the [BlueLeaks Explorer Docker image](https://hub.docker.com/r/micahflee/blueleaks-explorer/tags), you must mount these volumes:
+### Create Your docker-compose.yaml
 
-* `/data/blueleaks`: Path to extracted BlueLeaks data (for example, `/Volumes/datasets/BlueLeaks-extracted`)
-* `/data/databases`: Folder for sqlite3 databases
-* `/data/structures`: Folder for structure JSON files
-* `/data/structures-default`: Folder for default structure JSON files
+Create a new folder for your BlueLeaks Explorer data, which will take up about 5GB of data. Create a file in that folder called `docker-compose.yaml`, and copy and paste this into it:
 
-Before you can run it for the first time, you must build the default structures and then import data from all of the CSV files into SQLite databases. You can do this by running `poetry run ./app.py init` in the container, like this:
-
-```sh
-# Build the default structures
-docker run \
-    -p 8080:8080 \
-    -v /Volumes/datasets/BlueLeaks-extracted/:/data/blueleaks \
-    -v $(pwd)/databases:/data/databases \
-    -v $(pwd)/structures:/data/structures \
-    -v $(pwd)/structures-default:/data/structures-default \
-    micahflee/blueleaks-explorer \
-    poetry run ./app.py init
+```yaml
+version: "3.9"
+    
+services:
+  blueleaks-explorer:
+    image: micahflee/blueleaks-explorer:latest
+    ports:
+      - "8000:80"
+    volumes:
+      - /Volumes/datasets/BlueLeaks-extracted:/data/blueleaks
+      - ./databases:/data/databases
+      - ./structures:/data/structures
+      - ./structures-default:/data/structures-default
 ```
 
-Building the default structures will create a 98mb of JSON files in the `structures/default` folder. And importing will take a long time and create 4.7gb of sqlite3 databases in your `databases` folder.
+Under `volumes`, replace `/Volumes/datasets/BlueLeaks-extracted` with the path to the extracted BlueLeaks dataset on your computer.
 
-And you need to install node modules and build the js bundle:
-
-```sh
-cd src/frontend
-npm install
-./build.js
-```
-
-Then start the server:
+Open a terminal, change to your BlueLeaks Explorer folder, and run:
 
 ```sh
-cd src
-./app.py server --blueleaks-path /media/user/blueleaks/
+docker-compose up
 ```
 
-If you're actively developing, you can also monitor for changes and rebuild the frontend with:
+Wait for the `blueleaks-explorer` container to start.
+
+### Initialize BlueLeaks Explorer
+
+The first time you use BlueLeaks Explorer you must run the initialize script. This will build the default structures and then import data from all of the CSV files into SQLite databases. Do this by running:
 
 ```sh
-cd src/frontend
-npm run dev
+docker-compose exec blueleaks-explorer poetry run ./initialize.py
 ```
 
-## Docker
-
-To build the docker container:
-
-```sh
-docker build src -t blueleaks-explorer
-```
-
-Then to run the container mounting these volumes:
-
-* `/data/blueleaks`: Extracted BlueLeaks data
-* `/data/databases`: Directory for sqlite3 databases
-* `/data/structures`: Directory for structure JSON files
-* `/data/structures-default`: Directory for default structure JSON files
-
-```sh
-docker run \
-    -p 8080:8080 \
-    -v /media/user/blueleaks/:/data/blueleaks \
-    -v $(pwd)/databases:/data/databases \
-    -v $(pwd)/structures:/data/structures \
-    -v $(pwd)/structures-default:/data/structures-default \
-    blueleaks-explorer
-```
+Building the default structures will create a 98mb of JSON files in the `structures-default` folder. And importing will take a long time and create 4.7gb of sqlite3 databases in your `databases` folder.
