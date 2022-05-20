@@ -1,6 +1,6 @@
 # BlueLeaks Explorer
 
-Software for journalists to use to inspect all of the data in the BlueLeaks dump.
+BlueLeaks Explorer is open source software for journalists to investigate all of the data in the [BlueLeaks dataset](https://ddosecrets.com/wiki/BlueLeaks).
 
 ## Getting started
 
