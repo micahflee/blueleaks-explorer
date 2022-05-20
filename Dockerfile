@@ -33,10 +33,11 @@ RUN cd frontend && npm install
 RUN cd frontend && export NODE_OPTIONS=--openssl-legacy-provider && ./build.js
 
 # Environment
+ENV BLE_BLUELEAKS_PATH=/data/blueleaks
 ENV BLE_DATABASES_DIR=/data/databases
 ENV BLE_STRUCTURES_DIR=/data/structures
 ENV BLE_DEFAULT_STRUCTURES_DIR=/data/structures-default
 
 # Execute
 EXPOSE 8080
-CMD ["poetry", "run", "./app.py", "server", "--blueleaks-path", "/data/blueleaks"]
+CMD ["poetry", "run", "./app.py", "server"]

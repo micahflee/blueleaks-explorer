@@ -6,6 +6,8 @@ import sqlite3
 
 from .common import sanitize_field_name, get_databases_dir, get_default_structures_dir
 
+blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
+
 
 def exec_sql(c, sql):
     try:
@@ -42,7 +44,7 @@ def progress_2(site, table=None, row_count=None):
     click.echo(s, nl=False)
 
 
-def load_file(dbs_dirname, blueleaks_path, path):
+def load_file(dbs_dirname, path):
     print(f"load_file: {path}")
     with open(path) as f:
         structure = json.load(f)
@@ -112,7 +114,7 @@ def is_struct_json(filename):
     return filename.find(".json") > -1
 
 
-def run(blueleaks_path):
+def run():
     root_dir = "../"
 
     dbs_dirname = get_databases_dir()
@@ -122,6 +124,5 @@ def run(blueleaks_path):
         if is_struct_json(filename):
             load_file(
                 dbs_dirname,
-                blueleaks_path,
                 os.path.join(default_structures_dir, filename),
             )

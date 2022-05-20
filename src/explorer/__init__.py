@@ -16,28 +16,19 @@ def main():
 
 
 @main.command("import", short_help="Import data into sqlite3 databases")
-@click.option(
-    "--blueleaks-path", required=True, help="Path to extracted BlueLeaks data",
-)
-def import_data(blueleaks_path):
+def import_data():
     init()
-    run_import_data(blueleaks_path)
+    run_import_data()
 
 
 @main.command("server", short_help="Start server")
-@click.option(
-    "--blueleaks-path", required=True, help="Path to extracted BlueLeaks data",
-)
-def server(blueleaks_path):
+def server():
     init()
-    run_server(blueleaks_path)
+    run_server()
 
 
 @main.command(
     "structure", short_help="Build default structures based on data",
 )
-@click.option(
-    "--blueleaks-path", required=True, help="Path to extracted BlueLeaks data",
-)
-def structure(blueleaks_path):
-    run_structure(blueleaks_path)
+def structure():
+    run_structure()

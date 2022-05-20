@@ -7,10 +7,9 @@ from flask import Flask, jsonify, render_template, abort, send_file, request
 
 from .common import get_databases_dir, get_structures_dir, get_default_structures_dir
 
-app = Flask(__name__)
+blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
 
-# This gets set below in run()
-blueleaks_path = None
+app = Flask(__name__)
 
 # Keep track of structures in memory
 structures = {}
@@ -539,7 +538,5 @@ def api_join(site, table, join_name, item_id):
     )
 
 
-def run(new_blueleaks_path):
-    global blueleaks_path, structure
-    blueleaks_path = new_blueleaks_path
+def run():
     app.run("0.0.0.0", "8080")

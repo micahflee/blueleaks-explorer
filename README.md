@@ -4,6 +4,9 @@ BlueLeaks Explorer is open source software for journalists to investigate all of
 
 ## Getting started
 
+To run BlueLeaks Explorer on your computer, you need [Docker](https://www.docker.com/products/docker-desktop/) installed.
+
+
 You need to build the default structures and then import the data, like:
 
 ```sh

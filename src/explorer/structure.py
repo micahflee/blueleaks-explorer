@@ -6,8 +6,9 @@ from glob import glob
 
 from .common import sanitize_field_name, get_default_structures_dir
 
+blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
 
-def run(blueleaks_path):
+def run():
     # Find all folders that have tables (CSV files)
     for site in os.listdir(blueleaks_path):
         if os.path.isdir(os.path.join(blueleaks_path, site)):
