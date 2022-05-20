@@ -1,54 +1,3 @@
-<style scoped>
-.label {
-  font-weight: bold;
-}
-
-.html-value {
-  background-color: white;
-  max-width: 100%;
-  max-height: 600px;
-  overflow: auto;
-}
-
-ul.survey-results {
-  list-style: square;
-  padding-left: 1em;
-}
-ul.survey-results .question {
-  font-style: italic;
-  color: #666666;
-}
-</style>
-
-<template>
-  <div v-if="field['show'] && value != ''">
-    <span class="label">{{ field['name'] }}:</span>
-    <span v-if="field['type'] == 'text'">{{ value }}</span>
-    <span v-else-if="field['type'] == 'pre'">
-      <pre>{{ preValue(value) }}</pre>
-    </span>
-    <span v-else-if="field['type'] == 'html'">
-      <div class="html-value" v-html="htmlValue(value)"></div>
-    </span>
-    <span v-else-if="field['type'] == 'image'">
-      <img v-bind:src="attachmentUrl(value)" />
-    </span>
-    <span v-else-if="field['type'] == 'attachment'">
-      <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
-    </span>
-    <span v-else-if="field['type'] == 'survey'">
-      <ul class="survey-results">
-        <li v-for="result in surveyValue(value)">
-          <span class="question">{{ result['question'] }}</span>
-          <br />
-          <span class="answer">{{ result['answer'] }}</span>
-        </li>
-      </ul>
-    </span>
-    <span v-else>Unimplemented field type: {{ field['type'] }}</span>
-  </div>
-</template>
-
 <script>
 export default {
   props: ["site", "table", "field", "value"],
@@ -104,3 +53,55 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div v-if="field['show'] && value != ''">
+    <span class="label">{{ field['name'] }}:</span>
+    <span v-if="field['type'] == 'text'">{{ value }}</span>
+    <span v-else-if="field['type'] == 'pre'">
+      <pre>{{ preValue(value) }}</pre>
+    </span>
+    <span v-else-if="field['type'] == 'html'">
+      <div class="html-value" v-html="htmlValue(value)"></div>
+    </span>
+    <span v-else-if="field['type'] == 'image'">
+      <img v-bind:src="attachmentUrl(value)" />
+    </span>
+    <span v-else-if="field['type'] == 'attachment'">
+      <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
+    </span>
+    <span v-else-if="field['type'] == 'survey'">
+      <ul class="survey-results">
+        <li v-for="result in surveyValue(value)">
+          <span class="question">{{ result['question'] }}</span>
+          <br />
+          <span class="answer">{{ result['answer'] }}</span>
+        </li>
+      </ul>
+    </span>
+    <span v-else>Unimplemented field type: {{ field['type'] }}</span>
+  </div>
+</template>
+
+<style scoped>
+.label {
+  font-weight: bold;
+}
+
+.html-value {
+  background-color: white;
+  max-width: 100%;
+  max-height: 600px;
+  overflow: auto;
+}
+
+ul.survey-results {
+  list-style: square;
+  padding-left: 1em;
+}
+
+ul.survey-results .question {
+  font-style: italic;
+  color: #666666;
+}
+</style>

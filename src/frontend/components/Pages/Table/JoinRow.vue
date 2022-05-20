@@ -1,3 +1,35 @@
+<script>
+import JoinCell from "./JoinCell.vue";
+
+export default {
+  props: ["site", "table", "row", "fields", "headers"],
+  methods: {
+    permalink: function (id) {
+      return "/" + this.site + "/" + this.table + "/" + id;
+    },
+  },
+  components: {
+    JoinCell: JoinCell,
+  },
+};
+</script>
+
+<template>
+  <div>
+    <ul class="fields">
+      <li v-for="field in fields" class="field">
+        <JoinCell v-bind:site="site" v-bind:table="table" v-bind:field="field"
+          v-bind:value="row[headers.indexOf(field['name'])]"></JoinCell>
+      </li>
+    </ul>
+    <ul class="buttons">
+      <li>
+        <router-link class="button secondary" v-bind:to="permalink(row[0])">Permalink</router-link>
+      </li>
+    </ul>
+  </div>
+</template>
+
 <style scoped>
 ul.fields,
 ul.hidden-fields {
@@ -16,39 +48,3 @@ ul.buttons li {
   margin: 0 10px 0 0;
 }
 </style>
-
-<template>
-  <div>
-    <ul class="fields">
-      <li v-for="field in fields" class="field">
-        <JoinCell
-          v-bind:site="site"
-          v-bind:table="table"
-          v-bind:field="field"
-          v-bind:value="row[headers.indexOf(field['name'])]"
-        ></JoinCell>
-      </li>
-    </ul>
-    <ul class="buttons">
-      <li>
-        <router-link class="button secondary" v-bind:to="permalink(row[0])">Permalink</router-link>
-      </li>
-    </ul>
-  </div>
-</template>
-
-<script>
-import JoinCell from "./JoinCell.vue";
-
-export default {
-  props: ["site", "table", "row", "fields", "headers"],
-  methods: {
-    permalink: function (id) {
-      return "/" + this.site + "/" + this.table + "/" + id;
-    },
-  },
-  components: {
-    JoinCell: JoinCell,
-  },
-};
-</script>

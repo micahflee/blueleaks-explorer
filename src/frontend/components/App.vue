@@ -1,3 +1,28 @@
+<template>
+  <div>
+    <header>
+      <h1>
+        <i class="fas fa-cat"></i> BlueLeaks Explorer
+      </h1>
+      <ul>
+        <li>
+          <i class="fas fa-user-astronaut"></i>
+          <router-link to="/">Explore Data</router-link>
+        </li>
+        <li>
+          <i class="fas fa-tools"></i>
+          <router-link to="/structure">Define Structure</router-link>
+        </li>
+        <li>
+          <i class="fas fa-folder-open"></i>
+          <a href="/blueleaks-data/">Browse Files</a>
+        </li>
+      </ul>
+    </header>
+    <router-view></router-view>
+  </div>
+</template>
+
 <style>
 body {
   margin: 0;
@@ -22,6 +47,7 @@ a:visited {
   color: #28404f;
   text-decoration: underline;
 }
+
 a:active,
 a:hover {
   color: #5d8fad;
@@ -33,13 +59,11 @@ button {
   display: inline-block;
   border: 0;
   padding: 2px 6px;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0.05, #c123de),
-    color-stop(1, #a20dbd)
-  );
+  background: -webkit-gradient(linear,
+      left top,
+      left bottom,
+      color-stop(0.05, #c123de),
+      color-stop(1, #a20dbd));
   background: -moz-linear-gradient(center top, #c123de 5%, #a20dbd 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c123de', endColorstr='#a20dbd');
   background-color: #c123de;
@@ -66,20 +90,20 @@ button {
   text-decoration: none;
   text-align: center;
 }
+
 a.button:hover,
 button:hover {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0.05, #a20dbd),
-    color-stop(1, #c123de)
-  );
+  background: -webkit-gradient(linear,
+      left top,
+      left bottom,
+      color-stop(0.05, #a20dbd),
+      color-stop(1, #c123de));
   background: -moz-linear-gradient(center top, #a20dbd 5%, #c123de 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a20dbd', endColorstr='#c123de');
   background-color: #a20dbd;
   cursor: pointer;
 }
+
 a.button:active,
 button:active {
   position: relative;
@@ -126,6 +150,7 @@ pre {
 header {
   border-bottom: 5px solid cornflowerblue;
 }
+
 h1 {
   font-size: 2.3em;
   display: inline-block;
@@ -133,6 +158,7 @@ h1 {
   margin: 1em 0 0 0;
   color: cornflowerblue;
 }
+
 h1 i {
   color: cornflowerblue;
 }
@@ -144,10 +170,12 @@ ul {
   padding: 0;
   vertical-align: middle;
 }
+
 ul li {
   display: inline-block;
   padding: 3px 10px;
 }
+
 ul li a {
   border: 0;
   padding: 5px;
@@ -155,32 +183,8 @@ ul li a {
   color: #5d8fad;
   font-weight: bold;
 }
+
 ul li i {
   color: #5d8fad;
 }
 </style>
-
-<template>
-  <div>
-    <header>
-      <h1>
-        <i class="fas fa-cat"></i> BlueLeaks Explorer
-      </h1>
-      <ul>
-        <li>
-          <i class="fas fa-user-astronaut"></i>
-          <router-link to="/">Explore Data</router-link>
-        </li>
-        <li>
-          <i class="fas fa-tools"></i>
-          <router-link to="/structure">Define Structure</router-link>
-        </li>
-        <li>
-          <i class="fas fa-folder-open"></i>
-          <a href="/blueleaks-data/">Browse Files</a>
-        </li>
-      </ul>
-    </header>
-    <router-view></router-view>
-  </div>
-</template>

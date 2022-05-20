@@ -1,40 +1,3 @@
-<style scoped>
-</style>
-
-<template>
-  <div>
-    <template v-if="loading">
-      <div class="loading">
-        <img src="/static/loading.gif" alt="Loading" />
-      </div>
-    </template>
-    <template v-else>
-      <h2>
-        <i class="fas fa-sitemap"></i>
-        <router-link v-bind:to="linkToSite">{{ siteName }}</router-link>
-      </h2>
-      <h3>
-        <i class="fas fa-table"></i>
-        <router-link v-bind:to="linkToTable">{{ tableName }}</router-link>
-      </h3>
-
-      <ul class="rows">
-        <li v-for="row in rows" class="row">
-          <TableRow
-            v-bind:site="site"
-            v-bind:table="table"
-            v-bind:row="row"
-            v-bind:fields="fields"
-            v-bind:joins="joins"
-            v-bind:headers="headers"
-            v-bind:isItem="true"
-          ></TableRow>
-        </li>
-      </ul>
-    </template>
-  </div>
-</template>
-
 <script>
 import TableRow from "./Table/TableRow.vue";
 
@@ -97,3 +60,33 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div>
+    <template v-if="loading">
+      <div class="loading">
+        <img src="/static/loading.gif" alt="Loading" />
+      </div>
+    </template>
+    <template v-else>
+      <h2>
+        <i class="fas fa-sitemap"></i>
+        <router-link v-bind:to="linkToSite">{{ siteName }}</router-link>
+      </h2>
+      <h3>
+        <i class="fas fa-table"></i>
+        <router-link v-bind:to="linkToTable">{{ tableName }}</router-link>
+      </h3>
+
+      <ul class="rows">
+        <li v-for="row in rows" class="row">
+          <TableRow v-bind:site="site" v-bind:table="table" v-bind:row="row" v-bind:fields="fields" v-bind:joins="joins"
+            v-bind:headers="headers" v-bind:isItem="true"></TableRow>
+        </li>
+      </ul>
+    </template>
+  </div>
+</template>
+
+<style scoped>
+</style>

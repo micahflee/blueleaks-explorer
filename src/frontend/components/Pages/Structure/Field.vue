@@ -1,33 +1,13 @@
-<style scoped>
-.field {
-  display: inline-block;
-  padding: 10px 15px;
-  margin-bottom: -1px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-}
-
-.handle {
-  display: inline-block;
-  width: 40px;
-}
-i.handle {
-  color: #999999;
-  cursor: grab;
-}
-.field-name {
-  display: inline-block;
-  width: 450px;
-}
-.field-type {
-  display: inline-block;
-  width: 130px;
-}
-.field-show {
-  display: inline-block;
-  width: 80px;
-}
-</style>
+<script>
+export default {
+  props: ["field"],
+  methods: {
+    makeDirty: function () {
+      this.$emit("dirty");
+    },
+  },
+};
+</script>
 
 <template>
   <div class="field">
@@ -49,13 +29,37 @@ i.handle {
   </div>
 </template>
 
-<script>
-export default {
-  props: ["field"],
-  methods: {
-    makeDirty: function () {
-      this.$emit("dirty");
-    },
-  },
-};
-</script>
+<style scoped>
+.field {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.handle {
+  display: inline-block;
+  width: 40px;
+}
+
+i.handle {
+  color: #999999;
+  cursor: grab;
+}
+
+.field-name {
+  display: inline-block;
+  width: 450px;
+}
+
+.field-type {
+  display: inline-block;
+  width: 130px;
+}
+
+.field-show {
+  display: inline-block;
+  width: 80px;
+}
+</style>

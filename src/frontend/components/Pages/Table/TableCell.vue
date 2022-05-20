@@ -1,110 +1,3 @@
-<style scoped>
-.label {
-  font-weight: bold;
-}
-
-.html-value {
-  background-color: white;
-  max-width: 100%;
-  max-height: 600px;
-  overflow: auto;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li.join {
-  margin-bottom: 1em;
-  padding: 1em;
-  background-color: #ddeaf5;
-  border: 1px solid #c9d4dd;
-}
-
-ul.survey-results {
-  list-style: square;
-  padding-left: 1em;
-}
-ul.survey-results .question {
-  font-style: italic;
-  color: #666666;
-}
-</style>
-
-<template>
-  <div>
-    <template v-if="loading">
-      <div class="loading">
-        <img src="/static/loading-small.gif" alt="Loading" />
-      </div>
-    </template>
-    <template v-else>
-      <template v-if="join">
-        <template v-if="joinCount > 0">
-          <span class="label">{{ join['name'] }}:</span>
-          <template v-if="joinRows.length != joinCount">
-            <p>
-              <span class="meta">Showing {{ joinRows.length }} out of {{ joinCount }} items</span>
-              <router-link class="button secondary" v-bind:to="permalink()">See All Items</router-link>
-            </p>
-          </template>
-          <template v-else>
-            <template v-if="joinCount > 1">
-              <p>
-                <span class="meta">Showing {{ joinCount }} items</span>
-              </p>
-            </template>
-          </template>
-          <ul class="join-rows">
-            <li v-for="joinRow in joinRows" class="join">
-              <JoinRow
-                v-bind:site="site"
-                v-bind:table="joinTable"
-                v-bind:row="joinRow"
-                v-bind:fields="joinFields"
-                v-bind:headers="joinHeaders"
-              ></JoinRow>
-            </li>
-          </ul>
-        </template>
-      </template>
-      <template v-else>
-        <template v-if="value != ''">
-          <span class="label">{{ field['name'] }}:</span>
-          <span v-if="field['type'] == 'text'">{{ value }}</span>
-          <span v-else-if="field['type'] == 'pre'">
-            <pre>{{ preValue(value) }}</pre>
-          </span>
-          <span v-else-if="field['type'] == 'html'">
-            <div class="html-value" v-html="htmlValue(value)"></div>
-          </span>
-          <span v-else-if="field['type'] == 'image'">
-            <img v-bind:src="attachmentUrl(value)" />
-          </span>
-          <span v-else-if="field['type'] == 'attachment'">
-            <a v-bind:href="attachmentUrl(value)" target="_blank">
-              {{
-              value
-              }}
-            </a>
-          </span>
-          <span v-else-if="field['type'] == 'survey'">
-            <ul class="survey-results">
-              <li v-for="result in surveyValue(value)">
-                <span class="question">{{ result['question'] }}</span>
-                <br />
-                <span class="answer">{{ result['answer'] }}</span>
-              </li>
-            </ul>
-          </span>
-          <span v-else>Unimplemented field type: {{ field['type'] }}</span>
-        </template>
-      </template>
-    </template>
-  </div>
-</template>
-
 <script>
 import JoinRow from "./JoinRow.vue";
 
@@ -223,3 +116,106 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div>
+    <template v-if="loading">
+      <div class="loading">
+        <img src="/static/loading-small.gif" alt="Loading" />
+      </div>
+    </template>
+    <template v-else>
+      <template v-if="join">
+        <template v-if="joinCount > 0">
+          <span class="label">{{ join['name'] }}:</span>
+          <template v-if="joinRows.length != joinCount">
+            <p>
+              <span class="meta">Showing {{ joinRows.length }} out of {{ joinCount }} items</span>
+              <router-link class="button secondary" v-bind:to="permalink()">See All Items</router-link>
+            </p>
+          </template>
+          <template v-else>
+            <template v-if="joinCount > 1">
+              <p>
+                <span class="meta">Showing {{ joinCount }} items</span>
+              </p>
+            </template>
+          </template>
+          <ul class="join-rows">
+            <li v-for="joinRow in joinRows" class="join">
+              <JoinRow v-bind:site="site" v-bind:table="joinTable" v-bind:row="joinRow" v-bind:fields="joinFields"
+                v-bind:headers="joinHeaders"></JoinRow>
+            </li>
+          </ul>
+        </template>
+      </template>
+      <template v-else>
+        <template v-if="value != ''">
+          <span class="label">{{ field['name'] }}:</span>
+          <span v-if="field['type'] == 'text'">{{ value }}</span>
+          <span v-else-if="field['type'] == 'pre'">
+            <pre>{{ preValue(value) }}</pre>
+          </span>
+          <span v-else-if="field['type'] == 'html'">
+            <div class="html-value" v-html="htmlValue(value)"></div>
+          </span>
+          <span v-else-if="field['type'] == 'image'">
+            <img v-bind:src="attachmentUrl(value)" />
+          </span>
+          <span v-else-if="field['type'] == 'attachment'">
+            <a v-bind:href="attachmentUrl(value)" target="_blank">
+              {{
+                  value
+              }}
+            </a>
+          </span>
+          <span v-else-if="field['type'] == 'survey'">
+            <ul class="survey-results">
+              <li v-for="result in surveyValue(value)">
+                <span class="question">{{ result['question'] }}</span>
+                <br />
+                <span class="answer">{{ result['answer'] }}</span>
+              </li>
+            </ul>
+          </span>
+          <span v-else>Unimplemented field type: {{ field['type'] }}</span>
+        </template>
+      </template>
+    </template>
+  </div>
+</template>
+
+<style scoped>
+.label {
+  font-weight: bold;
+}
+
+.html-value {
+  background-color: white;
+  max-width: 100%;
+  max-height: 600px;
+  overflow: auto;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li.join {
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: #ddeaf5;
+  border: 1px solid #c9d4dd;
+}
+
+ul.survey-results {
+  list-style: square;
+  padding-left: 1em;
+}
+
+ul.survey-results .question {
+  font-style: italic;
+  color: #666666;
+}
+</style>

@@ -1,61 +1,3 @@
-<style scoped>
-.dirty {
-  color: red;
-  font-style: italic;
-}
-
-.meta {
-  font-weight: 100;
-  color: #666666;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul.tables li.table {
-  margin-bottom: 2em;
-}
-</style>
-
-<template>
-  <div>
-    <template v-if="loading">
-      <div class="loading">
-        <img src="/static/loading.gif" alt="Loading" />
-      </div>
-    </template>
-    <template v-else>
-      <template v-if="dirty">
-        <p class="dirty">
-          You have unsaved changed.
-          <button v-on:click="save">Save</button>
-        </p>
-      </template>
-      <template v-if="structure != null">
-        <h2>
-          <i class="fas fa-sitemap"></i>
-          {{ structure["name"] }}
-          <span class="meta">({{ site }})</span>
-          <button v-on:click="changeName">Rename</button>
-        </h2>
-
-        <ul class="tables">
-          <li v-for="(tableData, table) in structure['tables']" class="table">
-            <Table
-              v-bind:table="table"
-              v-bind:tableData="tableData"
-              v-bind:structure="structure"
-              v-on:dirty="makeDirty()"
-            ></Table>
-          </li>
-        </ul>
-      </template>
-    </template>
-  </div>
-</template>
-
 <script>
 import Table from "./Structure/Table.vue";
 
@@ -148,3 +90,57 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div>
+    <template v-if="loading">
+      <div class="loading">
+        <img src="/static/loading.gif" alt="Loading" />
+      </div>
+    </template>
+    <template v-else>
+      <template v-if="dirty">
+        <p class="dirty">
+          You have unsaved changed.
+          <button v-on:click="save">Save</button>
+        </p>
+      </template>
+      <template v-if="structure != null">
+        <h2>
+          <i class="fas fa-sitemap"></i>
+          {{ structure["name"] }}
+          <span class="meta">({{ site }})</span>
+          <button v-on:click="changeName">Rename</button>
+        </h2>
+
+        <ul class="tables">
+          <li v-for="(tableData, table) in structure['tables']" class="table">
+            <Table v-bind:table="table" v-bind:tableData="tableData" v-bind:structure="structure"
+              v-on:dirty="makeDirty()"></Table>
+          </li>
+        </ul>
+      </template>
+    </template>
+  </div>
+</template>
+
+<style scoped>
+.dirty {
+  color: red;
+  font-style: italic;
+}
+
+.meta {
+  font-weight: 100;
+  color: #666666;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul.tables li.table {
+  margin-bottom: 2em;
+}
+</style>

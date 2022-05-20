@@ -1,48 +1,102 @@
-<style scoped>
-.table-name {
-  font-size: 1.2em;
-}
+<script>
+import Field from "./Field.vue";
+import Join from "./Join.vue";
+import draggable from "vuedraggable";
+import StructureVue from "../Structure.vue";
 
-.headers {
-  font-weight: bold;
-  position: relative;
-  display: block;
-  padding: 10px 15px;
-  margin-bottom: -1px;
-  border: 1px solid transparent;
-}
-
-.handle {
-  display: inline-block;
-  width: 40px;
-}
-
-.field-name {
-  display: inline-block;
-  width: 450px;
-}
-.field-type {
-  display: inline-block;
-  width: 130px;
-}
-.field-show {
-  display: inline-block;
-  width: 80px;
-}
-
-.join-name {
-  display: inline-block;
-  width: 250px;
-}
-.join-relationship {
-  display: inline-block;
-  width: 500px;
-}
-.join-delete {
-  display: inline-block;
-  width: 80px;
-}
-</style>
+export default {
+  props: ["table", "tableData", "structure"],
+  data: function () {
+    return {
+      newRelationshipFromField: "",
+      newRelationshipToTable: "",
+      newRelationshipToField: "",
+      showToggleCheckbox: true,
+    };
+  },
+  methods: {
+    sortedFieldNames: function () {
+      var sorted = [];
+      for (var i in this.tableData["fields"]) {
+        sorted.push(this.tableData["fields"][i]["name"]);
+      }
+      sorted.sort();
+      return sorted;
+    },
+    sortedTableNames: function () {
+      var sorted = [];
+      for (var table in this.structure["tables"]) {
+        if (table != this.table) {
+          sorted.push(table);
+        }
+      }
+      sorted.sort();
+      return sorted;
+    },
+    sortedOtherFieldNames: function () {
+      if (this.newRelationshipToTable == "") return [];
+      var sorted = [];
+      for (var i in this.structure["tables"][this.newRelationshipToTable][
+        "fields"
+      ]) {
+        sorted.push(
+          this.structure["tables"][this.newRelationshipToTable]["fields"][i][
+          "name"
+          ]
+        );
+      }
+      sorted.sort();
+      return sorted;
+    },
+    changeDisplay: function () {
+      var display = prompt("New display name", this.tableData["display"]);
+      if (display) {
+        this.tableData["display"] = display;
+        this.makeDirty();
+      }
+    },
+    changeHidden: function (val) {
+      this.tableData["hidden"] = val;
+      this.$emit("dirty");
+    },
+    createRelationship: function () {
+      var name = prompt("What is the name of this relationship?");
+      if (name) {
+        this.structure["tables"][this.table]["joins"].push({
+          name: name,
+          from: this.table + "." + this.newRelationshipFromField,
+          to: this.newRelationshipToTable + "." + this.newRelationshipToField,
+        });
+        this.newRelationshipFromField = "";
+        this.newRelationshipToTable = "";
+        this.newRelationshipToField = "";
+        this.makeDirty();
+      }
+    },
+    deleteJoin: function (join) {
+      if (confirm("Are you sure?")) {
+        var index = this.tableData["joins"].indexOf(join);
+        this.tableData["joins"].splice(index, 1);
+        this.$emit("dirty");
+      }
+    },
+    showToggle: function () {
+      for (var i = 0; i < this.tableData["fields"].length; i++) {
+        this.tableData["fields"][i]["show"] = this.showToggleCheckbox;
+      }
+      this.makeDirty();
+    },
+    makeDirty: function () {
+      this.$emit("dirty");
+    },
+  },
+  components: {
+    Field: Field,
+    Join: Join,
+    draggable: draggable,
+  },
+};
+</script>
 
 <template>
   <div>
@@ -107,102 +161,52 @@
   </div>
 </template>
 
-<script>
-import Field from "./Field.vue";
-import Join from "./Join.vue";
-import draggable from "vuedraggable";
-import StructureVue from "../Structure.vue";
+<style scoped>
+.table-name {
+  font-size: 1.2em;
+}
 
-export default {
-  props: ["table", "tableData", "structure"],
-  data: function () {
-    return {
-      newRelationshipFromField: "",
-      newRelationshipToTable: "",
-      newRelationshipToField: "",
-      showToggleCheckbox: true,
-    };
-  },
-  methods: {
-    sortedFieldNames: function () {
-      var sorted = [];
-      for (var i in this.tableData["fields"]) {
-        sorted.push(this.tableData["fields"][i]["name"]);
-      }
-      sorted.sort();
-      return sorted;
-    },
-    sortedTableNames: function () {
-      var sorted = [];
-      for (var table in this.structure["tables"]) {
-        if (table != this.table) {
-          sorted.push(table);
-        }
-      }
-      sorted.sort();
-      return sorted;
-    },
-    sortedOtherFieldNames: function () {
-      if (this.newRelationshipToTable == "") return [];
-      var sorted = [];
-      for (var i in this.structure["tables"][this.newRelationshipToTable][
-        "fields"
-      ]) {
-        sorted.push(
-          this.structure["tables"][this.newRelationshipToTable]["fields"][i][
-            "name"
-          ]
-        );
-      }
-      sorted.sort();
-      return sorted;
-    },
-    changeDisplay: function () {
-      var display = prompt("New display name", this.tableData["display"]);
-      if (display) {
-        this.tableData["display"] = display;
-        this.makeDirty();
-      }
-    },
-    changeHidden: function (val) {
-      this.tableData["hidden"] = val;
-      this.$emit("dirty");
-    },
-    createRelationship: function () {
-      var name = prompt("What is the name of this relationship?");
-      if (name) {
-        this.structure["tables"][this.table]["joins"].push({
-          name: name,
-          from: this.table + "." + this.newRelationshipFromField,
-          to: this.newRelationshipToTable + "." + this.newRelationshipToField,
-        });
-        this.newRelationshipFromField = "";
-        this.newRelationshipToTable = "";
-        this.newRelationshipToField = "";
-        this.makeDirty();
-      }
-    },
-    deleteJoin: function (join) {
-      if (confirm("Are you sure?")) {
-        var index = this.tableData["joins"].indexOf(join);
-        this.tableData["joins"].splice(index, 1);
-        this.$emit("dirty");
-      }
-    },
-    showToggle: function () {
-      for (var i = 0; i < this.tableData["fields"].length; i++) {
-        this.tableData["fields"][i]["show"] = this.showToggleCheckbox;
-      }
-      this.makeDirty();
-    },
-    makeDirty: function () {
-      this.$emit("dirty");
-    },
-  },
-  components: {
-    Field: Field,
-    Join: Join,
-    draggable: draggable,
-  },
-};
-</script>
+.headers {
+  font-weight: bold;
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+}
+
+.handle {
+  display: inline-block;
+  width: 40px;
+}
+
+.field-name {
+  display: inline-block;
+  width: 450px;
+}
+
+.field-type {
+  display: inline-block;
+  width: 130px;
+}
+
+.field-show {
+  display: inline-block;
+  width: 80px;
+}
+
+.join-name {
+  display: inline-block;
+  width: 250px;
+}
+
+.join-relationship {
+  display: inline-block;
+  width: 500px;
+}
+
+.join-delete {
+  display: inline-block;
+  width: 80px;
+}
+</style>

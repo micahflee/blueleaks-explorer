@@ -1,59 +1,3 @@
-<style scoped>
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul.implemented-sites a {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
-ul.implemented-sites li,
-ul.unimplemented-sites li {
-  margin-bottom: 1em;
-}
-
-ul.implemented-sites i,
-ul.unimplemented-sites i {
-  margin-right: 0.5em;
-}
-</style>
-
-<template>
-  <div>
-    <template v-if="loading">
-      <div class="loading">
-        <img src="/static/loading.gif" alt="Loading" />
-      </div>
-    </template>
-    <template v-else>
-      <h2>Edit structures</h2>
-      <ul class="implemented-sites">
-        <li v-for="site in implementedSites">
-          <div>
-            <i class="fas fa-sitemap"></i>
-            <router-link v-bind:to="linkToEditSite(site.site)">{{ site.name }}</router-link>
-            ({{ site.site }})
-          </div>
-        </li>
-      </ul>
-
-      <h2>Define a new structure</h2>
-      <ul class="unimplemented-sites">
-        <li v-for="site in unimplementedSites">
-          <i class="fas fa-sitemap"></i>
-          <button v-on:click="createStructure(site)">Create</button>
-          <span>
-            structure for
-            <strong>{{ site }}</strong>
-          </span>
-        </li>
-      </ul>
-    </template>
-  </div>
-</template>
-
 <script>
 export default {
   data: function () {
@@ -120,3 +64,59 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div>
+    <template v-if="loading">
+      <div class="loading">
+        <img src="/static/loading.gif" alt="Loading" />
+      </div>
+    </template>
+    <template v-else>
+      <h2>Edit structures</h2>
+      <ul class="implemented-sites">
+        <li v-for="site in implementedSites">
+          <div>
+            <i class="fas fa-sitemap"></i>
+            <router-link v-bind:to="linkToEditSite(site.site)">{{ site.name }}</router-link>
+            ({{ site.site }})
+          </div>
+        </li>
+      </ul>
+
+      <h2>Define a new structure</h2>
+      <ul class="unimplemented-sites">
+        <li v-for="site in unimplementedSites">
+          <i class="fas fa-sitemap"></i>
+          <button v-on:click="createStructure(site)">Create</button>
+          <span>
+            structure for
+            <strong>{{ site }}</strong>
+          </span>
+        </li>
+      </ul>
+    </template>
+  </div>
+</template>
+
+<style scoped>
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul.implemented-sites a {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+ul.implemented-sites li,
+ul.unimplemented-sites li {
+  margin-bottom: 1em;
+}
+
+ul.implemented-sites i,
+ul.unimplemented-sites i {
+  margin-right: 0.5em;
+}
+</style>
