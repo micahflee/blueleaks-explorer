@@ -23,7 +23,7 @@ RUN pip install poetry
 
 # Copy code
 WORKDIR /app
-COPY . .
+COPY src .
 
 # Install python dependencies
 RUN poetry install
