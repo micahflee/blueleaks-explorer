@@ -109,3 +109,6 @@ venv.bak/
 
 node_modules/
 bundle.js
+
+databases
+structures-default

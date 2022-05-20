@@ -88,13 +88,15 @@ def exec_sql(c, sql):
         raise e
 
 
-def progress(site, table=None, row_count=None):
+def progress(site, table=None, row_count=None, finished=False):
     # Clear previous output
     click.echo("\r" + " " * 80, nl=False)
 
     # Print progress
-    s = click.style(f"\r{site} ({site})", bold=True)
-    if table:
+    s = click.style(f"\r{site}", bold=True)
+    if finished:
+        s += " finished"
+    elif table:
         s += " | " + f"{table}.csv"
         if row_count:
             s += " | " + click.style(f"{row_count:,} rows", dim=True)
@@ -160,7 +162,7 @@ def load_file(path):
 
                 conn.commit()
 
-            progress(site)
+            progress(site, finished=True)
 
         conn.close()
         click.echo()
