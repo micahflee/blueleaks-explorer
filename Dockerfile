@@ -27,7 +27,7 @@ COPY src .
 
 # Copy the built-in and the default structures
 RUN mkdir -p /var/blueleaks-explorer/structures-builtin
-COPY structures/* /var/blueleaks-explorer/structures-builtin
+COPY structures-builtin/* /var/blueleaks-explorer/structures-builtin
 RUN mkdir -p /var/blueleaks-explorer/structures-default
 COPY structures-default/* /var/blueleaks-explorer/structures-default
 
