@@ -9,4 +9,4 @@ services:
       - /Volumes/datasets/BlueLeaks-extracted:/data/blueleaks
       - ./databases:/data/databases
       - ./structures:/data/structures
-      - ./structures-defaukt:/data/structures-default
+      - ./structures-default:/data/structures-default
