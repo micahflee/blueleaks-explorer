@@ -1,41 +1,30 @@
-<script>
-export default {
-  data: function () {
-    return {
-      loading: false,
-      sites: null,
-    };
-  },
-  created: function () {
-    this.getSites();
-  },
-  methods: {
-    getSites: function () {
-      var that = this;
-      this.loading = true;
-      fetch("/api/sites")
-        .then(function (response) {
-          if (response.status !== 200) {
-            console.log(
-              "Error fetching sites, status code: " + response.status
-            );
-            return;
-          }
-          response.json().then(function (data) {
-            that.sites = data;
-            that.loading = false;
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error fetching sites", err);
-        });
-    },
-    linkToSite: function (folder) {
-      return "/" + folder;
-    },
-  },
-};
+<script setup>
+let loading = false;
+let sites = null;
+
+function linkToSite(folder) {
+  return "/" + folder;
+}
+
+// Get sites
+loading = true;
+fetch("/api/sites")
+  .then(function (response) {
+    if (response.status !== 200) {
+      console.log(
+        "Error fetching sites, status code: " + response.status
+      );
+      return;
+    }
+    response.json().then(function (data) {
+      sites = data;
+      loading = false;
+    });
+  })
+  .catch(function (err) {
+    loading = false;
+    console.log("Error fetching sites", err);
+  });
 </script>
 
 <template>

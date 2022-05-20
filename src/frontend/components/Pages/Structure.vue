@@ -1,68 +1,57 @@
-<script>
-export default {
-  data: function () {
-    return {
-      loading: false,
-      implementedSites: [],
-      unimplementedSites: [],
-    };
-  },
-  created: function () {
-    this.getStructures();
-  },
-  methods: {
-    getStructures: function () {
-      var that = this;
-      this.loading = true;
-      fetch("/api/structures")
-        .then(function (response) {
-          if (response.status !== 200) {
-            console.log(
-              "Error fetching structures, status code: " + response.status
-            );
-            return;
-          }
-          response.json().then(function (data) {
-            that.implementedSites = data["implemented_sites"];
-            that.unimplementedSites = data["unimplemented_sites"];
-            that.loading = false;
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error fetching structures", err);
-        });
-    },
-    createStructure: function (site) {
-      var that = this;
-      this.loading = true;
-      fetch("/api/structure/create/" + site, { method: "POST" })
-        .then(function (response) {
-          if (response.status !== 200) {
-            console.log(
-              "Error creating structure, status code: " + response.status
-            );
-            return;
-          }
-          response.json().then(function (data) {
-            that.loading = false;
-            if (data["error"]) {
-              alert(data["error_message"]);
-            } else {
-              that.$router.push({ path: "/structure/" + site });
-            }
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error creating structure", err);
-        });
-    },
-    linkToEditSite: function (site) {
-      return "/structure/" + site;
-    },
-  },
-};
+<script setup>
+let loading = false;
+let implementedSites = [];
+let unimplementedSites = [];
+
+function createStructure(site) {
+  loading = true;
+  fetch("/api/structure/create/" + site, { method: "POST" })
+    .then(function (response) {
+      if (response.status !== 200) {
+        console.log(
+          "Error creating structure, status code: " + response.status
+        );
+        return;
+      }
+      response.json().then(function (data) {
+        loading = false;
+        if (data["error"]) {
+          alert(data["error_message"]);
+        } else {
+          this.$router.push({ path: "/structure/" + site });
+        }
+      });
+    })
+    .catch(function (err) {
+      loading = false;
+      console.log("Error creating structure", err);
+    });
+}
+
+function linkToEditSite: function (site) {
+  return "/structure/" + site;
+}
+
+// Get structures
+loading = true;
+fetch("/api/structures")
+  .then(function (response) {
+    if (response.status !== 200) {
+      console.log(
+        "Error fetching structures, status code: " + response.status
+      );
+      return;
+    }
+    response.json().then(function (data) {
+      implementedSites = data["implemented_sites"];
+      unimplementedSites = data["unimplemented_sites"];
+      loading = false;
+    });
+  })
+  .catch(function (err) {
+    loading = false;
+    console.log("Error fetching structures", err);
+  });
 </script>
 
 <template>

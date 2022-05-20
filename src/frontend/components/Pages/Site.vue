@@ -1,50 +1,41 @@
-<script>
-export default {
-  data: function () {
-    return {
-      loading: false,
-      site: this.$route.path.split("/")[1],
-      siteName: null,
-      tables: null,
-    };
-  },
-  created: function () {
-    this.getTables();
-  },
-  methods: {
-    getTables: function () {
-      var that = this;
-      this.loading = true;
-      fetch("/api/" + this.site + "/tables")
-        .then(function (response) {
-          that.loading = false;
+<script setup>
+let loading = false;
+let site = this.$route.path.split("/")[1];
+let siteName = null;
+let tables = null;
 
-          if (response.status !== 200) {
-            console.log(
-              "Error fetching tables, status code: " + response.status
-            );
-            return;
-          }
-          response.json().then(function (data) {
-            that.siteName = data["site_name"];
-            that.tables = data["tables"];
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error fetching tables", err);
-        });
-    },
-    linkToTable: function (table) {
-      return "/" + this.site + "/" + table;
-    },
-    numberWithCommas: function (x) {
-      if (x == 0) return "0";
-      if (!x) return "...";
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-  },
-};
+function linkToTable(table) {
+  return "/" + this.site + "/" + table;
+}
+
+function numberWithCommas(x) {
+  if (x == 0) return "0";
+  if (!x) return "...";
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// Get tables
+var that = this;
+loading = true;
+fetch("/api/" + site + "/tables")
+  .then(function (response) {
+    that.loading = false;
+
+    if (response.status !== 200) {
+      console.log(
+        "Error fetching tables, status code: " + response.status
+      );
+      return;
+    }
+    response.json().then(function (data) {
+      that.siteName = data["site_name"];
+      that.tables = data["tables"];
+    });
+  })
+  .catch(function (err) {
+    that.loading = false;
+    console.log("Error fetching tables", err);
+  });
 </script>
 
 <template>

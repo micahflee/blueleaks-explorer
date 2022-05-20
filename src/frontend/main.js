@@ -24,10 +24,4 @@ const router = VueRouter.createRouter({
     routes
 });
 
-const app = Vue.createApp({
-    el: '#app',
-    render: h => h(App),
-    router
-})
-app.use(router)
-app.mount('#app')
+Vue.createApp(App).use(router).mount('#app')

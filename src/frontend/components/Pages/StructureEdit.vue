@@ -1,94 +1,81 @@
-<script>
+<script setup>
 import Table from "./Structure/Table.vue";
 
-export default {
-  data: function () {
-    return {
-      loading: false,
-      site: this.$route.path.split("/")[2],
-      dirty: false,
-      structure: null,
-    };
-  },
-  created: function () {
-    this.getStructure();
-  },
-  methods: {
-    getStructure: function () {
-      var that = this;
-      this.loading = true;
-      fetch("/api/structure/" + this.site)
-        .then(function (response) {
-          that.loading = false;
+let loading = false;
+let site = this.$route.path.split("/")[2];
+let dirty = false;
+let structure = null;
 
-          if (response.status !== 200) {
-            console.log(
-              "Error fetching structure, status code: " + response.status
-            );
-            return;
-          }
-          response.json().then(function (data) {
-            if (data["error"]) {
-              alert(data["error_message"]);
-              that.$router.push({ path: "/structure" });
-            } else {
-              that.structure = data["structure"];
-            }
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error fetching structure", err);
-        });
-    },
-    save: function () {
-      var that = this;
-      this.loading = true;
-      fetch("/api/structure/" + this.site, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.structure),
-      })
-        .then(function (response) {
-          that.loading = false;
+function save() {
+  loading = true;
+  fetch("/api/structure/" + site, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(structure),
+  })
+    .then(function (response) {
+      loading = false;
 
-          if (response.status !== 200) {
-            console.log(
-              "Error saving structure, status code: " + response.status
-            );
-            return;
-          }
-          response.json().then(function (data) {
-            if (data["error"]) {
-              alert(data["error_message"]);
-            } else {
-              that.dirty = false;
-            }
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error saving structure", err);
-        });
-    },
-    changeName: function () {
-      var name = prompt(
-        "What's the name of this site?",
-        this.structure["name"]
-      );
-      if (name) {
-        this.structure["name"] = name;
-        this.dirty = true;
+      if (response.status !== 200) {
+        console.log(
+          "Error saving structure, status code: " + response.status
+        );
+        return;
       }
-    },
-    makeDirty: function () {
-      this.dirty = true;
-    },
-  },
-  components: {
-    Table: Table,
-  },
-};
+      response.json().then(function (data) {
+        if (data["error"]) {
+          alert(data["error_message"]);
+        } else {
+          dirty = false;
+        }
+      });
+    })
+    .catch(function (err) {
+      loading = false;
+      console.log("Error saving structure", err);
+    });
+}
+
+function changeName() {
+  var name = prompt(
+    "What's the name of this site?",
+    structure["name"]
+  );
+  if (name) {
+    structure["name"] = name;
+    dirty = true;
+  }
+}
+
+function makeDirty() {
+  dirty = true;
+}
+
+// Get structure
+loading = true;
+fetch("/api/structure/" + site)
+  .then(function (response) {
+    loading = false;
+
+    if (response.status !== 200) {
+      console.log(
+        "Error fetching structure, status code: " + response.status
+      );
+      return;
+    }
+    response.json().then(function (data) {
+      if (data["error"]) {
+        alert(data["error_message"]);
+        this.$router.push({ path: "/structure" });
+      } else {
+        structure = data["structure"];
+      }
+    });
+  })
+  .catch(function (err) {
+    loading = false;
+    console.log("Error fetching structure", err);
+  });
 </script>
 
 <template>

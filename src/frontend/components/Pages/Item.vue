@@ -1,64 +1,43 @@
-<script>
+<script setup>
 import TableRow from "./Table/TableRow.vue";
 
-export default {
-  data: function () {
-    return {
-      loading: false,
-      site: this.$route.path.split("/")[1],
-      table: this.$route.path.split("/")[2],
-      siteName: null,
-      tableName: null,
-      headers: null,
-      rows: null,
-      fields: null,
-      joins: null,
-    };
-  },
-  created: function () {
-    this.getItem();
-  },
-  methods: {
-    getItem: function () {
-      var that = this;
-      this.loading = true;
-      fetch(
-        "/api/" + this.site + "/" + this.table + "/" + this.$route.params.id
-      )
-        .then(function (response) {
-          that.loading = false;
+const site = this.$route.path.split("/")[1];
+const table = this.$route.path.split("/")[2];
+const linkToSite = "/" + this.site;
+const linkToTable = "/" + this.site + "/" + this.table;
+let loading = false;
+let siteName = null;
+let tableName = null;
+let headers = null;
+let rows = null;
+let fields = null;
+let joins = null;
 
-          if (response.status !== 200) {
-            console.log("Error fetching item, status code: " + response.status);
-            return;
-          }
-          response.json().then(function (data) {
-            that.siteName = data["site_name"];
-            that.tableName = data["table_name"];
-            that.headers = data["headers"];
-            that.rows = data["rows"];
-            that.fields = data["fields"];
-            that.joins = data["joins"];
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error fetching item", err);
-        });
-    },
-  },
-  computed: {
-    linkToSite: function () {
-      return "/" + this.site;
-    },
-    linkToTable: function () {
-      return "/" + this.site + "/" + this.table;
-    },
-  },
-  components: {
-    TableRow: TableRow,
-  },
-};
+// Get item
+loading = true;
+fetch(
+  "/api/" + site + "/" + table + "/" + this.$route.params.id
+)
+  .then(function (response) {
+    loading = false;
+
+    if (response.status !== 200) {
+      console.log("Error fetching item, status code: " + response.status);
+      return;
+    }
+    response.json().then(function (data) {
+      siteName = data["site_name"];
+      tableName = data["table_name"];
+      headers = data["headers"];
+      rows = data["rows"];
+      fields = data["fields"];
+      joins = data["joins"];
+    });
+  })
+  .catch(function (err) {
+    loading = false;
+    console.log("Error fetching item", err);
+  });
 </script>
 
 <template>

@@ -1,128 +1,110 @@
-<script>
+<script setup>
 import TableRow from "./Table/TableRow.vue";
 import Paging from "./Table/Paging.vue";
 import SortBar from "./Table/SortBar.vue";
 import SearchBar from "./Table/SearchBar.vue";
 
-export default {
-  data: function () {
-    return {
-      loading: false,
-      site: this.$route.path.split("/")[1],
-      table: this.$route.path.split("/")[2],
-      siteName: null,
-      tableName: null,
-      headers: null,
-      rows: null,
-      count: null,
-      fields: null,
-      joins: null,
-      offset: 0,
-      perPageCount: 50,
-      currentSort: "Chronologically##DESC",
-      searchTerm: null,
-    };
-  },
-  created: function () {
-    this.getRows();
-  },
-  methods: {
-    buildURL: function () {
-      if (this.currentSort) {
-        const [sortCol, sortDir] = this.currentSort.split("##");
+const site = this.$route.path.split("/")[1];
+const table = this.$route.path.split("/")[2];
+const linkToSite = "/" + site;
 
-        if (this.searchTerm) {
-          return `/api/${this.site}/${this.table
-            }/search?search_term=${encodeURIComponent(this.searchTerm)}&count=${this.perPageCount
-            }&offset=${this.offset}&sortCol=${encodeURIComponent(
-              sortCol
-            )}&sortDir=${sortDir}`;
-        }
+let loading = false;
+let siteName = null;
+let tableName = null;
+let headers = null;
+let rows = null;
+let count = null;
+let fields = null;
+let joins = null;
+let sortFields = null;
+let offset = 0;
+let perPageCount = 50;
+let currentSort = "Chronologically##DESC";
+let searchTerm = null;
 
-        return `/api/${this.site}/${this.table}?count=${this.perPageCount
-          }&offset=${this.offset}&sortCol=${encodeURIComponent(
-            sortCol
-          )}&sortDir=${sortDir}`;
-      }
+function getRows() {
+  loading = true;
+  // console.log(`current sort: ${this.currentSort}`);
+  // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
+  try {
+    const response = await fetch(this.buildURL());
+    if (response.status !== 200) {
+      loading = false;
+      console.log("Error fetching rows, status code: " + response.status);
+      return;
+    }
+    const data = await response.json();
 
-      return this.searchTerm
-        ? `/api/${this.site}/${this.table
+    siteName = data["site_name"];
+    tableName = data["table_name"];
+    headers = data["headers"];
+    rows = data["rows"];
+    count = data["count"];
+    fields = data["fields"];
+    joins = data["joins"];
+
+    // sortFields
+    const badOptions = ["content"];
+    sortFields = fields.filter((f) => f.show && badOptions.indexOf(f.name.toLowerCase()) === -1).map((f) => f.name);
+    sortFields.unshift("Chronologically");
+
+    loading = false;
+  } catch (err) {
+    loading = false;
+    console.log("Error fetching rows", err);
+  }
+}
+
+function buildURL() {
+  if (this.currentSort) {
+    const [sortCol, sortDir] = this.currentSort.split("##");
+
+    if (this.searchTerm) {
+      return `/api/${this.site}/${this.table
         }/search?search_term=${encodeURIComponent(this.searchTerm)}&count=${this.perPageCount
-        }&offset=${this.offset}`
-        : `/api/${this.site}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`;
-    },
-    getRows: async function () {
-      this.loading = true;
-      // console.log(`current sort: ${this.currentSort}`);
-      // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
-      try {
-        const response = await fetch(this.buildURL());
-        if (response.status !== 200) {
-          this.loading = false;
-          console.log("Error fetching rows, status code: " + response.status);
-          return;
-        }
-        const data = await response.json();
+        }&offset=${this.offset}&sortCol=${encodeURIComponent(
+          sortCol
+        )}&sortDir=${sortDir}`;
+    }
 
-        this.siteName = data["site_name"];
-        this.tableName = data["table_name"];
-        this.headers = data["headers"];
-        this.rows = data["rows"];
-        this.count = data["count"];
-        this.fields = data["fields"];
-        this.joins = data["joins"];
+    return `/api/${this.site}/${this.table}?count=${this.perPageCount
+      }&offset=${this.offset}&sortCol=${encodeURIComponent(
+        sortCol
+      )}&sortDir=${sortDir}`;
+  }
 
-        this.loading = false;
-      } catch (err) {
-        this.loading = false;
-        console.log("Error fetching rows", err);
-      }
-    },
-    numberWithCommas: function (x) {
-      if (x == 0) return "0";
-      if (!x) return "...";
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-    pageNavigateHandler: function (page) {
-      this.offset = this.perPageCount * (page - 1);
-      this.getRows();
-    },
-    sortChangeHandler: function (evt) {
-      const sortOption = evt.target.selectedOptions[0].value;
-      this.currentSort = sortOption;
-      this.getRows();
-    },
-    searchHandler: function (evt) {
-      const fd = new FormData(evt.target);
-      const term = fd.get("searchTerm");
-      if (term) {
-        this.searchTerm = term;
-        this.getRows();
-      }
-    },
-  },
-  computed: {
-    linkToSite: function () {
-      return "/" + this.site;
-    },
-    sortFields: function () {
-      const badOptions = ["content"];
-      var fields = this.fields
-        .filter(
-          (f) => f.show && badOptions.indexOf(f.name.toLowerCase()) === -1
-        )
-        .map((f) => f.name);
-      fields.unshift("Chronologically");
-      return fields;
-    },
-  },
-  components: {
-    TableRow,
-    Paging,
-    SortBar,
-    SearchBar,
-  },
-};
+  return this.searchTerm
+    ? `/api/${this.site}/${this.table
+    }/search?search_term=${encodeURIComponent(this.searchTerm)}&count=${this.perPageCount
+    }&offset=${this.offset}`
+    : `/api/${this.site}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`;
+}
+
+function numberWithCommas(x) {
+  if (x == 0) return "0";
+  if (!x) return "...";
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function pageNavigateHandler(page) {
+  offset = perPageCount * (page - 1);
+  getRows();
+}
+
+function sortChangeHandler(evt) {
+  const sortOption = evt.target.selectedOptions[0].value;
+  currentSort = sortOption;
+  getRows();
+}
+
+function searchHandler(evt) {
+  const fd = new FormData(evt.target);
+  const term = fd.get("searchTerm");
+  if (term) {
+    searchTerm = term;
+    getRows();
+  }
+}
 </script>
 
 <template>
