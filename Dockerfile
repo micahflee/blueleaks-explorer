@@ -21,9 +21,13 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh
 # Install poetry
 RUN pip install poetry
 
-# Copy code
+# Copy the code
 WORKDIR /app
 COPY src .
+
+# Copy the built-in structures
+RUN mkdir -p /var/blueleaks-explorer/builtin-structures
+COPY structures/* /var/blueleaks-explorer/builtin-structures
 
 # Install python dependencies
 RUN poetry install
@@ -37,6 +41,9 @@ ENV BLE_BLUELEAKS_PATH=/data/blueleaks
 ENV BLE_DATABASES_PATH=/data/databases
 ENV BLE_STRUCTURES_PATH=/data/structures
 ENV BLE_DEFAULT_STRUCTURES_PATH=/data/structures-default
+
+# Build the default structures
+RUN poetry run python ./build-structures.py
 
 # Execute
 EXPOSE 8080

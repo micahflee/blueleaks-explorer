@@ -5,10 +5,11 @@ import shutil
 from pathlib import Path
 from flask import Flask, jsonify, render_template, abort, send_file, request
 
+from common import default_structures_path, builtin_structures_path
+
 blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
 dbs_path = os.environ.get("BLE_DATABASES_PATH")
 structures_path = os.environ.get("BLE_STRUCTURES_PATH")
-default_structures_path = os.environ.get("BLE_DEFAULT_STRUCTURES_PATH")
 
 app = Flask(__name__)
 
@@ -61,8 +62,7 @@ def get_implemented_sites_with_names():
     implemented_sites_with_names = []
     for site in implemented_sites:
         structure = get_structure(site)
-        implemented_sites_with_names.append(
-            {"site": site, "name": structure["name"]})
+        implemented_sites_with_names.append({"site": site, "name": structure["name"]})
     return implemented_sites_with_names
 
 
@@ -209,7 +209,7 @@ def render_frontend():
 def catch_all(path):
     # Download a data file
     if path.startswith("blueleaks-data"):
-        listing_path = path[len("blueleaks-data"):]
+        listing_path = path[len("blueleaks-data") :]
         if listing_path == "":
             listing_path = "/"
         filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
@@ -236,20 +236,17 @@ def catch_all(path):
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip(
-                                        "/"), name
+                                    "/blueleaks-data", listing_path.lstrip("/"), name
                                 ),
                             }
                         )
                     else:
-                        size_bytes = Path(os.path.join(
-                            filename, name)).stat().st_size
+                        size_bytes = Path(os.path.join(filename, name)).stat().st_size
                         files.append(
                             {
                                 "name": name,
                                 "link": os.path.join(
-                                    "/blueleaks-data", listing_path.lstrip(
-                                        "/"), name
+                                    "/blueleaks-data", listing_path.lstrip("/"), name
                                 ),
                                 "size": humansize(size_bytes),
                             }
@@ -480,8 +477,7 @@ def api_join_all(site, table, join_name, item_id):
         abort(500)
 
     headers = sql_headers(site, table)
-    rows = sql_select_join(site, table, item_id,
-                           join["from"], join["to"], headers)
+    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
     row_count = len(rows)
 
     join_table = join["to"].split(".")[0]
@@ -518,8 +514,7 @@ def api_join(site, table, join_name, item_id):
         abort(500)
 
     headers = sql_headers(site, table)
-    rows = sql_select_join(site, table, item_id,
-                           join["from"], join["to"], headers)
+    rows = sql_select_join(site, table, item_id, join["from"], join["to"], headers)
     row_count = len(rows)
     if row_count > 5:
         rows = rows[0:5]
@@ -537,3 +532,14 @@ def api_join(site, table, join_name, item_id):
             "join_fields": join_fields,
         }
     )
+
+
+# Copy the builtin structures, if there isn't already a structure there
+for site in get_all_sites():
+    if os.path.exists(
+        os.path.join(builtin_structures_path, f"{site}.json")
+    ) and not os.path.exists(os.path.join(structures_path, f"{site}.json")):
+        shutil.copyfile(
+            os.path.join(builtin_structures_path, f"{site}.json"),
+            os.path.join(structures_path, f"{site}.json"),
+        )

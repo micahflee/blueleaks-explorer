@@ -1,5 +1,5 @@
 version: "3.9"
-    
+
 services:
   blueleaks-explorer:
     build: .
@@ -9,4 +9,3 @@ services:
       - /Volumes/datasets/BlueLeaks-extracted:/data/blueleaks
       - ./databases:/data/databases
       - ./structures:/data/structures
-      - ./structures-default:/data/structures-default

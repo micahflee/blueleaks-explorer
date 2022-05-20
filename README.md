@@ -55,7 +55,7 @@ Open a new terminal, change to your BlueLeaks Explorer folder, and run this comm
 docker-compose exec blueleaks-explorer poetry run python ./initialize.py
 ```
 
-This should look something like this:
+It will take several minutes to run, and your output will look something like this:
 
 ```
 micah@trapdoor blueleaks-explorer % docker-compose exec blueleaks-explorer poetry run python ./initialize.py
@@ -64,13 +64,20 @@ BlueLeaks Explorer
 Wrote /data/structures-default/211sfbay.json
 Wrote /data/structures-default/acprlea.json
 Wrote /data/structures-default/acticaz.json
-Wrote /data/structures-default/akorca.json
-Wrote /data/structures-default/alabamafusioncenter.json
 --snip--
-
+Wrote /data/structures-default/safecityfw.json
+Wrote /data/structures-default/sanbrunopolice.json
+Wrote /data/structures-default/sccpca.json
+211sfbay finished
+acprlea finished
+acticaz finished
+--snip--
+safecityfw finished
+sanbrunopolice finished
+sccpca finished
 ```
 
-Building the default structures will create a 98mb of JSON files in the `structures-default` folder. And importing will take a long time and create 4.7gb of sqlite3 databases in your `databases` folder.
+Building the default structures will create a 98mb of JSON files in the `structures-default` folder, and importing will take a long time and create 4.7gb of sqlite3 databases in your `databases` folder.
 
 You only need to do this once.
 
