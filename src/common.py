@@ -3,7 +3,7 @@ import os
 builtin_structures_path = "/var/blueleaks-explorer/structures-builtin"
 
 default_structures_path = "/var/blueleaks-explorer/structures-default"
-os.path.makedirs(default_structures_path, exist_ok=True)
+os.makedirs(default_structures_path, exist_ok=True)
 
 
 def sanitize_field_name(table):
