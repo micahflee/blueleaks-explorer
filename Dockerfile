@@ -9,7 +9,6 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     rm -rf /var/lib/apt/lists/*
 
 # Install nodejs
-RUN apt-get update && apt-get install -y curl
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash && \
     . /root/.bashrc && \
     sleep 1 && \

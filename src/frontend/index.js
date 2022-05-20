@@ -9,22 +9,25 @@ import Site from './components/Pages/Site.vue';
 import Table from './components/Pages/Table.vue';
 import Item from './components/Pages/Item.vue';
 
-Vue.use(VueRouter);
+const routes = [
+    { path: '/', component: Sites },
+    { path: '/structure', component: Structure },
+    { path: '/structure/:site', component: StructureEdit },
+    { path: '/:site', component: Site },
+    { path: '/:site/:table', component: Table },
+    { path: '/:site/:table/:id', component: Item },
+];
 
-const router = new VueRouter({
+const router = VueRouter.createRouter({
+    history: VueRouter.createWebHashHistory(),
     mode: 'history',
-    routes: [
-        { path: '/', component: Sites },
-        { path: '/structure', component: Structure },
-        { path: '/structure/:site', component: StructureEdit },
-        { path: '/:site', component: Site },
-        { path: '/:site/:table', component: Table },
-        { path: '/:site/:table/:id', component: Item },
-    ]
+    routes
 });
 
-new Vue({
+const app = Vue.createApp({
     el: '#app',
     render: h => h(App),
     router
 })
+app.use(router)
+app.mount('#app')
