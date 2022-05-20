@@ -32,7 +32,6 @@ services:
       - /Volumes/datasets/BlueLeaks-extracted:/data/blueleaks
       - ./databases:/data/databases
       - ./structures:/data/structures
-      - ./structures-default:/data/structures-default
 ```
 
 Under `volumes`, replace `/Volumes/datasets/BlueLeaks-extracted` with the path to the extracted BlueLeaks dataset on your computer.
