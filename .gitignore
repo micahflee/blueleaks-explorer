@@ -106,9 +106,6 @@ venv.bak/
 # other
 .DS_Store
 .vscode/
-
 node_modules/
 bundle.js
-
-databases
-structures-default
+databases/

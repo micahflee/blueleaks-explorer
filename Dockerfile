@@ -25,9 +25,11 @@ RUN pip install poetry
 WORKDIR /app
 COPY src .
 
-# Copy the built-in structures
-RUN mkdir -p /var/blueleaks-explorer/builtin-structures
-COPY structures/* /var/blueleaks-explorer/builtin-structures
+# Copy the built-in and the default structures
+RUN mkdir -p /var/blueleaks-explorer/structures-builtin
+COPY structures/* /var/blueleaks-explorer/structures-builtin
+RUN mkdir -p /var/blueleaks-explorer/structures-default
+COPY structures-default/* /var/blueleaks-explorer/structures-default
 
 # Install python dependencies
 RUN poetry install
@@ -40,10 +42,6 @@ RUN cd frontend && export NODE_OPTIONS=--openssl-legacy-provider && ./build.js
 ENV BLE_BLUELEAKS_PATH=/data/blueleaks
 ENV BLE_DATABASES_PATH=/data/databases
 ENV BLE_STRUCTURES_PATH=/data/structures
-ENV BLE_DEFAULT_STRUCTURES_PATH=/data/structures-default
-
-# Build the default structures
-RUN poetry run python ./build-structures.py
 
 # Execute
 EXPOSE 8080

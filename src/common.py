@@ -1,8 +1,8 @@
 import os
 
-builtin_structures_path = "/var/blueleaks-explorer/builtin-structures"
+builtin_structures_path = "/var/blueleaks-explorer/structures-builtin"
 
-default_structures_path = "/var/blueleaks-explorer/default-structures"
+default_structures_path = "/var/blueleaks-explorer/structures-default"
 os.path.makedirs(default_structures_path, exist_ok=True)
 
 
