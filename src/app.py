@@ -539,6 +539,7 @@ for site in get_all_sites():
     if os.path.exists(
         os.path.join(builtin_structures_path, f"{site}.json")
     ) and not os.path.exists(os.path.join(structures_path, f"{site}.json")):
+        print(f"copying built-in structure: {site}")
         shutil.copyfile(
             os.path.join(builtin_structures_path, f"{site}.json"),
             os.path.join(structures_path, f"{site}.json"),
