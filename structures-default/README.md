@@ -1,0 +1,1 @@
+This folder holds JSON files for _default_ structures, that haven't been fleshed out at all yet

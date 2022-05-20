@@ -1,2 +1,1 @@
-This folder holds JSON files defining the structure of the data, one for each site in BlueLeaks
-
+This folder holds JSON files for _built-in_ structures, the ones that are already fleshed-out and come with BlueLeaks Explorer
