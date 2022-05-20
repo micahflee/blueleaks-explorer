@@ -5,7 +5,7 @@ module.exports = {
     mode: process.env.DEPLOY_ENVIRONMENT == "prod" ? "production" : "development",
     entry: './index.js',
     output: {
-        path: path.resolve(__dirname, '../explorer/static'),
+        path: path.resolve(__dirname, '../static'),
         filename: 'bundle.js'
     },
     module: {
