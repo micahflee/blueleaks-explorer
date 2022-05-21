@@ -1,120 +1,109 @@
-<script>
+<script setup>
 import JoinRow from "./JoinRow.vue";
 
-export default {
-  props: ["site", "table", "itemId", "field", "value", "join", "isItem"],
-  data: function () {
-    return {
-      loading: false,
-      joinTable: null,
-      joinHeaders: null,
-      joinRows: null,
-      joinCount: null,
-      joinFields: null,
-    };
-  },
-  created: function () {
-    if (this.join) {
-      this.getJoin();
+const props = defineProps({
+  site: String,
+  table: String,
+  itemId: Number,
+  field: String,
+  value: String,
+  join: Object,
+  isItem: Boolean
+})
+
+let loading = false;
+let joinTable = null;
+let joinHeaders = null;
+let joinRows = null;
+let joinCount = null;
+let joinFields = null;
+
+function stripScripts(htmlString) {
+  const div = document.createElement("div");
+  div.innerHTML = htmlString;
+  const scripts = div.getElementsByTagName("script");
+  let i = scripts.length;
+  while (i--) {
+    scripts[i].parentNode.removeChild(scripts[i]);
+  }
+
+  const base = div.getElementsByTagName("base");
+  i = base.length;
+  while (i--) {
+    base[i].parentNode.removeChild(base[i]);
+  }
+
+  return div.innerHTML;
+}
+
+function htmlValue(value) {
+  return stripScripts(value)
+    .replace(/\\n/g, " ")
+    .replace(/\\t/g, " ")
+    .replace(/POSITION: absolute;/g, "")
+    .replace(/position:absolute;/g, "");
+}
+
+function preValue(value) {
+  return value.replace(/\\n/g, "\n");
+}
+
+function attachmentUrl(value) {
+  var url =
+    "/blueleaks-data/" + site + "/files/" + value.replace("\\", "/");
+  return url;
+}
+
+function surveyValue(value) {
+  var results = [];
+  var pairs = value.split(",");
+  for (var i = 0; i < pairs.length; i++) {
+    var parts = pairs[i].split("=");
+    var question = parts[0];
+    var answer = parts[1]
+      ? decodeURIComponent(parts[1].replace(/\+/g, " "))
+      : "";
+    if (question != "Submit" && question != "" && answer != "") {
+      results.push({ question: question, answer: answer });
     }
-  },
-  methods: {
-    getJoin: function () {
-      var that = this;
-      this.loading = true;
+  }
+  return results;
+}
 
-      var url =
-        "/api/" +
-        this.site +
-        "/" +
-        this.table +
-        "/join/" +
-        this.join["name"] +
-        "/" +
-        this.itemId;
-      // If this is viewing an item instead of a table, get all join rows instead of a limited set of them
-      if (this.isItem) {
-        url += "/all";
-      }
+function permalink() {
+  return "/" + site + "/" + table + "/" + itemId;
+}
 
-      fetch(url)
-        .then(function (response) {
-          if (response.status !== 200) {
-            that.loading = false;
-            console.log(
-              "Error fetching join rows, status code: " + response.status
-            );
-            return;
-          }
-          response.json().then(function (data) {
-            that.loading = false;
-            that.joinTable = data["join_table"];
-            that.joinHeaders = data["join_headers"];
-            that.joinRows = data["join_rows"];
-            that.joinCount = data["join_count"];
-            that.joinFields = data["join_fields"];
-          });
-        })
-        .catch(function (err) {
-          that.loading = false;
-          console.log("Error fetching join rows", err);
-        });
-    },
-    stripScripts: function (htmlString) {
-      const div = document.createElement("div");
-      div.innerHTML = htmlString;
-      const scripts = div.getElementsByTagName("script");
-      let i = scripts.length;
-      while (i--) {
-        scripts[i].parentNode.removeChild(scripts[i]);
-      }
+// Get join
+loading = true;
+var url = "/api/" + site + "/" + table + "/join/" + join["name"] + "/" + itemId;
+// If this is viewing an item instead of a table, get all join rows instead of a limited set of them
+if (isItem) {
+  url += "/all";
+}
 
-      const base = div.getElementsByTagName("base");
-      i = base.length;
-      while (i--) {
-        base[i].parentNode.removeChild(base[i]);
-      }
-
-      return div.innerHTML;
-    },
-    htmlValue: function (value) {
-      return this.stripScripts(value)
-        .replace(/\\n/g, " ")
-        .replace(/\\t/g, " ")
-        .replace(/POSITION: absolute;/g, "")
-        .replace(/position:absolute;/g, "");
-    },
-    preValue: function (value) {
-      return value.replace(/\\n/g, "\n");
-    },
-    attachmentUrl: function (value) {
-      var url =
-        "/blueleaks-data/" + this.site + "/files/" + value.replace("\\", "/");
-      return url;
-    },
-    surveyValue: function (value) {
-      var results = [];
-      var pairs = value.split(",");
-      for (var i = 0; i < pairs.length; i++) {
-        var parts = pairs[i].split("=");
-        var question = parts[0];
-        var answer = parts[1]
-          ? decodeURIComponent(parts[1].replace(/\+/g, " "))
-          : "";
-        if (question != "Submit" && question != "" && answer != "") {
-          results.push({ question: question, answer: answer });
-        }
-      }
-      return results;
-    },
-    permalink: function () {
-      return "/" + this.site + "/" + this.table + "/" + this.itemId;
-    },
-  },
-  components: {
-    JoinRow: JoinRow,
-  },
-};
+fetch(url)
+  .then(function (response) {
+    if (response.status !== 200) {
+      that.loading = false;
+      console.log(
+        "Error fetching join rows, status code: " + response.status
+      );
+      return;
+    }
+    response.json().then(function (data) {
+      that.loading = false;
+      that.joinTable = data["join_table"];
+      that.joinHeaders = data["join_headers"];
+      that.joinRows = data["join_rows"];
+      that.joinCount = data["join_count"];
+      that.joinFields = data["join_fields"];
+    });
+  })
+  .catch(function (err) {
+    that.loading = false;
+    console.log("Error fetching join rows", err);
+  });
 </script>
 
 <template>

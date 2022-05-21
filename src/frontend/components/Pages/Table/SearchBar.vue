@@ -1,14 +1,10 @@
-<script>
-export default {
-  props: ["searchTerm", "handleSearchSubmit"],
-  data: function () {
-    return {
-      term: this.searchTerm,
-    };
-  },
-  methods: {},
-  computed: {},
-};
+<script setup>
+const props = defineProps({
+  searchTerm: String,
+  handleSearchSubmit: Function,
+})
+
+let term = searchTerm;
 </script>
 
 <template>

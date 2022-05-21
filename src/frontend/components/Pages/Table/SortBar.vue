@@ -1,33 +1,27 @@
-<script>
-export default {
-  props: ["headers", "currentSort", "sortChangeHandler"],
-  data: function () {
-    return {
-      selectedSort: this.currentSort,
-    };
-  },
-  methods: {},
-  computed: {
-    options: function () {
-      return [{ val: null, display: "Sort Option" }].concat(
-        this.headers
-          //   .filter((h) => badOptions.indexOf(h.toLowerCase()) === -1)
-          .reduce((acc, header) => {
-            return acc.concat([
-              {
-                val: `${header}##ASC`,
-                display: `${header} ⬆️`,
-              },
-              {
-                val: `${header}##DESC`,
-                display: `${header} ⬇️`,
-              },
-            ]);
-          }, [])
-      );
-    },
-  },
-};
+<script setup>
+const props = defineProps({
+  headers: Array,
+  currentSort: String,
+  sortChangeHandler: Function
+})
+
+let selectedSort = currentSort;
+
+const options = [{ val: null, display: "Sort Option" }].concat(
+  this.headers
+    .reduce((acc, header) => {
+      return acc.concat([
+        {
+          val: `${header}##ASC`,
+          display: `${header} ⬆️`,
+        },
+        {
+          val: `${header}##DESC`,
+          display: `${header} ⬇️`,
+        },
+      ]);
+    }, [])
+);
 </script>
 
 <template>

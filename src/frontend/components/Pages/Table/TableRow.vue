@@ -1,43 +1,38 @@
-<script>
+<script setup>
 import TableCell from "./TableCell.vue";
-import JoinRow from "./JoinRow.vue";
 
-export default {
-  props: ["site", "table", "row", "fields", "joins", "headers", "isItem"],
-  data: function () {
-    return {
-      showAllFields: false,
-      toggleHiddenFieldsButtonText: "Show All",
-    };
-  },
-  methods: {
-    permalink: function (id) {
-      return "/" + this.site + "/" + this.table + "/" + id;
-    },
-    toggleHiddenFields: function () {
-      if (this.showAllFields) {
-        this.showAllFields = false;
-        this.toggleHiddenFieldsButtonText = "Show All";
-      } else {
-        this.showAllFields = true;
-        this.toggleHiddenFieldsButtonText = "Hide";
-      }
-    },
-  },
-  computed: {
-    itemId: function () {
-      if (this.row.length > 0) {
-        return this.row[0];
-      } else {
-        return null;
-      }
-    },
-  },
-  components: {
-    TableCell: TableCell,
-    JoinRow: JoinRow,
-  },
-};
+const props = defineProps({
+  site: String,
+  table: String,
+  row: Object,
+  fields: Array,
+  joins: Array,
+  headers: Array,
+  isItem: Boolean
+})
+
+let showAllFields = false;
+let toggleHiddenFieldsButtonText = "Show All";
+
+if (row.length > 0) {
+  const itemId = row[0];
+} else {
+  const itemId = null;
+}
+
+function permalink: function (id) {
+  return "/" + site + "/" + table + "/" + id;
+}
+
+function toggleHiddenFields() {
+  if (showAllFields) {
+    showAllFields = false;
+    toggleHiddenFieldsButtonText = "Show All";
+  } else {
+    showAllFields = true;
+    toggleHiddenFieldsButtonText = "Hide";
+  }
+}
 </script>
 
 <template>

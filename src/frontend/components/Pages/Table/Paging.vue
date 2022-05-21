@@ -1,27 +1,13 @@
-<script>
-export default {
-  props: ['totalItems', 'perPageCount', 'offset', 'pageNavigateHandler'],
-  data: function () {
-    //     console.log(`Total Items: ${this.totalItems}
-    // Per Page Count: ${this.perPageCount}
-    // Offset: ${this.offset}`);
-    return {};
-  },
-  methods: {},
-  computed: {
-    currentPage: function () {
-      return Math.ceil(this.offset / this.perPageCount) + 1;
-    },
-    totalPages: function () {
-      return Array.from(
-        {
-          length: Math.ceil(this.totalItems / this.perPageCount)
-        },
-        (_, i) => i + 1
-      );
-    }
-  }
-};
+<script setup>
+const props = defineProps({
+  totalItems: Number,
+  perPageCount: Number,
+  offset: Number,
+  pageNavigateHandler: Function,
+})
+
+const currentPage = Math.ceil(this.offset / this.perPageCount) + 1;
+const totalPages = Array.from({ length: Math.ceil(this.totalItems / this.perPageCount) }, (_, i) => i + 1);
 </script>
 
 <template>

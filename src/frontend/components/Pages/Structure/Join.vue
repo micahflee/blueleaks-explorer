@@ -1,15 +1,11 @@
-<script>
-export default {
-  props: ["join"],
-  methods: {
-    makeDirty: function () {
-      this.$emit("dirty");
-    },
-    deleteJoin: function () {
-      this.$emit("delete");
-    },
-  },
-};
+<script setup>
+const props = defineProps({
+  join: Object
+})
+
+function deleteJoin() {
+  this.$emit("delete");
+}
 </script>
 
 <template>

@@ -1,12 +1,11 @@
-<script>
-export default {
-  props: ["field"],
-  methods: {
-    makeDirty: function () {
-      this.$emit("dirty");
-    },
-  },
-};
+<script setup>
+const props = defineProps({
+  field: String
+})
+
+function makeDirty() {
+  this.$emit("dirty");
+}
 </script>
 
 <template>

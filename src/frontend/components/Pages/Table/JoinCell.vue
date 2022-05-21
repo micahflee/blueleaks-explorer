@@ -1,57 +1,64 @@
-<script>
-export default {
-  props: ["site", "table", "field", "value"],
-  methods: {
-    stripScripts: function (htmlString) {
-      const div = document.createElement("div");
-      div.innerHTML = htmlString;
-      const scripts = div.getElementsByTagName("script");
-      let i = scripts.length;
-      while (i--) {
-        scripts[i].parentNode.removeChild(scripts[i]);
-      }
+<script setup>
+const props = defineProps({
+  site: String,
+  table: String,
+  field: String,
+  value: String
+})
 
-      const base = div.getElementsByTagName("base");
-      i = base.length;
-      while (i--) {
-        base[i].parentNode.removeChild(base[i]);
-      }
+function stripScripts(htmlString) {
+  const div = document.createElement("div");
+  div.innerHTML = htmlString;
+  const scripts = div.getElementsByTagName("script");
+  let i = scripts.length;
+  while (i--) {
+    scripts[i].parentNode.removeChild(scripts[i]);
+  }
 
-      return div.innerHTML;
-    },
-    htmlValue: function (html) {
-      var html = this.stripScripts(html)
-        .replace(/\\n/g, " ")
-        .replace(/\\t/g, " ")
-        .replace(/POSITION: absolute;/g, "")
-        .replace(/position:absolute;/g, "");
-      return html;
-    },
-    preValue: function (value) {
-      return value.replace(/\\n/g, "\n");
-    },
-    attachmentUrl: function (value) {
-      var url =
-        "/blueleaks-data/" + this.site + "/files/" + value.replace("\\", "/");
-      return url;
-    },
-    surveyValue: function (value) {
-      var results = [];
-      var pairs = value.split(",");
-      for (var i = 0; i < pairs.length; i++) {
-        var parts = pairs[i].split("=");
-        var question = parts[0];
-        var answer = parts[1]
-          ? decodeURIComponent(parts[1].replace(/\+/g, " "))
-          : "";
-        if (question != "Submit" && question != "" && answer != "") {
-          results.push({ question: question, answer: answer });
-        }
-      }
-      return results;
-    },
-  },
-};
+  const base = div.getElementsByTagName("base");
+  i = base.length;
+  while (i--) {
+    base[i].parentNode.removeChild(base[i]);
+  }
+
+  return div.innerHTML;
+}
+
+function htmlValue(html) {
+  var html = stripScripts(html)
+    .replace(/\\n/g, " ")
+    .replace(/\\t/g, " ")
+    .replace(/POSITION: absolute;/g, "")
+    .replace(/position:absolute;/g, "");
+  return html;
+}
+
+function preValue(value) {
+  return value.replace(/\\n/g, "\n");
+}
+
+function attachmentUrl(value) {
+  var url =
+    "/blueleaks-data/" + site + "/files/" + value.replace("\\", "/");
+  return url;
+}
+
+function surveyValue(value) {
+  var results = [];
+  var pairs = value.split(",");
+  for (var i = 0; i < pairs.length; i++) {
+    var parts = pairs[i].split("=");
+    var question = parts[0];
+    var answer = parts[1]
+      ? decodeURIComponent(parts[1].replace(/\+/g, " "))
+      : "";
+    if (question != "Submit" && question != "" && answer != "") {
+      results.push({ question: question, answer: answer });
+    }
+  }
+  return results;
+}
+
 </script>
 
 <template>

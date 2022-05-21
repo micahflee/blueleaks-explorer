@@ -1,101 +1,101 @@
-<script>
+<script setup>
 import Field from "./Field.vue";
 import Join from "./Join.vue";
 import draggable from "vuedraggable";
-import StructureVue from "../Structure.vue";
 
-export default {
-  props: ["table", "tableData", "structure"],
-  data: function () {
-    return {
-      newRelationshipFromField: "",
-      newRelationshipToTable: "",
-      newRelationshipToField: "",
-      showToggleCheckbox: true,
-    };
-  },
-  methods: {
-    sortedFieldNames: function () {
-      var sorted = [];
-      for (var i in this.tableData["fields"]) {
-        sorted.push(this.tableData["fields"][i]["name"]);
-      }
-      sorted.sort();
-      return sorted;
-    },
-    sortedTableNames: function () {
-      var sorted = [];
-      for (var table in this.structure["tables"]) {
-        if (table != this.table) {
-          sorted.push(table);
-        }
-      }
-      sorted.sort();
-      return sorted;
-    },
-    sortedOtherFieldNames: function () {
-      if (this.newRelationshipToTable == "") return [];
-      var sorted = [];
-      for (var i in this.structure["tables"][this.newRelationshipToTable][
-        "fields"
-      ]) {
-        sorted.push(
-          this.structure["tables"][this.newRelationshipToTable]["fields"][i][
-          "name"
-          ]
-        );
-      }
-      sorted.sort();
-      return sorted;
-    },
-    changeDisplay: function () {
-      var display = prompt("New display name", this.tableData["display"]);
-      if (display) {
-        this.tableData["display"] = display;
-        this.makeDirty();
-      }
-    },
-    changeHidden: function (val) {
-      this.tableData["hidden"] = val;
-      this.$emit("dirty");
-    },
-    createRelationship: function () {
-      var name = prompt("What is the name of this relationship?");
-      if (name) {
-        this.structure["tables"][this.table]["joins"].push({
-          name: name,
-          from: this.table + "." + this.newRelationshipFromField,
-          to: this.newRelationshipToTable + "." + this.newRelationshipToField,
-        });
-        this.newRelationshipFromField = "";
-        this.newRelationshipToTable = "";
-        this.newRelationshipToField = "";
-        this.makeDirty();
-      }
-    },
-    deleteJoin: function (join) {
-      if (confirm("Are you sure?")) {
-        var index = this.tableData["joins"].indexOf(join);
-        this.tableData["joins"].splice(index, 1);
-        this.$emit("dirty");
-      }
-    },
-    showToggle: function () {
-      for (var i = 0; i < this.tableData["fields"].length; i++) {
-        this.tableData["fields"][i]["show"] = this.showToggleCheckbox;
-      }
-      this.makeDirty();
-    },
-    makeDirty: function () {
-      this.$emit("dirty");
-    },
-  },
-  components: {
-    Field: Field,
-    Join: Join,
-    draggable: draggable,
-  },
-};
+const props = defineProps({
+  table: String,
+  tableData: Object,
+  structure: Object
+})
+
+let newRelationshipFromField = "";
+let newRelationshipToTable = "";
+let newRelationshipToField = "";
+let showToggleCheckbox = true;
+
+function sortedFieldNames() {
+  var sorted = [];
+  for (var i in props.tableData["fields"]) {
+    sorted.push(props.tableData["fields"][i]["name"]);
+  }
+  sorted.sort();
+  return sorted;
+}
+
+function sortedTableNames() {
+  var sorted = [];
+  for (var table in props.structure["tables"]) {
+    if (table != props.table) {
+      sorted.push(table);
+    }
+  }
+  sorted.sort();
+  return sorted;
+}
+
+function sortedOtherFieldNames() {
+  if (newRelationshipToTable == "") return [];
+  var sorted = [];
+  for (var i in props.structure["tables"][newRelationshipToTable][
+    "fields"
+  ]) {
+    sorted.push(
+      props.structure["tables"][newRelationshipToTable]["fields"][i][
+      "name"
+      ]
+    );
+  }
+  sorted.sort();
+  return sorted;
+}
+
+function changeDisplay() {
+  var display = prompt("New display name", props.tableData["display"]);
+  if (display) {
+    props.tableData["display"] = display;
+    makeDirty();
+  }
+}
+
+function changeHidden(val) {
+  props.tableData["hidden"] = val;
+  this.$emit("dirty");
+}
+
+function createRelationship() {
+  var name = prompt("What is the name of this relationship?");
+  if (name) {
+    props.structure["tables"][props.table]["joins"].push({
+      name: name,
+      from: props.table + "." + newRelationshipFromField,
+      to: newRelationshipToTable + "." + newRelationshipToField,
+    });
+    newRelationshipFromField = "";
+    newRelationshipToTable = "";
+    newRelationshipToField = "";
+    makeDirty();
+  }
+}
+
+function deleteJoin(join) {
+  if (confirm("Are you sure?")) {
+    var index = props.tableData["joins"].indexOf(join);
+    props.tableData["joins"].splice(index, 1);
+    this.$emit("dirty");
+  }
+}
+
+function showToggle() {
+  for (var i = 0; i < props.tableData["fields"].length; i++) {
+    props.tableData["fields"][i]["show"] = showToggleCheckbox;
+  }
+  makeDirty();
+}
+
+function makeDirty() {
+  this.$emit("dirty");
+}
 </script>
 
 <template>

@@ -1,17 +1,17 @@
-<script>
+<script setup>
 import JoinCell from "./JoinCell.vue";
 
-export default {
-  props: ["site", "table", "row", "fields", "headers"],
-  methods: {
-    permalink: function (id) {
-      return "/" + this.site + "/" + this.table + "/" + id;
-    },
-  },
-  components: {
-    JoinCell: JoinCell,
-  },
-};
+const props = defineProps({
+  site: String,
+  table: String,
+  row: Array,
+  fields: Array,
+  headers: Array
+})
+
+function permalink(id) {
+  return "/" + site + "/" + table + "/" + id;
+}
 </script>
 
 <template>
