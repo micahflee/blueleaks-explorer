@@ -11,7 +11,7 @@ blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
 dbs_path = os.environ.get("BLE_DATABASES_PATH")
 structures_path = os.environ.get("BLE_STRUCTURES_PATH")
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="frontend/dist/assets", static_url_path="/assets")
 
 # Keep track of structures in memory
 structures = {}
@@ -201,7 +201,7 @@ def get_joins(site, table):
 
 
 def render_frontend():
-    return render_template("frontend.html")
+    return send_file("frontend/dist/index.html")
 
 
 @app.route("/", defaults={"path": ""})

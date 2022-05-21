@@ -33,9 +33,8 @@ COPY structures-default/* /var/blueleaks-explorer/structures-default
 # Install python dependencies
 RUN poetry install
 
-# Webpack the js
-RUN cd frontend && npm install
-RUN cd frontend && export NODE_OPTIONS=--openssl-legacy-provider && ./build.js
+# Build the frontend
+RUN cd frontend && npm install && npm run build
 
 # Environment
 ENV BLE_BLUELEAKS_PATH=/data/blueleaks
@@ -43,7 +42,7 @@ ENV BLE_DATABASES_PATH=/data/databases
 ENV BLE_STRUCTURES_PATH=/data/structures
 
 # Execute
-EXPOSE 8080
+EXPOSE 80
 ENV FLASK_APP=app
 ENV FLASK_ENV=production
 CMD ["poetry", "run", "flask", "run", "-h", "0.0.0.0", "-p", "80"]
