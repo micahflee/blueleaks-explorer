@@ -22,7 +22,7 @@ let perPageCount = 50;
 let currentSort = "Chronologically##DESC";
 let searchTerm = null;
 
-function getRows() {
+async function getRows() {
   loading = true;
   // console.log(`current sort: ${this.currentSort}`);
   // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
@@ -86,25 +86,27 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function pageNavigateHandler(page) {
+async function pageNavigateHandler(page) {
   offset = perPageCount * (page - 1);
-  getRows();
+  await getRows();
 }
 
-function sortChangeHandler(evt) {
+async function sortChangeHandler(evt) {
   const sortOption = evt.target.selectedOptions[0].value;
   currentSort = sortOption;
-  getRows();
+  await getRows();
 }
 
-function searchHandler(evt) {
+async function searchHandler(evt) {
   const fd = new FormData(evt.target);
   const term = fd.get("searchTerm");
   if (term) {
     searchTerm = term;
-    getRows();
+    await getRows();
   }
 }
+
+await getRows();
 </script>
 
 <template>

@@ -20,7 +20,7 @@ if (row.length > 0) {
   const itemId = null;
 }
 
-function permalink: function (id) {
+function permalink(id) {
   return "/" + site + "/" + table + "/" + id;
 }
 

@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createApp } from 'vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import App from './components/App.vue';
 import Structure from './components/Pages/Structure.vue';
@@ -18,10 +18,11 @@ const routes = [
     { path: '/:site/:table/:id', component: Item },
 ];
 
-const router = VueRouter.createRouter({
-    history: VueRouter.createWebHashHistory(),
-    mode: 'history',
+const router = createRouter({
+    history: createWebHashHistory(),
     routes
 });
 
-Vue.createApp(App).use(router).mount('#app')
+const app = createApp(App)
+app.use(router)
+app.mount('#app')

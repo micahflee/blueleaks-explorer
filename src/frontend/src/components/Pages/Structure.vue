@@ -28,7 +28,7 @@ function createStructure(site) {
     });
 }
 
-function linkToEditSite: function (site) {
+function linkToEditSite(site) {
   return "/structure/" + site;
 }
 
