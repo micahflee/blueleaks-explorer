@@ -51,9 +51,8 @@ RUN cd frontend && npm install
 COPY src .
 
 # Build the frontend
-# RUN cd frontend && npm run build
-# Build in development mode
-RUN cd frontend && npm run build -m development
+RUN cd frontend && npm run build
+# RUN cd frontend && npm run build -m development
 
 # Execute
 EXPOSE 80
