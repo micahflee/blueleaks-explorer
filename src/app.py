@@ -17,6 +17,9 @@ app = Flask(__name__, static_folder="frontend/dist/assets", static_url_path="/as
 # Keep track of structures in memory
 structures = {}
 
+# Cache SQL statements and their results where it's easy
+sql_cache = {}
+
 
 def get_structure(site):
     if site not in structures:
@@ -74,6 +77,9 @@ def sql_execute(site, c, sql):
 
 
 def sql_count(site, table):
+    if ("count", site, table) in sql_cache:
+        return sql_cache[("count", site, table)]
+
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
@@ -82,10 +88,14 @@ def sql_count(site, table):
 
     conn.close()
 
-    return row[0]
+    sql_cache[("count", site, table)] = row[0]
+    return sql_cache[("count", site, table)]
 
 
 def sql_count_search(site, table, cols, search_term):
+    if ("count_search", site, table) in sql_cache:
+        return sql_cache[("count_search", site, table)]
+
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
@@ -96,7 +106,8 @@ def sql_count_search(site, table, cols, search_term):
 
     conn.close()
 
-    return row[0]
+    sql_cache[("count_search", site, table)] = row[0]
+    return sql_cache[("count_search", site, table)]
 
 
 def sql_headers(site, table):
