@@ -91,12 +91,6 @@ fetch("/api/structure/" + site)
       </div>
     </template>
     <template v-else>
-      <template v-if="dirty">
-        <p class="dirty">
-          You have unsaved changed.
-          <button v-on:click="save">Save</button>
-        </p>
-      </template>
       <template v-if="structure != null">
         <h2>
           <i class="fas fa-sitemap"></i>
@@ -111,6 +105,13 @@ fetch("/api/structure/" + site)
           </li>
         </ul>
       </template>
+
+      <template v-if="dirty">
+        <p id="dirty">
+          You have unsaved changed.
+          <button v-on:click="save">Save</button>
+        </p>
+      </template>
     </template>
   </div>
 </template>
@@ -124,9 +125,12 @@ h2 i {
   margin-right: 0.5em;
 }
 
-.dirty {
+#dirty {
   color: red;
   font-style: italic;
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 
 .meta {
