@@ -2,6 +2,8 @@
 
 BlueLeaks Explorer is open source software for journalists to investigate all of the data in the [BlueLeaks dataset](https://ddosecrets.com/wiki/BlueLeaks).
 
+For in-depth instructions, read Chapter 10 of Hacks, Leaks, and Revelations.
+
 ## How it Works
 
 The BlueLeaks dataset contains hundreds of folders with names like `ncric` (Northern California Regional Intelligence Center), `arictexas` (Austin Regional Intelligence Center), and `memiac` (Maine Information Analysis Center). Each of these folders includes data from a different hacked law enforcement website.

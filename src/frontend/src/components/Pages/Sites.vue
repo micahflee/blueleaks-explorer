@@ -1,13 +1,15 @@
 <script setup>
-let loading = false;
-let sites = null;
+import { ref } from 'vue'
+
+const loading = ref(false);
+const sites = ref(null);
 
 function linkToSite(folder) {
   return "/" + folder;
 }
 
 // Get sites
-loading = true;
+loading.value = true;
 fetch("/api/sites")
   .then(function (response) {
     if (response.status !== 200) {
@@ -17,12 +19,12 @@ fetch("/api/sites")
       return;
     }
     response.json().then(function (data) {
-      sites = data;
-      loading = false;
+      sites.value = data;
+      loading.value = false;
     });
   })
   .catch(function (err) {
-    loading = false;
+    loading.value = false;
     console.log("Error fetching sites", err);
   });
 </script>
