@@ -242,12 +242,12 @@ def catch_all(path):
     if len(missing_sites) > 0:
         return render_template(
             "error.html",
-            error_message=f"The unzipped BlueLeaks dataset is not at {blueleaks_path}.",
+            error_message=f"Can't find the unzipped BlueLeaks dataset. Fix the volume that maps to {blueleaks_path} in your docker-compose.yaml.",
         )
     if len(missing_dbs) > 0:
         return render_template(
             "error.html",
-            error_message=f"There are missing SQLite3 databases at {dbs_path}. You must iniatilize BlueLeaks Explorer first.",
+            error_message="SQLite3 databases are missing. You probably haven't run the initialize.py script yet.",
         )
 
     # Download a data file
