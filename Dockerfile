@@ -1,5 +1,16 @@
 FROM python:3.10-bullseye
 
+# Environment
+ENV BLE_BLUELEAKS_PATH=/data/blueleaks
+ENV BLE_DATABASES_PATH=/data/databases
+ENV BLE_STRUCTURES_PATH=/data/structures
+
+# Copy the built-in and the default structures
+RUN mkdir -p /var/blueleaks-explorer/structures-builtin
+COPY structures-builtin/* /var/blueleaks-explorer/structures-builtin
+RUN mkdir -p /var/blueleaks-explorer/structures-default
+COPY structures-default/* /var/blueleaks-explorer/structures-default
+
 # Install updates in container
 RUN DEBIAN_FRONTEND=noninteractive && \
     export DEBIAN_FRONTEND && \
@@ -9,7 +20,6 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     rm -rf /var/lib/apt/lists/*
 
 # Install nodejs
-RUN apt-get update && apt-get install -y curl
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash && \
     . /root/.bashrc && \
     sleep 1 && \
@@ -23,28 +33,29 @@ RUN pip install poetry
 
 # Copy the code
 WORKDIR /app
-COPY src .
-
-# Copy the built-in and the default structures
-RUN mkdir -p /var/blueleaks-explorer/structures-builtin
-COPY structures-builtin/* /var/blueleaks-explorer/structures-builtin
-RUN mkdir -p /var/blueleaks-explorer/structures-default
-COPY structures-default/* /var/blueleaks-explorer/structures-default
 
 # Install python dependencies
+COPY src/pyproject.toml .
+COPY src/poetry.lock .
 RUN poetry install
 
-# Webpack the js
-RUN cd frontend && npm install
-RUN cd frontend && export NODE_OPTIONS=--openssl-legacy-provider && ./build.js
+# Copy the frontend
+RUN mkdir frontend
+COPY src/frontend/package.json frontend
+COPY src/frontend/package-lock.json frontend
 
-# Environment
-ENV BLE_BLUELEAKS_PATH=/data/blueleaks
-ENV BLE_DATABASES_PATH=/data/databases
-ENV BLE_STRUCTURES_PATH=/data/structures
+# Install node dependencies
+RUN cd frontend && npm install
+
+# Copy everything else
+COPY src .
+
+# Build the frontend
+RUN cd frontend && npm run build
+# RUN cd frontend && npm run build -m development
 
 # Execute
-EXPOSE 8080
+EXPOSE 80
 ENV FLASK_APP=app
 ENV FLASK_ENV=production
 CMD ["poetry", "run", "flask", "run", "-h", "0.0.0.0", "-p", "80"]
