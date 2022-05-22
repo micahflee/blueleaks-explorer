@@ -2,9 +2,10 @@
 const props = defineProps({
   join: Object
 })
+const emit = defineEmits(["delete"])
 
 function deleteJoin() {
-  this.$emit("delete");
+  emit("delete");
 }
 </script>
 

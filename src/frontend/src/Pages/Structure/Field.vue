@@ -2,9 +2,10 @@
 const props = defineProps({
   field: String
 })
+const emit = defineEmits(["dirty"])
 
 function makeDirty() {
-  this.$emit("dirty");
+  emit("dirty");
 }
 </script>
 

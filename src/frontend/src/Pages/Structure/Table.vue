@@ -10,6 +10,7 @@ const props = defineProps({
   tableData: Object,
   structure: Object
 })
+const emit = defineEmits(["dirty"])
 
 const newRelationshipFromField = ref("");
 const newRelationshipToTable = ref("");
@@ -62,7 +63,7 @@ function changeDisplay() {
 
 function changeHidden(val) {
   props.tableData["hidden"] = val;
-  this.$emit("dirty");
+  emit("dirty");
 }
 
 function createRelationship() {
@@ -84,7 +85,7 @@ function deleteJoin(join) {
   if (confirm("Are you sure?")) {
     var index = props.tableData["joins"].indexOf(join);
     props.tableData["joins"].splice(index, 1);
-    this.$emit("dirty");
+    emit("dirty");
   }
 }
 
@@ -96,7 +97,7 @@ function showToggle() {
 }
 
 function makeDirty() {
-  this.$emit("dirty");
+  emit("dirty");
 }
 </script>
 
