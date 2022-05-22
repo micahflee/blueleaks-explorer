@@ -1,8 +1,11 @@
 <script setup>
-let loading = false;
-let site = this.$route.path.split("/")[1];
-let siteName = null;
-let tables = null;
+import { ref } from 'vue'
+
+const site = this.$route.path.split("/")[1];
+
+const loading = ref(false);
+const siteName = ref(null);
+const tables = ref(null);
 
 function linkToTable(table) {
   return "/" + this.site + "/" + table;
@@ -15,11 +18,10 @@ function numberWithCommas(x) {
 }
 
 // Get tables
-var that = this;
-loading = true;
+loading.value = true;
 fetch("/api/" + site + "/tables")
   .then(function (response) {
-    that.loading = false;
+    loading.value = false;
 
     if (response.status !== 200) {
       console.log(
@@ -28,12 +30,12 @@ fetch("/api/" + site + "/tables")
       return;
     }
     response.json().then(function (data) {
-      that.siteName = data["site_name"];
-      that.tables = data["tables"];
+      siteName.value = data["site_name"];
+      tables.value = data["tables"];
     });
   })
   .catch(function (err) {
-    that.loading = false;
+    loading.value = false;
     console.log("Error fetching tables", err);
   });
 </script>

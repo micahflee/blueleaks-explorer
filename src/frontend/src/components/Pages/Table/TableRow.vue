@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import TableCell from "./TableCell.vue";
 
 const props = defineProps({
@@ -11,8 +12,8 @@ const props = defineProps({
   isItem: Boolean
 })
 
-let showAllFields = false;
-let toggleHiddenFieldsButtonText = "Show All";
+const showAllFields = ref(false);
+const toggleHiddenFieldsButtonText = ref("Show All");
 
 if (row.length > 0) {
   const itemId = row[0];
@@ -26,11 +27,11 @@ function permalink(id) {
 
 function toggleHiddenFields() {
   if (showAllFields) {
-    showAllFields = false;
-    toggleHiddenFieldsButtonText = "Show All";
+    showAllFields.value = false;
+    toggleHiddenFieldsButtonText.value = "Show All";
   } else {
-    showAllFields = true;
-    toggleHiddenFieldsButtonText = "Hide";
+    showAllFields.value = true;
+    toggleHiddenFieldsButtonText.value = "Hide";
   }
 }
 </script>

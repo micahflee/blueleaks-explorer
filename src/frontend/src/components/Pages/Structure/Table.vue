@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 import Field from "./Field.vue";
 import Join from "./Join.vue";
 import draggable from "vuedraggable";
@@ -9,10 +11,10 @@ const props = defineProps({
   structure: Object
 })
 
-let newRelationshipFromField = "";
-let newRelationshipToTable = "";
-let newRelationshipToField = "";
-let showToggleCheckbox = true;
+const newRelationshipFromField = ref("");
+const newRelationshipToTable = ref("");
+const newRelationshipToField = ref("");
+const showToggleCheckbox = ref(true);
 
 function sortedFieldNames() {
   var sorted = [];
@@ -35,13 +37,13 @@ function sortedTableNames() {
 }
 
 function sortedOtherFieldNames() {
-  if (newRelationshipToTable == "") return [];
+  if (newRelationshipToTable.value == "") return [];
   var sorted = [];
-  for (var i in props.structure["tables"][newRelationshipToTable][
+  for (var i in props.structure["tables"][newRelationshipToTable.value][
     "fields"
   ]) {
     sorted.push(
-      props.structure["tables"][newRelationshipToTable]["fields"][i][
+      props.structure["tables"][newRelationshipToTable.value]["fields"][i][
       "name"
       ]
     );
@@ -68,12 +70,12 @@ function createRelationship() {
   if (name) {
     props.structure["tables"][props.table]["joins"].push({
       name: name,
-      from: props.table + "." + newRelationshipFromField,
-      to: newRelationshipToTable + "." + newRelationshipToField,
+      from: props.table + "." + newRelationshipFromField.value,
+      to: newRelationshipToTable.value + "." + newRelationshipToField.value,
     });
-    newRelationshipFromField = "";
-    newRelationshipToTable = "";
-    newRelationshipToField = "";
+    newRelationshipFromField.value = "";
+    newRelationshipToTable.value = "";
+    newRelationshipToField.value = "";
     makeDirty();
   }
 }

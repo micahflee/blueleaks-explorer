@@ -1,20 +1,22 @@
 <script setup>
+import { ref } from 'vue'
 import Table from "./Structure/Table.vue";
 
-let loading = false;
-let site = this.$route.path.split("/")[2];
-let dirty = false;
-let structure = null;
+const site = this.$route.path.split("/")[2];
+
+const loading = ref(false);
+const dirty = ref(false);
+const structure = ref(null);
 
 function save() {
-  loading = true;
+  loading.value = true;
   fetch("/api/structure/" + site, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(structure),
   })
     .then(function (response) {
-      loading = false;
+      loading.value = false;
 
       if (response.status !== 200) {
         console.log(
@@ -26,12 +28,12 @@ function save() {
         if (data["error"]) {
           alert(data["error_message"]);
         } else {
-          dirty = false;
+          dirty.value = false;
         }
       });
     })
     .catch(function (err) {
-      loading = false;
+      loading.value = false;
       console.log("Error saving structure", err);
     });
 }
@@ -39,20 +41,20 @@ function save() {
 function changeName() {
   var name = prompt(
     "What's the name of this site?",
-    structure["name"]
+    structure.value["name"]
   );
   if (name) {
-    structure["name"] = name;
-    dirty = true;
+    structure.value["name"] = name;
+    dirty.value = true;
   }
 }
 
 function makeDirty() {
-  dirty = true;
+  dirty.value = true;
 }
 
 // Get structure
-loading = true;
+loading.value = true;
 fetch("/api/structure/" + site)
   .then(function (response) {
     loading = false;
@@ -68,12 +70,12 @@ fetch("/api/structure/" + site)
         alert(data["error_message"]);
         this.$router.push({ path: "/structure" });
       } else {
-        structure = data["structure"];
+        structure.value = data["structure"];
       }
     });
   })
   .catch(function (err) {
-    loading = false;
+    loading.value = false;
     console.log("Error fetching structure", err);
   });
 </script>

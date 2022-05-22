@@ -1,10 +1,12 @@
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   searchTerm: String,
   handleSearchSubmit: Function,
 })
 
-let term = searchTerm;
+const term = ref(searchTerm);
 </script>
 
 <template>

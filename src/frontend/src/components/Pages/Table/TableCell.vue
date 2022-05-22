@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import JoinRow from "./JoinRow.vue";
 
 const props = defineProps({
@@ -11,12 +12,12 @@ const props = defineProps({
   isItem: Boolean
 })
 
-let loading = false;
-let joinTable = null;
-let joinHeaders = null;
-let joinRows = null;
-let joinCount = null;
-let joinFields = null;
+const loading = ref(false);
+const joinTable = ref(null);
+const joinHeaders = ref(null);
+const joinRows = ref(null);
+const joinCount = ref(null);
+const joinFields = ref(null);
 
 function stripScripts(htmlString) {
   const div = document.createElement("div");
@@ -75,7 +76,7 @@ function permalink() {
 }
 
 // Get join
-loading = true;
+loading.value = true;
 var url = "/api/" + site + "/" + table + "/join/" + join["name"] + "/" + itemId;
 // If this is viewing an item instead of a table, get all join rows instead of a limited set of them
 if (isItem) {
@@ -85,23 +86,23 @@ if (isItem) {
 fetch(url)
   .then(function (response) {
     if (response.status !== 200) {
-      that.loading = false;
+      loading.value = false;
       console.log(
         "Error fetching join rows, status code: " + response.status
       );
       return;
     }
     response.json().then(function (data) {
-      that.loading = false;
-      that.joinTable = data["join_table"];
-      that.joinHeaders = data["join_headers"];
-      that.joinRows = data["join_rows"];
-      that.joinCount = data["join_count"];
-      that.joinFields = data["join_fields"];
+      loading.value = false;
+      joinTable.value = data["join_table"];
+      joinHeaders.value = data["join_headers"];
+      joinRows.value = data["join_rows"];
+      joinCount.value = data["join_count"];
+      joinFields.value = data["join_fields"];
     });
   })
   .catch(function (err) {
-    that.loading = false;
+    loading.value = false;
     console.log("Error fetching join rows", err);
   });
 </script>

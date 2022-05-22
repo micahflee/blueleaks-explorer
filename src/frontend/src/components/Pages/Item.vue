@@ -1,41 +1,43 @@
 <script setup>
+import { ref } from 'vue'
 import TableRow from "./Table/TableRow.vue";
 
 const site = this.$route.path.split("/")[1];
 const table = this.$route.path.split("/")[2];
 const linkToSite = "/" + this.site;
 const linkToTable = "/" + this.site + "/" + this.table;
-let loading = false;
-let siteName = null;
-let tableName = null;
-let headers = null;
-let rows = null;
-let fields = null;
-let joins = null;
+
+const loading = ref(false);
+const siteName = ref(null);
+const tableName = ref(null);
+const headers = ref(null);
+const rows = ref(null);
+const fields = ref(null);
+const joins = ref(null);
 
 // Get item
-loading = true;
+loading.value = true;
 fetch(
   "/api/" + site + "/" + table + "/" + this.$route.params.id
 )
   .then(function (response) {
-    loading = false;
+    loading.value = false;
 
     if (response.status !== 200) {
       console.log("Error fetching item, status code: " + response.status);
       return;
     }
     response.json().then(function (data) {
-      siteName = data["site_name"];
-      tableName = data["table_name"];
-      headers = data["headers"];
-      rows = data["rows"];
-      fields = data["fields"];
-      joins = data["joins"];
+      siteName.value = data["site_name"];
+      tableName.value = data["table_name"];
+      headers.value = data["headers"];
+      rows.value = data["rows"];
+      fields.value = data["fields"];
+      joins.value = data["joins"];
     });
   })
   .catch(function (err) {
-    loading = false;
+    loading.value = false;
     console.log("Error fetching item", err);
   });
 </script>

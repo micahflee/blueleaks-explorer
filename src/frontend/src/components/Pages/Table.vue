@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import TableRow from "./Table/TableRow.vue";
 import Paging from "./Table/Paging.vue";
 import SortBar from "./Table/SortBar.vue";
@@ -8,49 +9,49 @@ const site = this.$route.path.split("/")[1];
 const table = this.$route.path.split("/")[2];
 const linkToSite = "/" + site;
 
-let loading = false;
-let siteName = null;
-let tableName = null;
-let headers = null;
-let rows = null;
-let count = null;
-let fields = null;
-let joins = null;
-let sortFields = null;
-let offset = 0;
-let perPageCount = 50;
-let currentSort = "Chronologically##DESC";
-let searchTerm = null;
+const loading = ref(false);
+const siteName = ref(null);
+const tableName = ref(null);
+const headers = ref(null);
+const rows = ref(null);
+const count = ref(null);
+const fields = ref(null);
+const joins = ref(null);
+const sortFields = ref(null);
+const offset = ref(0);
+const perPageCount = ref(50);
+const currentSort = ref("Chronologically##DESC");
+const searchTerm = ref(null);
 
 async function getRows() {
-  loading = true;
+  loading.value = true;
   // console.log(`current sort: ${this.currentSort}`);
   // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
   try {
     const response = await fetch(this.buildURL());
     if (response.status !== 200) {
-      loading = false;
+      loading.value = false;
       console.log("Error fetching rows, status code: " + response.status);
       return;
     }
     const data = await response.json();
 
-    siteName = data["site_name"];
-    tableName = data["table_name"];
-    headers = data["headers"];
-    rows = data["rows"];
-    count = data["count"];
-    fields = data["fields"];
-    joins = data["joins"];
+    siteName.value = data["site_name"];
+    tableName.value = data["table_name"];
+    headers.value = data["headers"];
+    rows.value = data["rows"];
+    count.value = data["count"];
+    fields.value = data["fields"];
+    joins.value = data["joins"];
 
     // sortFields
     const badOptions = ["content"];
-    sortFields = fields.filter((f) => f.show && badOptions.indexOf(f.name.toLowerCase()) === -1).map((f) => f.name);
-    sortFields.unshift("Chronologically");
+    sortFields.value = fields.value.filter((f) => f.show && badOptions.indexOf(f.name.toLowerCase()) === -1).map((f) => f.name);
+    sortFields.value.unshift("Chronologically");
 
-    loading = false;
+    loading.value = false;
   } catch (err) {
-    loading = false;
+    loading.value = false;
     console.log("Error fetching rows", err);
   }
 }
@@ -60,24 +61,15 @@ function buildURL() {
     const [sortCol, sortDir] = this.currentSort.split("##");
 
     if (this.searchTerm) {
-      return `/api/${this.site}/${this.table
-        }/search?search_term=${encodeURIComponent(this.searchTerm)}&count=${this.perPageCount
-        }&offset=${this.offset}&sortCol=${encodeURIComponent(
-          sortCol
-        )}&sortDir=${sortDir}`;
+      return `/api/${site.value}/${table.value}/search?search_term=${encodeURIComponent(searchTerm.value)}&count=${perPageCount.value}&offset=${offset.value}&sortCol=${encodeURIComponent(sortCol)}&sortDir=${sortDir}`;
     }
 
-    return `/api/${this.site}/${this.table}?count=${this.perPageCount
-      }&offset=${this.offset}&sortCol=${encodeURIComponent(
-        sortCol
-      )}&sortDir=${sortDir}`;
+    return `/api/${site.value}/${table.value}?count=${perPageCount.value}&offset=${offset.value}&sortCol=${encodeURIComponent(sortCol)}&sortDir=${sortDir}`;
   }
 
-  return this.searchTerm
-    ? `/api/${this.site}/${this.table
-    }/search?search_term=${encodeURIComponent(this.searchTerm)}&count=${this.perPageCount
-    }&offset=${this.offset}`
-    : `/api/${this.site}/${this.table}?count=${this.perPageCount}&offset=${this.offset}`;
+  return searchTerm.value
+    ? `/api/${site.value}/${table.value}/search?search_term=${encodeURIComponent(searchTerm.value)}&count=${perPageCount.value}&offset=${offset.value}`
+    : `/api/${site.value}/${table.value}?count=${perPageCount.value}&offset=${offset.value}`;
 }
 
 function numberWithCommas(x) {
@@ -87,13 +79,13 @@ function numberWithCommas(x) {
 }
 
 async function pageNavigateHandler(page) {
-  offset = perPageCount * (page - 1);
+  offset.value = perPageCount.value * (page - 1);
   await getRows();
 }
 
 async function sortChangeHandler(evt) {
   const sortOption = evt.target.selectedOptions[0].value;
-  currentSort = sortOption;
+  currentSort.value = sortOption;
   await getRows();
 }
 
@@ -101,7 +93,7 @@ async function searchHandler(evt) {
   const fd = new FormData(evt.target);
   const term = fd.get("searchTerm");
   if (term) {
-    searchTerm = term;
+    searchTerm.value = term;
     await getRows();
   }
 }

@@ -1,10 +1,12 @@
 <script setup>
-let loading = false;
-let implementedSites = [];
-let unimplementedSites = [];
+import { ref } from 'vue'
+
+const loading = ref(false);
+const implementedSites = ref([]);
+const unimplementedSites = ref([]);
 
 function createStructure(site) {
-  loading = true;
+  loading.value = true;
   fetch("/api/structure/create/" + site, { method: "POST" })
     .then(function (response) {
       if (response.status !== 200) {
@@ -14,7 +16,7 @@ function createStructure(site) {
         return;
       }
       response.json().then(function (data) {
-        loading = false;
+        loading.value = false;
         if (data["error"]) {
           alert(data["error_message"]);
         } else {
@@ -23,7 +25,7 @@ function createStructure(site) {
       });
     })
     .catch(function (err) {
-      loading = false;
+      loading.value = false;
       console.log("Error creating structure", err);
     });
 }
@@ -33,7 +35,7 @@ function linkToEditSite(site) {
 }
 
 // Get structures
-loading = true;
+loading.value = true;
 fetch("/api/structures")
   .then(function (response) {
     if (response.status !== 200) {
@@ -43,13 +45,13 @@ fetch("/api/structures")
       return;
     }
     response.json().then(function (data) {
-      implementedSites = data["implemented_sites"];
-      unimplementedSites = data["unimplemented_sites"];
-      loading = false;
+      implementedSites.value = data["implemented_sites"];
+      unimplementedSites.value = data["unimplemented_sites"];
+      loading.value = false;
     });
   })
   .catch(function (err) {
-    loading = false;
+    loading.value = false;
     console.log("Error fetching structures", err);
   });
 </script>

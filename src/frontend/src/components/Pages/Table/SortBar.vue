@@ -1,11 +1,13 @@
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   headers: Array,
   currentSort: String,
   sortChangeHandler: Function
 })
 
-let selectedSort = currentSort;
+const selectedSort = ref(currentSort);
 
 const options = [{ val: null, display: "Sort Option" }].concat(
   this.headers
