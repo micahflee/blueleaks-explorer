@@ -14,19 +14,17 @@ const props = defineProps({
 
 const showAllFields = ref(false);
 const toggleHiddenFieldsButtonText = ref("Show All");
-
-if (row.length > 0) {
-  const itemId = row[0];
-} else {
-  const itemId = null;
+const itemId = ref(null);
+if (props.row.length > 0) {
+  itemId.value = props.row[0];
 }
 
 function permalink(id) {
-  return "/" + site + "/" + table + "/" + id;
+  return "/" + props.site + "/" + props.table + "/" + id;
 }
 
 function toggleHiddenFields() {
-  if (showAllFields) {
+  if (showAllFields.value) {
     showAllFields.value = false;
     toggleHiddenFieldsButtonText.value = "Show All";
   } else {
@@ -41,28 +39,29 @@ function toggleHiddenFields() {
     <ul class="fields">
       <li v-for="field in fields" class="field">
         <template v-if="field['show']">
-          <TableCell v-bind:site="site" v-bind:table="table" v-bind:itemId="itemId" v-bind:field="field"
-            v-bind:value="row[headers.indexOf(field['name'])]" v-bind:isItem="isItem"></TableCell>
+          <TableCell :site="site" :table="table" :itemId="itemId" :field="field"
+            :value="row[headers.indexOf(field['name'])]" :join="false" :isItem="isItem">
+          </TableCell>
         </template>
       </li>
     </ul>
     <ul class="join-fields">
       <li v-for="join in joins" class="field">
-        <TableCell v-bind:site="site" v-bind:table="table" v-bind:itemId="itemId" v-bind:join="join"
-          v-bind:isItem="isItem"></TableCell>
+        <TableCell :site="site" :table="table" :itemId="itemId" :field="false" :value="false" :join="join"
+          :isItem="isItem"></TableCell>
       </li>
     </ul>
     <ul v-if="showAllFields" class="hidden-fields">
       <li v-for="field in fields" class="field">
         <template v-if="!field['show']">
-          <TableCell v-bind:site="site" v-bind:table="table" v-bind:itemId="itemId" v-bind:field="field"
-            v-bind:value="row[headers.indexOf(field['name'])]" v-bind:isItem="isItem"></TableCell>
+          <TableCell :site="site" :table="table" :itemId="itemId" :field="field"
+            :value="row[headers.indexOf(field['name'])]" :join="false" :isItem="isItem"></TableCell>
         </template>
       </li>
     </ul>
     <ul class="buttons">
       <li>
-        <router-link class="button" v-bind:to="permalink(row[0])">Permalink</router-link>
+        <router-link class="button" :to="permalink(row[0])">Permalink</router-link>
       </li>
       <li>
         <button v-on:click="toggleHiddenFields">{{ toggleHiddenFieldsButtonText }}</button>

@@ -10,7 +10,7 @@ const props = defineProps({
 })
 
 function permalink(id) {
-  return "/" + site + "/" + table + "/" + id;
+  return "/" + props.site + "/" + props.table + "/" + id;
 }
 </script>
 

@@ -13,11 +13,11 @@ const props = defineProps({
 })
 
 const loading = ref(false);
-const joinTable = ref(null);
-const joinHeaders = ref(null);
-const joinRows = ref(null);
-const joinCount = ref(null);
-const joinFields = ref(null);
+const joinTable = ref("");
+const joinHeaders = ref([]);
+const joinRows = ref([]);
+const joinCount = ref(0);
+const joinFields = ref([]);
 
 function stripScripts(htmlString) {
   const div = document.createElement("div");
@@ -51,7 +51,7 @@ function preValue(value) {
 
 function attachmentUrl(value) {
   var url =
-    "/blueleaks-data/" + site + "/files/" + value.replace("\\", "/");
+    "/blueleaks-data/" + props.site + "/files/" + value.replace("\\", "/");
   return url;
 }
 
@@ -72,39 +72,41 @@ function surveyValue(value) {
 }
 
 function permalink() {
-  return "/" + site + "/" + table + "/" + itemId;
+  return "/" + props.site + "/" + props.table + "/" + props.itemId;
 }
 
-// Get join
-loading.value = true;
-var url = "/api/" + site + "/" + table + "/join/" + join["name"] + "/" + itemId;
-// If this is viewing an item instead of a table, get all join rows instead of a limited set of them
-if (isItem) {
-  url += "/all";
-}
+if (props.join !== false) {
+  // Get join
+  loading.value = true;
+  var url = "/api/" + props.site + "/" + props.table + "/join/" + props.join["name"] + "/" + props.itemId;
+  // If this is viewing an item instead of a table, get all join rows instead of a limited set of them
+  if (props.isItem) {
+    url += "/all";
+  }
 
-fetch(url)
-  .then(function (response) {
-    if (response.status !== 200) {
+  fetch(url)
+    .then(function (response) {
+      if (response.status !== 200) {
+        loading.value = false;
+        console.log(
+          "Error fetching join rows, status code: " + response.status
+        );
+        return;
+      }
+      response.json().then(function (data) {
+        loading.value = false;
+        joinTable.value = data["join_table"];
+        joinHeaders.value = data["join_headers"];
+        joinRows.value = data["join_rows"];
+        joinCount.value = data["join_count"];
+        joinFields.value = data["join_fields"];
+      });
+    })
+    .catch(function (err) {
       loading.value = false;
-      console.log(
-        "Error fetching join rows, status code: " + response.status
-      );
-      return;
-    }
-    response.json().then(function (data) {
-      loading.value = false;
-      joinTable.value = data["join_table"];
-      joinHeaders.value = data["join_headers"];
-      joinRows.value = data["join_rows"];
-      joinCount.value = data["join_count"];
-      joinFields.value = data["join_fields"];
+      console.log("Error fetching join rows", err);
     });
-  })
-  .catch(function (err) {
-    loading.value = false;
-    console.log("Error fetching join rows", err);
-  });
+}
 </script>
 
 <template>

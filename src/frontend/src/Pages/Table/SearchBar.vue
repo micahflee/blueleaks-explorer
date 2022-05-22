@@ -6,13 +6,13 @@ const props = defineProps({
   handleSearchSubmit: Function,
 })
 
-const term = ref(searchTerm);
+const term = ref(props.searchTerm);
 </script>
 
 <template>
   <div class="searchbar">
     <span class="search-header">Search:</span>
-    <form class="search-form" v-on:submit.prevent="handleSearchSubmit">
+    <form class="search-form" v-on:submit.prevent="props.handleSearchSubmit">
       <input type="text" v-model="term" name="searchTerm" />
       <button type="submit">Search</button>
     </form>

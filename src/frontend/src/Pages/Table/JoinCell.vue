@@ -39,7 +39,7 @@ function preValue(value) {
 
 function attachmentUrl(value) {
   var url =
-    "/blueleaks-data/" + site + "/files/" + value.replace("\\", "/");
+    "/blueleaks-data/" + props.site + "/files/" + value.replace("\\", "/");
   return url;
 }
 
