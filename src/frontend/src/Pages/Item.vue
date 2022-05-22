@@ -4,8 +4,8 @@ import TableRow from "./Table/TableRow.vue";
 
 const site = this.$route.path.split("/")[1];
 const table = this.$route.path.split("/")[2];
-const linkToSite = "/" + this.site;
-const linkToTable = "/" + this.site + "/" + this.table;
+const linkToSite = "/" + site;
+const linkToTable = "/" + site + "/" + table;
 
 const loading = ref(false);
 const siteName = ref(null);

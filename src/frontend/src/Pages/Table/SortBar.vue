@@ -7,10 +7,10 @@ const props = defineProps({
   sortChangeHandler: Function
 })
 
-const selectedSort = ref(currentSort);
+const selectedSort = ref(props.currentSort);
 
 const options = [{ val: null, display: "Sort Option" }].concat(
-  this.headers
+  props.headers
     .reduce((acc, header) => {
       return acc.concat([
         {

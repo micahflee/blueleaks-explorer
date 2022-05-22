@@ -23,12 +23,26 @@ const perPageCount = ref(50);
 const currentSort = ref("Chronologically##DESC");
 const searchTerm = ref(null);
 
+function buildURL() {
+  if (currentSort.value) {
+    const [sortCol, sortDir] = currentSort.value.split("##");
+
+    if (searchTerm.value) {
+      return `/api/${site.value}/${table.value}/search?search_term=${encodeURIComponent(searchTerm.value)}&count=${perPageCount.value}&offset=${offset.value}&sortCol=${encodeURIComponent(sortCol)}&sortDir=${sortDir}`;
+    }
+
+    return `/api/${site.value}/${table.value}?count=${perPageCount.value}&offset=${offset.value}&sortCol=${encodeURIComponent(sortCol)}&sortDir=${sortDir}`;
+  }
+
+  return searchTerm.value
+    ? `/api/${site.value}/${table.value}/search?search_term=${encodeURIComponent(searchTerm.value)}&count=${perPageCount.value}&offset=${offset.value}`
+    : `/api/${site.value}/${table.value}?count=${perPageCount.value}&offset=${offset.value}`;
+}
+
 async function getRows() {
   loading.value = true;
-  // console.log(`current sort: ${this.currentSort}`);
-  // console.log(`count: ${this.perPageCount} offset: ${this.offset}`);
   try {
-    const response = await fetch(this.buildURL());
+    const response = await fetch(buildURL());
     if (response.status !== 200) {
       loading.value = false;
       console.log("Error fetching rows, status code: " + response.status);
@@ -54,22 +68,6 @@ async function getRows() {
     loading.value = false;
     console.log("Error fetching rows", err);
   }
-}
-
-function buildURL() {
-  if (this.currentSort) {
-    const [sortCol, sortDir] = this.currentSort.split("##");
-
-    if (this.searchTerm) {
-      return `/api/${site.value}/${table.value}/search?search_term=${encodeURIComponent(searchTerm.value)}&count=${perPageCount.value}&offset=${offset.value}&sortCol=${encodeURIComponent(sortCol)}&sortDir=${sortDir}`;
-    }
-
-    return `/api/${site.value}/${table.value}?count=${perPageCount.value}&offset=${offset.value}&sortCol=${encodeURIComponent(sortCol)}&sortDir=${sortDir}`;
-  }
-
-  return searchTerm.value
-    ? `/api/${site.value}/${table.value}/search?search_term=${encodeURIComponent(searchTerm.value)}&count=${perPageCount.value}&offset=${offset.value}`
-    : `/api/${site.value}/${table.value}?count=${perPageCount.value}&offset=${offset.value}`;
 }
 
 function numberWithCommas(x) {

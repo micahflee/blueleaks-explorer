@@ -8,7 +8,7 @@ const siteName = ref(null);
 const tables = ref(null);
 
 function linkToTable(table) {
-  return "/" + this.site + "/" + table;
+  return "/" + site + "/" + table;
 }
 
 function numberWithCommas(x) {

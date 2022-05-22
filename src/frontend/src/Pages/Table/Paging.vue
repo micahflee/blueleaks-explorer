@@ -6,8 +6,8 @@ const props = defineProps({
   pageNavigateHandler: Function,
 })
 
-const currentPage = Math.ceil(this.offset / this.perPageCount) + 1;
-const totalPages = Array.from({ length: Math.ceil(this.totalItems / this.perPageCount) }, (_, i) => i + 1);
+const currentPage = Math.ceil(props.offset / props.perPageCount) + 1;
+const totalPages = Array.from({ length: Math.ceil(props.totalItems / props.perPageCount) }, (_, i) => i + 1);
 </script>
 
 <template>

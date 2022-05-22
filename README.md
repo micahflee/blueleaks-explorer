@@ -26,7 +26,7 @@ Create a new folder for your BlueLeaks Explorer data, which will take up about 5
 version: "3.9"
     
 services:
-  blueleaks-explorer:
+  app:
     image: micahflee/blueleaks-explorer:latest
     ports:
       - "8000:80"

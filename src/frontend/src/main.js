@@ -1,13 +1,13 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import App from './components/App.vue';
-import Structure from './components/Pages/Structure.vue';
-import StructureEdit from './components/Pages/StructureEdit.vue';
-import Sites from './components/Pages/Sites.vue';
-import Site from './components/Pages/Site.vue';
-import Table from './components/Pages/Table.vue';
-import Item from './components/Pages/Item.vue';
+import App from './App.vue';
+import Structure from './Pages/Structure.vue';
+import StructureEdit from './Pages/StructureEdit.vue';
+import Sites from './Pages/Sites.vue';
+import Site from './Pages/Site.vue';
+import Table from './Pages/Table.vue';
+import Item from './Pages/Item.vue';
 
 const routes = [
     { path: '/', component: Sites },
