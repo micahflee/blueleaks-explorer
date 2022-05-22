@@ -63,4 +63,8 @@ li .site-link {
   font-weight: bold;
   font-size: 1.2em;
 }
+
+li i {
+  margin-right: 0.5em;
+}
 </style>

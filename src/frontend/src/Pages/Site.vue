@@ -83,6 +83,10 @@ li .table-link {
   font-weight: bold;
 }
 
+li .table-link i {
+  margin-right: 0.5em;
+}
+
 li .meta {
   color: #333333;
   font-style: italic;

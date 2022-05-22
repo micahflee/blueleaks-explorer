@@ -73,7 +73,9 @@ fetch("/api/structure/" + site)
         alert(data["error_message"]);
         router.push({ path: "/structure" });
       } else {
+        console.log("about to set structure.value")
         structure.value = data["structure"];
+        console.log("after set structure.value")
       }
     });
   })
