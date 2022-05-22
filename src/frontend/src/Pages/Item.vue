@@ -1,9 +1,11 @@
 <script setup>
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import TableRow from "./Table/TableRow.vue";
+const route = useRoute()
 
-const site = this.$route.path.split("/")[1];
-const table = this.$route.path.split("/")[2];
+const site = route.path.split("/")[1];
+const table = route.path.split("/")[2];
 const linkToSite = "/" + site;
 const linkToTable = "/" + site + "/" + table;
 
@@ -18,7 +20,7 @@ const joins = ref(null);
 // Get item
 loading.value = true;
 fetch(
-  "/api/" + site + "/" + table + "/" + this.$route.params.id
+  "/api/" + site + "/" + table + "/" + route.params.id
 )
   .then(function (response) {
     loading.value = false;

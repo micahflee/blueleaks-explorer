@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
 
-const site = this.$route.path.split("/")[1];
+const site = route.path.split("/")[1];
 
 const loading = ref(false);
 const siteName = ref(null);

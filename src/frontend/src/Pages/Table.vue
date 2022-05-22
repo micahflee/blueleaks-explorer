@@ -1,12 +1,14 @@
 <script setup>
-import { ref } from 'vue';
-import TableRow from "./Table/TableRow.vue";
-import Paging from "./Table/Paging.vue";
-import SortBar from "./Table/SortBar.vue";
-import SearchBar from "./Table/SearchBar.vue";
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import TableRow from "./Table/TableRow.vue"
+import Paging from "./Table/Paging.vue"
+import SortBar from "./Table/SortBar.vue"
+import SearchBar from "./Table/SearchBar.vue"
+const route = useRoute()
 
-const site = this.$route.path.split("/")[1];
-const table = this.$route.path.split("/")[2];
+const site = route.path.split("/")[1];
+const table = route.path.split("/")[2];
 const linkToSite = "/" + site;
 
 const loading = ref(false);

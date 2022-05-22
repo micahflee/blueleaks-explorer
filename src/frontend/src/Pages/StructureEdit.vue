@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from 'vue'
-import Table from "./Structure/Table.vue";
+import { useRoute, useRouter } from 'vue-router'
+import Table from "./Structure/Table.vue"
+const router = useRouter()
+const route = useRoute()
 
-const site = this.$route.path.split("/")[2];
+const site = route.path.split("/")[2];
 
 const loading = ref(false);
 const dirty = ref(false);
@@ -68,7 +71,7 @@ fetch("/api/structure/" + site)
     response.json().then(function (data) {
       if (data["error"]) {
         alert(data["error_message"]);
-        this.$router.push({ path: "/structure" });
+        router.push({ path: "/structure" });
       } else {
         structure.value = data["structure"];
       }

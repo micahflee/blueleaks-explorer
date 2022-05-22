@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const loading = ref(false);
 const implementedSites = ref([]);
@@ -20,7 +22,7 @@ function createStructure(site) {
         if (data["error"]) {
           alert(data["error_message"]);
         } else {
-          this.$router.push({ path: "/structure/" + site });
+          router.push({ path: "/structure/" + site });
         }
       });
     })
