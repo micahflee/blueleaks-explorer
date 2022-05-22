@@ -2,6 +2,8 @@
 
 BlueLeaks Explorer is open source software for journalists to investigate all of the data in the [BlueLeaks dataset](https://ddosecrets.com/wiki/BlueLeaks).
 
+![Screenshot of BlueLeaks Explorer](./screenshot.png).
+
 For in-depth instructions, read Chapter 10 of Hacks, Leaks, and Revelations.
 
 ## How it Works
@@ -53,21 +55,10 @@ The first time you use BlueLeaks Explorer you must run the initialize script. Th
 Open a new terminal, change to your BlueLeaks Explorer folder, and run this command:
 
 ```sh
-docker-compose exec blueleaks-explorer poetry run python ./initialize.py
+docker-compose exec app poetry run python ./initialize.py
 ```
 
-It will take several minutes to run, and it will create 4.7GB of SQLite3 databases in your `databases` folder. Your output will look something like this:
-
-```
-micah@trapdoor blueleaks-explorer % docker-compose exec blueleaks-explorer poetry run python ./initialize.py
-BlueLeaks Explorer
-211sfbay finished
-acprlea finished
-acticaz finished
---snip--
-```
-
-You only need to do this step once.
+It will take several minutes to run, and it will create 4.7GB of SQLite3 databases in your `databases` folder. You only need to do this step once.
 
 ### Using BlueLeaks Explorer
 

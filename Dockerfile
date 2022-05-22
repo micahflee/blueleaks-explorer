@@ -31,7 +31,6 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh
 # Install poetry
 RUN pip install poetry
 
-# Copy the code
 WORKDIR /app
 
 # Install python dependencies
