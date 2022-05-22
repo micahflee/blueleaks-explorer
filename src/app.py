@@ -1,6 +1,7 @@
 import json
 import sqlite3
 import os
+import sys
 import shutil
 from pathlib import Path
 from flask import Flask, jsonify, render_template, abort, send_file, request
@@ -66,11 +67,17 @@ def get_implemented_sites_with_names():
     return implemented_sites_with_names
 
 
+def sql_execute(site, c, sql):
+    print(f"{site}.sqlite: {sql}")
+    sys.stdout.flush()
+    return c.execute(sql)
+
+
 def sql_count(site, table):
     conn = sqlite3.connect(get_database_filename(site))
     c = conn.cursor()
 
-    c.execute(f"SELECT COUNT(*) FROM '{table}'")
+    sql_execute(site, c, f"SELECT COUNT(*) FROM '{table}'")
     row = c.fetchone()
 
     conn.close()
@@ -84,7 +91,7 @@ def sql_count_search(site, table, cols, search_term):
 
     where_clause = build_where_clause(cols, search_term)
 
-    c.execute(f"SELECT COUNT(*) FROM '{table}' WHERE {where_clause}")
+    sql_execute(site, c, f"SELECT COUNT(*) FROM '{table}' WHERE {where_clause}")
     row = c.fetchone()
 
     conn.close()
@@ -97,7 +104,7 @@ def sql_headers(site, table):
     c = conn.cursor()
 
     headers = []
-    for row in c.execute(f"PRAGMA table_info('{table}');"):
+    for row in sql_execute(site, c, f"PRAGMA table_info('{table}');"):
         headers.append(row[1])
 
     conn.close()
@@ -113,13 +120,13 @@ def sql_select_rows(site, table, limit, offset, sort_col, sort_dir):
         print(f"{sort_col} {sort_dir}")
         if sort_col == "Chronologically":
             headers = sql_headers(site, table)
-            statement = f"SELECT * FROM '{table}' ORDER BY CAST({headers[0]} AS INTEGER) {sort_dir} LIMIT {limit} OFFSET {offset}"
+            sql = f"SELECT * FROM '{table}' ORDER BY CAST('{headers[0]}' AS INTEGER) {sort_dir} LIMIT {limit} OFFSET {offset}"
         else:
-            statement = f"SELECT * FROM '{table}' ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
+            sql = f"SELECT * FROM '{table}' ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
     else:
-        statement = f"SELECT * FROM '{table}' LIMIT {limit} OFFSET {offset}"
+        sql = f"SELECT * FROM '{table}' LIMIT {limit} OFFSET {offset}"
     rows = []
-    for row in c.execute(statement):
+    for row in sql_execute(site, c, sql):
         rows.append(list(row))
 
     conn.close()
@@ -140,14 +147,14 @@ def sql_search_table(site, table, cols, search_term, limit, offset, sort_col, so
         print(f"{sort_col} {sort_dir}")
         if sort_col == "Chronologically":
             headers = sql_headers(site, table)
-            statement = f"SELECT * FROM '{table}' WHERE {where_clause} ORDER BY CAST({headers[0]} AS INTEGER) {sort_dir} LIMIT {limit} OFFSET {offset}"
+            sql = f"SELECT * FROM '{table}' WHERE {where_clause} ORDER BY CAST({headers[0]} AS INTEGER) {sort_dir} LIMIT {limit} OFFSET {offset}"
         else:
-            statement = f"SELECT * FROM '{table}' WHERE {where_clause} ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
+            sql = f"SELECT * FROM '{table}' WHERE {where_clause} ORDER BY {sort_col} {sort_dir} LIMIT {limit} OFFSET {offset}"
     else:
-        statement = f"SELECT * FROM '{table}' WHERE {where_clause} LIMIT {limit} OFFSET {offset}"
+        sql = f"SELECT * FROM '{table}' WHERE {where_clause} LIMIT {limit} OFFSET {offset}"
     rows = []
 
-    for row in c.execute(statement):
+    for row in sql_execute(site, c, sql):
         rows.append(list(row))
 
     conn.close()
@@ -161,7 +168,8 @@ def sql_select_item(site, table, item_id, headers):
     item_id = item_id.replace("'", "''")
 
     rows = []
-    for row in c.execute(f"SELECT * FROM '{table}' WHERE {headers[0]}='{item_id}'"):
+    sql = f"SELECT * FROM '{table}' WHERE {headers[0]}='{item_id}'"
+    for row in sql_execute(site, c, sql):
         rows.append(list(row))
 
     conn.close()
@@ -176,9 +184,8 @@ def sql_select_join(site, table, item_id, join_from, join_to, headers):
     dest_table = join_to.split(".")[0]
 
     rows = []
-    for row in c.execute(
-        f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON {join_to}={join_from} WHERE '{table}'.{headers[0]}='{item_id}'"
-    ):
+    sql = f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON {join_to}={join_from} WHERE '{table}'.{headers[0]}='{item_id}'"
+    for row in sql_execute(site, c, sql):
         rows.append(list(row))
 
     conn.close()
