@@ -10,7 +10,7 @@
   "dependencies": {
     "vue": "^3.2.35",
     "vue-router": "^4.0.15",
-    "vuedraggable": "^2.24.3"
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",

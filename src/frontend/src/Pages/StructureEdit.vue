@@ -16,7 +16,7 @@ function save() {
   fetch("/api/structure/" + site, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(structure),
+    body: JSON.stringify(structure.value),
   })
     .then(function (response) {
       loading.value = false;
@@ -60,7 +60,7 @@ function makeDirty() {
 loading.value = true;
 fetch("/api/structure/" + site)
   .then(function (response) {
-    loading = false;
+    loading.value = false;
 
     if (response.status !== 200) {
       console.log(
@@ -73,9 +73,7 @@ fetch("/api/structure/" + site)
         alert(data["error_message"]);
         router.push({ path: "/structure" });
       } else {
-        console.log("about to set structure.value")
         structure.value = data["structure"];
-        console.log("after set structure.value")
       }
     });
   })
@@ -109,8 +107,7 @@ fetch("/api/structure/" + site)
 
         <ul class="tables">
           <li v-for="(tableData, table) in structure['tables']" class="table">
-            <Table v-bind:table="table" v-bind:tableData="tableData" v-bind:structure="structure"
-              v-on:dirty="makeDirty()"></Table>
+            <Table :table="table" :tableData="tableData" :structure="structure" v-on:dirty="makeDirty()"></Table>
           </li>
         </ul>
       </template>
@@ -119,6 +116,14 @@ fetch("/api/structure/" + site)
 </template>
 
 <style scoped>
+h2 i {
+  margin-right: 0.5em;
+}
+
+.table-name i {
+  margin-right: 0.5em;
+}
+
 .dirty {
   color: red;
   font-style: italic;

@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue'
+import draggable from 'vuedraggable'
 
-import Field from "./Field.vue";
-import Join from "./Join.vue";
-import draggable from "vuedraggable";
+import Field from "./Field.vue"
+import Join from "./Join.vue"
 
 const props = defineProps({
   table: String,
@@ -121,10 +121,12 @@ function makeDirty() {
           <input type="checkbox" v-model="showToggleCheckbox" v-on:change="showToggle()" />
         </span>
       </div>
-      <draggable class="fields" handle=".handle" v-model="tableData['fields']" @end="makeDirty">
-        <div v-for="field in tableData['fields']" class="field">
-          <Field v-bind:field="field" v-on:dirty="makeDirty()"></Field>
-        </div>
+      <draggable v-model="tableData['fields']" @end="makeDirty" item-key="name">
+        <template #item="{ element }">
+          <div class="field">
+            <Field v-bind:field="element" v-on:dirty="makeDirty()"></Field>
+          </div>
+        </template>
       </draggable>
 
       <template v-if="tableData['joins'].length > 0">
@@ -134,10 +136,12 @@ function makeDirty() {
           <span class="join-relationship">Relationship</span>
           <span class="join-delete">Delete</span>
         </div>
-        <draggable class="joins" handle=".handle" v-model="tableData['joins']" @end="makeDirty">
-          <div v-for="join in tableData['joins']" class="join">
-            <Join v-bind:join="join" v-on:dirty="makeDirty()" v-on:delete="deleteJoin(join)"></Join>
-          </div>
+        <draggable v-model="tableData['joins']" @end="makeDirty">
+          <template #item="{ element }">
+            <div class="join">
+              <Join v-bind:join="element" v-on:dirty="makeDirty()" v-on:delete="deleteJoin(element)"></Join>
+            </div>
+          </template>
         </draggable>
       </template>
 

@@ -92,6 +92,7 @@ button {
   line-height: 29px;
   text-decoration: none;
   text-align: center;
+  margin: 0 0.5em;
 }
 
 a.button:hover,
