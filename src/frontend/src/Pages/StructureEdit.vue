@@ -8,18 +8,19 @@ const route = useRoute()
 const site = route.path.split("/")[2];
 
 const loading = ref(false);
+const loadingSave = ref(false);
 const dirty = ref(false);
 const structure = ref(null);
 
 function save() {
-  loading.value = true;
+  loadingSave.value = true;
   fetch("/api/structure/" + site, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(structure.value),
   })
     .then(function (response) {
-      loading.value = false;
+      loadingSave.value = false;
 
       if (response.status !== 200) {
         console.log(
@@ -36,7 +37,7 @@ function save() {
       });
     })
     .catch(function (err) {
-      loading.value = false;
+      loadingSave.value = false;
       console.log("Error saving structure", err);
     });
 }
@@ -112,6 +113,12 @@ fetch("/api/structure/" + site)
           <button v-on:click="save">Save</button>
         </p>
       </template>
+
+      <template v-if="loadingSave">
+        <p class="loading-save">
+          Saving... <img src="/static/loading-small.gif" alt="Saving" />
+        </p>
+      </template>
     </template>
   </div>
 </template>
@@ -126,7 +133,17 @@ h2 i {
 }
 
 #dirty {
+  background-color: #fff;
   color: red;
+  font-style: italic;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+#loading-save {
+  background-color: #fff;
+  color: black;
   font-style: italic;
   position: fixed;
   bottom: 0;

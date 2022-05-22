@@ -91,7 +91,7 @@ function deleteJoin(join) {
 
 function showToggle() {
   for (var i = 0; i < props.tableData["fields"].length; i++) {
-    props.tableData["fields"][i]["show"] = showToggleCheckbox;
+    props.tableData["fields"][i]["show"] = showToggleCheckbox.value;
   }
   makeDirty();
 }
