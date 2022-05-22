@@ -1,10 +1,8 @@
 # BlueLeaks Explorer
 
-BlueLeaks Explorer is open source software for journalists to investigate all of the data in the [BlueLeaks dataset](https://ddosecrets.com/wiki/BlueLeaks).
+BlueLeaks Explorer is open source software for journalists to investigate all of the data in the [BlueLeaks dataset](https://ddosecrets.com/wiki/BlueLeaks). For in-depth instructions, read Chapter 10 of **Hacks, Leaks, and Revelations**.
 
-![Screenshot of BlueLeaks Explorer](./screenshot.png).
-
-For in-depth instructions, read Chapter 10 of Hacks, Leaks, and Revelations.
+![Screenshot of BlueLeaks Explorer](./screenshot.png)
 
 ## How it Works
 
