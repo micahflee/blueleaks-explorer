@@ -33,13 +33,27 @@ RUN pip install poetry
 
 # Copy the code
 WORKDIR /app
-COPY src .
 
 # Install python dependencies
+COPY src/pyproject.toml .
+COPY src/poetry.lock .
 RUN poetry install
 
+# Copy the frontend
+RUN mkdir frontend
+COPY src/frontend/package.json frontend
+COPY src/frontend/package-lock.json frontend
+
+# Install node dependencies
+RUN cd frontend && npm install
+
+# Copy everything else
+COPY src .
+
 # Build the frontend
-RUN cd frontend && npm install && npm run build
+# RUN cd frontend && npm run build
+# Build in development mode
+RUN cd frontend && npm run build -m development
 
 # Execute
 EXPOSE 80
