@@ -207,6 +207,31 @@ def render_frontend():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
+    # Make sure BlueLeaks data is all there
+    if not os.path.isdir(blueleaks_path):
+        return render_template(
+            "error.html",
+            error_message=f"The BlueLeaks data folder {blueleaks_path} isn't a folder",
+        )
+    missing_dbs = []
+    missing_sites = []
+    sites = os.listdir(blueleaks_path)
+    for site in get_all_sites():
+        if site not in sites:
+            missing_sites.append(site)
+        if not os.path.isfile(os.path.join(dbs_path, f"{site}.sqlite3")):
+            missing_dbs.append(site)
+    if len(missing_sites) > 0:
+        return render_template(
+            "error.html",
+            error_message=f"The unzipped BlueLeaks dataset is not at {blueleaks_path}.",
+        )
+    if len(missing_dbs) > 0:
+        return render_template(
+            "error.html",
+            error_message=f"There are missing SQLite3 databases at {dbs_path}. You must iniatilize BlueLeaks Explorer first.",
+        )
+
     # Download a data file
     if path.startswith("blueleaks-data"):
         listing_path = path[len("blueleaks-data") :]

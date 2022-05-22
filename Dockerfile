@@ -1,5 +1,16 @@
 FROM python:3.10-bullseye
 
+# Environment
+ENV BLE_BLUELEAKS_PATH=/data/blueleaks
+ENV BLE_DATABASES_PATH=/data/databases
+ENV BLE_STRUCTURES_PATH=/data/structures
+
+# Copy the built-in and the default structures
+RUN mkdir -p /var/blueleaks-explorer/structures-builtin
+COPY structures-builtin/* /var/blueleaks-explorer/structures-builtin
+RUN mkdir -p /var/blueleaks-explorer/structures-default
+COPY structures-default/* /var/blueleaks-explorer/structures-default
+
 # Install updates in container
 RUN DEBIAN_FRONTEND=noninteractive && \
     export DEBIAN_FRONTEND && \
@@ -24,22 +35,11 @@ RUN pip install poetry
 WORKDIR /app
 COPY src .
 
-# Copy the built-in and the default structures
-RUN mkdir -p /var/blueleaks-explorer/structures-builtin
-COPY structures-builtin/* /var/blueleaks-explorer/structures-builtin
-RUN mkdir -p /var/blueleaks-explorer/structures-default
-COPY structures-default/* /var/blueleaks-explorer/structures-default
-
 # Install python dependencies
 RUN poetry install
 
 # Build the frontend
 RUN cd frontend && npm install && npm run build
-
-# Environment
-ENV BLE_BLUELEAKS_PATH=/data/blueleaks
-ENV BLE_DATABASES_PATH=/data/databases
-ENV BLE_STRUCTURES_PATH=/data/structures
 
 # Execute
 EXPOSE 80
