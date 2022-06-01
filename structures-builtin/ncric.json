@@ -4809,7 +4809,7 @@
                     "type": "text"
                 }
             ],
-            "hidden": false,
+            "hidden": true,
             "joins": []
         },
         "Company": {
@@ -12843,6 +12843,11 @@
             "display": "FormBuilder",
             "fields": [
                 {
+                    "name": "DatabaseTablename",
+                    "show": true,
+                    "type": "text"
+                },
+                {
                     "name": "FormName",
                     "show": true,
                     "type": "text"
@@ -12881,11 +12886,6 @@
                     "name": "FormReceiptEmailMessage",
                     "show": false,
                     "type": "html"
-                },
-                {
-                    "name": "DatabaseTablename",
-                    "show": false,
-                    "type": "text"
                 },
                 {
                     "name": "DisableDatabaseEntry",
@@ -13434,13 +13434,7 @@
                 }
             ],
             "hidden": false,
-            "joins": [
-                {
-                    "from": "FormBuilder.FormName",
-                    "name": "Feedback",
-                    "to": "Feedback.NSFormName"
-                }
-            ]
+            "joins": []
         },
         "FormBuilderOptions": {
             "display": "FormBuilderOptions",
