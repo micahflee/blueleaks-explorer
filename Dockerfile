@@ -56,5 +56,4 @@ RUN cd frontend && npm run build
 # Execute
 EXPOSE 80
 ENV FLASK_APP=app
-ENV FLASK_ENV=production
 CMD ["poetry", "run", "flask", "run", "-h", "0.0.0.0", "-p", "80"]
