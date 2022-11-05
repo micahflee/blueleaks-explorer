@@ -5,8 +5,8 @@ import JoinRow from "./JoinRow.vue";
 const props = defineProps({
   site: String,
   table: String,
-  itemId: Number,
-  field: String,
+  itemId: String,
+  field: Object,
   value: String,
   join: Object,
   isItem: Boolean
@@ -71,14 +71,10 @@ function surveyValue(value) {
   return results;
 }
 
-function permalink() {
-  return "/" + props.site + "/" + props.table + "/" + props.itemId;
-}
-
-if (props.join !== false) {
+if (Object.keys(props.join).length > 0) {
   // Get join
   loading.value = true;
-  var url = "/api/" + props.site + "/" + props.table + "/join/" + props.join["name"] + "/" + props.itemId;
+  var url = `/api/${props.site}/${props.table}/join/${props.join["name"]}/${props.itemId}`;
   // If this is viewing an item instead of a table, get all join rows instead of a limited set of them
   if (props.isItem) {
     url += "/all";
@@ -117,13 +113,14 @@ if (props.join !== false) {
       </div>
     </template>
     <template v-else>
-      <template v-if="join">
+      <template v-if="Object.keys(join).length > 0">
         <template v-if="joinCount > 0">
           <span class="label">{{ join['name'] }}:</span>
           <template v-if="joinRows.length != joinCount">
             <p>
               <span class="meta">Showing {{ joinRows.length }} out of {{ joinCount }} items</span>
-              <router-link class="button secondary" v-bind:to="permalink()">See All Items</router-link>
+              <router-link class="button secondary" v-bind:to="`/${site}/${table}/${itemId}`">See All Items
+              </router-link>
             </p>
           </template>
           <template v-else>
@@ -155,11 +152,7 @@ if (props.join !== false) {
             <img v-bind:src="attachmentUrl(value)" />
           </span>
           <span v-else-if="field['type'] == 'attachment'">
-            <a v-bind:href="attachmentUrl(value)" target="_blank">
-              {{
-                  value
-              }}
-            </a>
+            <a v-bind:href="attachmentUrl(value)" target="_blank">{{ value }}</a>
           </span>
           <span v-else-if="field['type'] == 'survey'">
             <ul class="survey-results">

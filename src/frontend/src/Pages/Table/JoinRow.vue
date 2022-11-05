@@ -8,10 +8,6 @@ const props = defineProps({
   fields: Array,
   headers: Array
 })
-
-function permalink(id) {
-  return "/" + props.site + "/" + props.table + "/" + id;
-}
 </script>
 
 <template>
@@ -24,7 +20,7 @@ function permalink(id) {
     </ul>
     <ul class="buttons">
       <li>
-        <router-link class="button secondary" v-bind:to="permalink(row[0])">Permalink</router-link>
+        <router-link class="button secondary" v-bind:to="`/${site}/${table}/${row[0]}`">Permalink</router-link>
       </li>
     </ul>
   </div>

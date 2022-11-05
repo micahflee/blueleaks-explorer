@@ -19,9 +19,7 @@ const joins = ref(null);
 
 // Get item
 loading.value = true;
-fetch(
-  "/api/" + site + "/" + table + "/" + route.params.id
-)
+fetch(`/api/${site}/${table}/${route.params.id}`)
   .then(function (response) {
     loading.value = false;
 
@@ -72,4 +70,5 @@ fetch(
 </template>
 
 <style scoped>
+
 </style>

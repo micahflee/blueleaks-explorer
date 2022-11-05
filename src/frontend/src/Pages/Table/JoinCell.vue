@@ -2,7 +2,7 @@
 const props = defineProps({
   site: String,
   table: String,
-  field: String,
+  field: Object,
   value: String
 })
 
