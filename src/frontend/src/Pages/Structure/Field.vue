@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-  field: String
+  field: Object
 })
 const emit = defineEmits(["dirty"])
 

@@ -109,7 +109,7 @@ fetch("/api/structure/" + site)
 
       <template v-if="dirty">
         <p id="dirty">
-          You have unsaved changed.
+          You have unsaved changes.
           <button v-on:click="save">Save</button>
         </p>
       </template>
