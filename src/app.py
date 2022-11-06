@@ -193,9 +193,10 @@ def sql_select_join(site, table, item_id, join_from, join_to, headers):
 
     item_id = item_id.replace("'", "''")
     dest_table = join_to.split(".")[0]
+    dest_headers = sql_headers(site, dest_table)
 
     rows = []
-    sql = f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON {join_to}={join_from} WHERE '{table}'.{headers[0]}='{item_id}'"
+    sql = f"SELECT '{dest_table}'.* FROM '{dest_table}' JOIN '{table}' ON {join_to}={join_from} WHERE '{table}'.{headers[0]}='{item_id}' ORDER BY CAST({dest_table}.{dest_headers[0]} AS INTEGER) DESC"
     for row in sql_execute(site, c, sql):
         rows.append(list(row))
 
