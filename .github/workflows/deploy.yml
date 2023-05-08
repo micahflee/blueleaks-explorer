@@ -1,5 +1,4 @@
-name: ci
-
+name: Deploy to DockerHub
 on:
   push:
     branches:
