@@ -23,10 +23,10 @@ RUN DEBIAN_FRONTEND=noninteractive && \
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash && \
     . /root/.bashrc && \
     sleep 1 && \
-    nvm install 18.2.0 && \
-    ln -s /root/.nvm/versions/node/v18.2.0/bin/node /usr/local/bin/node && \
-    ln -s /root/.nvm/versions/node/v18.2.0/bin/npm /usr/local/bin/npm && \
-    ln -s /root/.nvm/versions/node/v18.2.0/bin/npx /usr/local/bin/npx
+    nvm install 18.17.0 && \
+    ln -s /root/.nvm/versions/node/v18.17.0/bin/node /usr/local/bin/node && \
+    ln -s /root/.nvm/versions/node/v18.17.0/bin/npm /usr/local/bin/npm && \
+    ln -s /root/.nvm/versions/node/v18.17.0/bin/npx /usr/local/bin/npx
 
 # Install poetry
 RUN pip install poetry
