@@ -1,4 +1,4 @@
-FROM python:3.10-bullseye
+FROM python:3.12-bookworm
 
 # Environment
 ENV BLE_BLUELEAKS_PATH=/data/blueleaks
@@ -20,13 +20,13 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     rm -rf /var/lib/apt/lists/*
 
 # Install nodejs
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash && \
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.5/install.sh | bash && \
     . /root/.bashrc && \
     sleep 1 && \
-    nvm install 18.17.0 && \
-    ln -s /root/.nvm/versions/node/v18.17.0/bin/node /usr/local/bin/node && \
-    ln -s /root/.nvm/versions/node/v18.17.0/bin/npm /usr/local/bin/npm && \
-    ln -s /root/.nvm/versions/node/v18.17.0/bin/npx /usr/local/bin/npx
+    nvm install 18.18.0 && \
+    ln -s /root/.nvm/versions/node/v18.18.0/bin/node /usr/local/bin/node && \
+    ln -s /root/.nvm/versions/node/v18.18.0/bin/npm /usr/local/bin/npm && \
+    ln -s /root/.nvm/versions/node/v18.18.0/bin/npx /usr/local/bin/npx
 
 # Install poetry
 RUN pip install poetry
