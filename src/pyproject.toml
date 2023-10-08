@@ -11,6 +11,7 @@ flask = "*"
 
 [tool.poetry.dev-dependencies]
 black = "*"
+pytest = "^7.4.2"
 
 [build-system]
 requires = ["poetry>=1.1.13"]

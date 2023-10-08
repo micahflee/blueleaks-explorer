@@ -6,11 +6,14 @@ import shutil
 from pathlib import Path
 from flask import Flask, jsonify, render_template, abort, send_file, request
 
-from common import default_structures_path, builtin_structures_path
+from common import (
+    get_blueleaks_path,
+    get_dbs_path,
+    get_structures_path,
+    get_default_structures_path,
+    get_builtin_structures_path,
+)
 
-blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
-dbs_path = os.environ.get("BLE_DATABASES_PATH")
-structures_path = os.environ.get("BLE_STRUCTURES_PATH")
 
 app = Flask(__name__, static_folder="frontend/dist/assets", static_url_path="/assets")
 
@@ -23,7 +26,7 @@ sql_cache = {}
 
 def get_structure(site):
     if site not in structures:
-        with open(os.path.join(structures_path, f"{site}.json")) as f:
+        with open(os.path.join(get_structures_path(), f"{site}.json")) as f:
             structures[site] = json.load(f)
 
     return structures[site]
@@ -40,12 +43,12 @@ def humansize(nbytes):
 
 
 def get_database_filename(site):
-    return os.path.join(dbs_path, f"{site}.sqlite3")
+    return os.path.join(get_dbs_path(), f"{site}.sqlite3")
 
 
 def get_all_sites():
     all_sites = []
-    for filename in os.listdir(default_structures_path):
+    for filename in os.listdir(get_default_structures_path()):
         if filename.endswith(".json"):
             all_sites.append(filename[:-5])
     all_sites.sort()
@@ -54,7 +57,7 @@ def get_all_sites():
 
 def get_implemented_sites():
     implemented_sites = []
-    for filename in os.listdir(structures_path):
+    for filename in os.listdir(get_structures_path()):
         if filename.endswith(".json"):
             implemented_sites.append(filename[:-5])
     implemented_sites.sort()
@@ -227,23 +230,23 @@ def render_frontend():
 @app.route("/<path:path>")
 def catch_all(path):
     # Make sure BlueLeaks data is all there
-    if not os.path.isdir(blueleaks_path):
+    if not os.path.isdir(get_blueleaks_path()):
         return render_template(
             "error.html",
-            error_message=f"The BlueLeaks data folder {blueleaks_path} isn't a folder",
+            error_message=f"The BlueLeaks data folder {get_blueleaks_path()} isn't a folder",
         )
     missing_dbs = []
     missing_sites = []
-    sites = os.listdir(blueleaks_path)
+    sites = os.listdir(get_blueleaks_path())
     for site in get_all_sites():
         if site not in sites:
             missing_sites.append(site)
-        if not os.path.isfile(os.path.join(dbs_path, f"{site}.sqlite3")):
+        if not os.path.isfile(os.path.join(get_dbs_path(), f"{site}.sqlite3")):
             missing_dbs.append(site)
     if len(missing_sites) > 0:
         return render_template(
             "error.html",
-            error_message=f"Can't find the unzipped BlueLeaks dataset. Fix the volume that maps to {blueleaks_path} in your docker-compose.yaml.",
+            error_message=f"Can't find the unzipped BlueLeaks dataset. Fix the volume that maps to {get_blueleaks_path()} in your docker-compose.yaml.",
         )
     if len(missing_dbs) > 0:
         return render_template(
@@ -256,7 +259,7 @@ def catch_all(path):
         listing_path = path[len("blueleaks-data") :]
         if listing_path == "":
             listing_path = "/"
-        filename = os.path.join(blueleaks_path, listing_path.lstrip("/"))
+        filename = os.path.join(get_blueleaks_path(), listing_path.lstrip("/"))
         if os.path.exists(filename):
             if os.path.isdir(filename):
                 # Render directory listing
@@ -340,15 +343,15 @@ def api_structure_create(site):
         return jsonify({"error": True, "error_message": "Invalid site"})
 
     # Is this site already implemented?
-    if os.path.exists(os.path.join(structures_path, f"{site}.json")):
+    if os.path.exists(os.path.join(get_structures_path(), f"{site}.json")):
         return jsonify(
             {"error": True, "error_message": "That site is already implemented"}
         )
 
     # Copy the default structure
     shutil.copyfile(
-        os.path.join(default_structures_path, f"{site}.json"),
-        os.path.join(structures_path, f"{site}.json"),
+        os.path.join(get_default_structures_path(), f"{site}.json"),
+        os.path.join(get_structures_path(), f"{site}.json"),
     )
     return jsonify({"error": False})
 
@@ -363,21 +366,21 @@ def api_structure(site):
         return jsonify({"error": True, "error_message": "Invalid site"})
 
     # Has it been implemented?
-    if not os.path.exists(os.path.join(structures_path, f"{site}.json")):
+    if not os.path.exists(os.path.join(get_structures_path(), f"{site}.json")):
         return jsonify(
             {"error": True, "error_message": "That site hasn't been implemented"}
         )
 
     if request.method == "GET":
         # Return the structure
-        with open(os.path.join(structures_path, f"{site}.json")) as f:
+        with open(os.path.join(get_structures_path(), f"{site}.json")) as f:
             structure = json.load(f)
         return jsonify({"error": False, "structure": structure})
     elif request.method == "POST":
         # Save the structure
         structure = request.json
         structures[site] = structure
-        with open(os.path.join(structures_path, f"{site}.json"), "w") as f:
+        with open(os.path.join(get_structures_path(), f"{site}.json"), "w") as f:
             f.write(json.dumps(structure, indent=4))
         return jsonify({"error": False})
     else:
@@ -581,10 +584,10 @@ def api_join(site, table, join_name, item_id):
 # Copy the builtin structures, if there isn't already a structure there
 for site in get_all_sites():
     if os.path.exists(
-        os.path.join(builtin_structures_path, f"{site}.json")
-    ) and not os.path.exists(os.path.join(structures_path, f"{site}.json")):
+        os.path.join(get_builtin_structures_path(), f"{site}.json")
+    ) and not os.path.exists(os.path.join(get_structures_path(), f"{site}.json")):
         print(f"copying built-in structure: {site}")
         shutil.copyfile(
-            os.path.join(builtin_structures_path, f"{site}.json"),
-            os.path.join(structures_path, f"{site}.json"),
+            os.path.join(get_builtin_structures_path(), f"{site}.json"),
+            os.path.join(get_structures_path(), f"{site}.json"),
         )

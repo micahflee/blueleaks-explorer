@@ -1,9 +1,30 @@
 import os
 
-builtin_structures_path = "/var/blueleaks-explorer/structures-builtin"
 
-default_structures_path = "/var/blueleaks-explorer/structures-default"
-os.makedirs(default_structures_path, exist_ok=True)
+def get_blueleaks_path():
+    return os.environ.get("BLE_BLUELEAKS_PATH", "")
+
+
+def get_dbs_path():
+    return os.environ.get("BLE_DATABASES_PATH", "")
+
+
+def get_structures_path():
+    return os.environ.get("BLE_STRUCTURES_PATH", "")
+
+
+def get_builtin_structures_path():
+    return os.environ.get(
+        "BLE_STRUCTURES_BUILTIN_PATH", "/var/blueleaks-explorer/structures-builtin"
+    )
+
+
+def get_default_structures_path():
+    path = os.environ.get(
+        "BLE_STRUCTURES_DEFAULT_PATH", "/var/blueleaks-explorer/structures-default"
+    )
+    os.makedirs(path, exist_ok=True)
+    return path
 
 
 def sanitize_field_name(table):
