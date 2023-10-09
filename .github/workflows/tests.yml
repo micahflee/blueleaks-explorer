@@ -10,11 +10,20 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
       - name: Install pip and poetry
         run: pip install --upgrade pip poetry
       - uses: actions/cache@v3
         with:
           path: ~/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-poetry-${{ hashFiles('src/poetry.lock') }}
-      - run: cd src && poetry install
-      - run: cd src && poetry run pytest -v
+      - name: Install Poetry dependencies
+        run: cd src && poetry install
+      - name: Install Node dependencies
+        run: cd src/frontend && npm install
+      - name: Build frontend
+        run: cd src/frontend && npm run build
+      - name: Run tests
+        run: cd src && poetry run pytest -v
