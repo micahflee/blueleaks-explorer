@@ -4,10 +4,12 @@ import csv
 import sqlite3
 import click
 
-from common import sanitize_field_name, default_structures_path
-
-blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
-dbs_path = os.environ.get("BLE_DATABASES_PATH")
+from common import (
+    sanitize_field_name,
+    get_default_structures_path,
+    get_blueleaks_path,
+    get_dbs_path,
+)
 
 
 def exec_sql(c, sql):
@@ -40,7 +42,7 @@ def load_file(path):
         site = structure["name"]
 
         # Start the database
-        database_filename = os.path.join(dbs_path, f"{site}.sqlite3")
+        database_filename = os.path.join(get_dbs_path(), f"{site}.sqlite3")
         if os.path.exists(database_filename):
             click.secho(f"{database_filename} already exists so skipping", dim=True)
             return
@@ -51,7 +53,7 @@ def load_file(path):
         for table in structure["tables"]:
             progress(site, table)
 
-            csv_filename = os.path.join(blueleaks_path, site, f"{table}.csv")
+            csv_filename = os.path.join(get_blueleaks_path(), site, f"{table}.csv")
             with open(csv_filename) as csv_file:
                 reader = csv.DictReader(csv_file)
 
@@ -104,10 +106,10 @@ def is_struct_json(filename):
 
 
 def import_data():
-    for filename in os.listdir(default_structures_path):
+    for filename in os.listdir(get_default_structures_path()):
         if is_struct_json(filename):
             load_file(
-                os.path.join(default_structures_path, filename),
+                os.path.join(get_default_structures_path(), filename),
             )
 
 
