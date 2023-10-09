@@ -273,7 +273,7 @@ def catch_all(path):
                             "link": os.path.join(
                                 "/blueleaks-data",
                                 os.path.dirname(listing_path).lstrip("/"),
-                            ),
+                            ).replace("\\", "/"),
                         }
                     )
 
@@ -284,7 +284,7 @@ def catch_all(path):
                                 "name": name,
                                 "link": os.path.join(
                                     "/blueleaks-data", listing_path.lstrip("/"), name
-                                ),
+                                ).replace("\\", "/"),
                             }
                         )
                     else:
@@ -294,7 +294,7 @@ def catch_all(path):
                                 "name": name,
                                 "link": os.path.join(
                                     "/blueleaks-data", listing_path.lstrip("/"), name
-                                ),
+                                ).replace("\\", "/"),
                                 "size": humansize(size_bytes),
                             }
                         )
