@@ -23,7 +23,12 @@ def get_default_structures_path():
     path = os.environ.get(
         "BLE_STRUCTURES_DEFAULT_PATH", "/var/blueleaks-explorer/structures-default"
     )
-    os.makedirs(path, exist_ok=True)
+
+    try:
+        os.makedirs(path, exist_ok=True)
+    except:
+        pass
+
     return path
 
 
