@@ -14,9 +14,17 @@ def get_structures_path():
 
 
 def get_builtin_structures_path():
-    return os.environ.get(
+    path = os.environ.get(
         "BLE_STRUCTURES_BUILTIN_PATH", "/var/blueleaks-explorer/structures-builtin"
     )
+
+    try:
+        os.makedirs(path, exist_ok=True)
+    except:
+        path = "/tmp/blueleaks-explorer/structures-builtin"
+        os.makedirs(path, exist_ok=True)
+
+    return path
 
 
 def get_default_structures_path():
@@ -27,7 +35,8 @@ def get_default_structures_path():
     try:
         os.makedirs(path, exist_ok=True)
     except:
-        pass
+        path = "/tmp/blueleaks-explorer/structures-default"
+        os.makedirs(path, exist_ok=True)
 
     return path
 
