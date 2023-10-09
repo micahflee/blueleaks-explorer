@@ -3,7 +3,7 @@ import json
 import csv
 import click
 
-from common import sanitize_field_name, default_structures_path
+from common import sanitize_field_name, get_default_structures_path
 
 blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
 
@@ -61,7 +61,7 @@ def build_structure():
                     "joins": [],
                 }
 
-            json_filename = os.path.join(default_structures_path, f"{site}.json")
+            json_filename = os.path.join(get_default_structures_path(), f"{site}.json")
             with open(json_filename, "w") as f:
                 f.write(json.dumps(structure, indent=4))
             click.secho(f"Wrote {json_filename}", dim=True)
