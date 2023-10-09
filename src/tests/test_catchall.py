@@ -15,7 +15,7 @@ def test_blueleaks_path_doesnt_exist(client):
     )
 
 
-def test_missing_blueleaks_data(client, stub_structures_path_dirs_from_source):
+def test_missing_blueleaks_data(client, structures_paths):
     # blueleaks_path should be empty when missing data
     blueleaks_path = tempfile.TemporaryDirectory()
     os.environ["BLE_BLUELEAKS_PATH"] = blueleaks_path.name
@@ -27,9 +27,7 @@ def test_missing_blueleaks_data(client, stub_structures_path_dirs_from_source):
     assert b"<p>Can&#39;t find the unzipped BlueLeaks dataset." in response.data
 
 
-def test_not_initialized(
-    client, stub_blueleaks_path_dir, stub_structures_path_dirs_from_source
-):
+def test_not_initialized(client, blueleaks_path, structures_paths):
     # dbs_path should be empty before BlueLeaks Explorer is initialized
     dbs_path = tempfile.TemporaryDirectory()
     os.environ["BLE_DATABASES_PATH"] = dbs_path.name
@@ -41,12 +39,7 @@ def test_not_initialized(
     )
 
 
-def test_initialized(
-    client,
-    stub_blueleaks_path_dir,
-    stub_dbs_path_dir,
-    stub_structures_path_dirs_from_source,
-):
+def test_initialized(client, blueleaks_path, dbs_path, structures_paths):
     response = client.get("/")
     assert (
         b"<p><strong>BlueLeaks Explorer requires javascript.</strong></p>"
@@ -54,32 +47,27 @@ def test_initialized(
     )
 
 
-def test_blueleaks_data(
-    client,
-    stub_blueleaks_path_dir,
-    stub_dbs_path_dir,
-    stub_structures_path_dirs_from_source,
-):
+def test_blueleaks_data(client, blueleaks_path, dbs_path, structures_paths):
     # Create fake data in ncric folder
     def create_file(filename, content):
         with open(filename, "w") as f:
             f.write(content)
 
-    os.makedirs(os.path.join(stub_blueleaks_path_dir.name, "ncric", "files"))
+    os.makedirs(os.path.join(blueleaks_path.name, "ncric", "files"))
     create_file(
-        os.path.join(stub_blueleaks_path_dir.name, "ncric", "files", "alpha.txt"),
+        os.path.join(blueleaks_path.name, "ncric", "files", "alpha.txt"),
         "this is test file alpha",
     )
     create_file(
-        os.path.join(stub_blueleaks_path_dir.name, "ncric", "files", "beta.txt"),
+        os.path.join(blueleaks_path.name, "ncric", "files", "beta.txt"),
         "this is test file beta",
     )
     create_file(
-        os.path.join(stub_blueleaks_path_dir.name, "ncric", "gamma.txt"),
+        os.path.join(blueleaks_path.name, "ncric", "gamma.txt"),
         "this is test file gamma",
     )
     create_file(
-        os.path.join(stub_blueleaks_path_dir.name, "ncric", "epsilon.txt"),
+        os.path.join(blueleaks_path.name, "ncric", "epsilon.txt"),
         "this is test file epsilon",
     )
 

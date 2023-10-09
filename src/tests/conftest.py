@@ -6,7 +6,7 @@ import pytest
 sys.path.append(os.path.dirname(sys.path[0]))
 from app import app as flask_app
 
-blueleaks_sites_list = [
+blueleaks_sites = [
     "211sfbay",
     "acprlea",
     "acticaz",
@@ -190,29 +190,24 @@ def app():
 
 
 @pytest.fixture()
-def blueleaks_sites():
-    return blueleaks_sites_list
-
-
-@pytest.fixture()
-def stub_blueleaks_path_dir():
+def blueleaks_path():
     """
     Create a temp dir for blueleaks_path, with an empty folder for each BlueLeaks site
     """
     d = tempfile.TemporaryDirectory()
-    for site in blueleaks_sites_list:
+    for site in blueleaks_sites:
         os.makedirs(os.path.join(d.name, site))
     os.environ["BLE_BLUELEAKS_PATH"] = d.name
     return d
 
 
 @pytest.fixture()
-def stub_dbs_path_dir():
+def dbs_path():
     """
     Create a temp dir for dbs_path, with an fake sqlite3 file for each BlueLeaks file
     """
     d = tempfile.TemporaryDirectory()
-    for site in blueleaks_sites_list:
+    for site in blueleaks_sites:
         with open(os.path.join(d.name, f"{site}.sqlite3"), "wb") as f:
             f.write(b"not a real sqlite3 database")
     os.environ["BLE_DATABASES_PATH"] = d.name
@@ -220,7 +215,7 @@ def stub_dbs_path_dir():
 
 
 @pytest.fixture()
-def stub_structures_path_dirs_from_source():
+def structures_paths():
     """
     Set environment variablse for structures_path, builtin_structures_path, and default_structures_path
     pointing to dirs in the source tree
@@ -239,6 +234,11 @@ def stub_structures_path_dirs_from_source():
     os.environ["BLE_STRUCTURES_PATH"] = structures_path
     os.environ["BLE_STRUCTURES_BUILTIN_PATH"] = builtin_structures_path
     os.environ["BLE_STRUCTURES_DEFAULT_PATH"] = default_structures_path
+    return {
+        "structures_path": structures_path,
+        "builtin_structures_path": builtin_structures_path,
+        "default_structures_path": default_structures_path,
+    }
 
 
 @pytest.fixture()
