@@ -202,6 +202,7 @@ def stub_blueleaks_path_dir():
     d = tempfile.TemporaryDirectory()
     for site in blueleaks_sites_list:
         os.makedirs(os.path.join(d.name, site))
+    os.environ["BLE_BLUELEAKS_PATH"] = d.name
     return d
 
 
@@ -214,6 +215,7 @@ def stub_dbs_path_dir():
     for site in blueleaks_sites_list:
         with open(os.path.join(d.name, f"{site}.sqlite3"), "wb") as f:
             f.write(b"not a real sqlite3 database")
+    os.environ["BLE_DATABASES_PATH"] = d.name
     return d
 
 

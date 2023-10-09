@@ -30,8 +30,6 @@ def test_missing_blueleaks_data(client, stub_structures_path_dirs_from_source):
 def test_not_initialized(
     client, stub_blueleaks_path_dir, stub_structures_path_dirs_from_source
 ):
-    os.environ["BLE_BLUELEAKS_PATH"] = stub_blueleaks_path_dir.name
-
     # dbs_path should be empty before BlueLeaks Explorer is initialized
     dbs_path = tempfile.TemporaryDirectory()
     os.environ["BLE_DATABASES_PATH"] = dbs_path.name
@@ -49,11 +47,62 @@ def test_initialized(
     stub_dbs_path_dir,
     stub_structures_path_dirs_from_source,
 ):
-    os.environ["BLE_BLUELEAKS_PATH"] = stub_blueleaks_path_dir.name
-    os.environ["BLE_DATABASES_PATH"] = stub_dbs_path_dir.name
-
     response = client.get("/")
     assert (
         b"<p><strong>BlueLeaks Explorer requires javascript.</strong></p>"
         in response.data
     )
+
+
+def test_blueleaks_data(
+    client,
+    stub_blueleaks_path_dir,
+    stub_dbs_path_dir,
+    stub_structures_path_dirs_from_source,
+):
+    # Create fake data in ncric folder
+    def create_file(filename, content):
+        with open(filename, "w") as f:
+            f.write(content)
+
+    os.makedirs(os.path.join(stub_blueleaks_path_dir.name, "ncric", "files"))
+    create_file(
+        os.path.join(stub_blueleaks_path_dir.name, "ncric", "files", "alpha.txt"),
+        "this is test file alpha",
+    )
+    create_file(
+        os.path.join(stub_blueleaks_path_dir.name, "ncric", "files", "beta.txt"),
+        "this is test file beta",
+    )
+    create_file(
+        os.path.join(stub_blueleaks_path_dir.name, "ncric", "gamma.txt"),
+        "this is test file gamma",
+    )
+    create_file(
+        os.path.join(stub_blueleaks_path_dir.name, "ncric", "epsilon.txt"),
+        "this is test file epsilon",
+    )
+
+    # Directory listing of /ncric
+    response = client.get("/blueleaks-data/ncric/")
+    assert b"<h1>BlueLeaks directory listing: /ncric/</h1>" in response.data
+    assert b'<a href="/blueleaks-data/ncric/files">files</a>' in response.data
+    assert (
+        b'<a href="/blueleaks-data/ncric/epsilon.txt">epsilon.txt</a>' in response.data
+    )
+    assert b' <a href="/blueleaks-data/ncric/gamma.txt">gamma.txt</a>' in response.data
+
+    # Directory listing of /ncric/files
+    response = client.get("/blueleaks-data/ncric/files")
+    assert b"<h1>BlueLeaks directory listing: /ncric/files</h1>" in response.data
+    assert (
+        b'<a href="/blueleaks-data/ncric/files/alpha.txt">alpha.txt</a>'
+        in response.data
+    )
+    assert (
+        b'<a href="/blueleaks-data/ncric/files/beta.txt">beta.txt</a>' in response.data
+    )
+
+    # Content of /ncric/files/alpha.txt
+    response = client.get("/blueleaks-data/ncric/files/alpha.txt")
+    assert response.data == b"this is test file alpha"
