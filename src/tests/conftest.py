@@ -220,9 +220,6 @@ def structures_paths():
     Set environment variablse for structures_path, builtin_structures_path, and default_structures_path
     pointing to dirs in the source tree
     """
-    structures_path = os.path.join(
-        os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "structures"
-    )
     builtin_structures_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
         "structures-builtin",
@@ -231,6 +228,17 @@ def structures_paths():
         os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
         "structures-default",
     )
+
+    # Create a temporary structures folder
+    d = tempfile.mkdtemp()
+    structures_path = os.path.join(d, "structures")
+    os.makedirs(structures_path)
+    # Copy data from builtin_structures into structures
+    for f in os.listdir(builtin_structures_path):
+        with open(os.path.join(builtin_structures_path, f), "rb") as src:
+            with open(os.path.join(structures_path, f), "wb") as dst:
+                dst.write(src.read())
+
     os.environ["BLE_STRUCTURES_PATH"] = structures_path
     os.environ["BLE_STRUCTURES_BUILTIN_PATH"] = builtin_structures_path
     os.environ["BLE_STRUCTURES_DEFAULT_PATH"] = default_structures_path
