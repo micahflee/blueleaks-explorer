@@ -237,7 +237,11 @@ def catch_all(path):
         )
     missing_dbs = []
     missing_sites = []
+
     sites = os.listdir(get_blueleaks_path())
+    if os.path.exists(os.path.join(get_blueleaks_path(), "usao")):
+        sites += os.listdir(os.path.join(get_blueleaks_path(), "usao"))
+
     for site in get_all_sites():
         if site not in sites:
             missing_sites.append(site)

@@ -53,7 +53,11 @@ def load_file(path):
         for table in structure["tables"]:
             progress(site, table)
 
-            csv_filename = os.path.join(get_blueleaks_path(), site, f"{table}.csv")
+            if site.startswith("usa"):
+                csv_filename = os.path.join(get_blueleaks_path(), "usao", site, f"{table}.csv")
+            else:
+                csv_filename = os.path.join(get_blueleaks_path(), site, f"{table}.csv")
+
             with open(csv_filename) as csv_file:
                 reader = csv.DictReader(csv_file)
 
