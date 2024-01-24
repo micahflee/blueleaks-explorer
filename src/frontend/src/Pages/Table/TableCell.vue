@@ -50,8 +50,11 @@ function preValue(value) {
 }
 
 function attachmentUrl(value) {
-  var url =
-    "/blueleaks-data/" + props.site + "/files/" + value.replace("\\", "/");
+  if (props.site.startsWith("usa")) {
+    var url = "/blueleaks-data/usao/" + props.site + "/files/" + value.replace("\\", "/");
+  } else {
+    var url = "/blueleaks-data/" + props.site + "/files/" + value.replace("\\", "/");
+  }
   return url;
 }
 

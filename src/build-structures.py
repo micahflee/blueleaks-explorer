@@ -9,63 +9,71 @@ blueleaks_path = os.environ.get("BLE_BLUELEAKS_PATH")
 
 
 def build_structure():
-    # Find all folders that have tables (CSV files)
+    # Make a list of folders that potentially have tables
+    potential_sites = {}
     for site in os.listdir(blueleaks_path):
         if os.path.isdir(os.path.join(blueleaks_path, site)):
-            structure = {}
+            potential_sites[site] = os.path.join(blueleaks_path, site)
+    for site in os.listdir(os.path.join(blueleaks_path, "usao")):
+        if os.path.isdir(os.path.join(blueleaks_path, "usao", site)):
+            potential_sites[site] = os.path.join(blueleaks_path, "usao", site)
 
-            # Make a list of tables
-            tables = []
-            try:
-                for filename in os.listdir(os.path.join(blueleaks_path, site)):
-                    if filename.endswith(".csv"):
-                        tables.append(filename[0:-4])
-            except:
-                # lost+found folder throws a permission denied
-                pass
+    # Find all folders that have tables (CSV files)
+    for site in potential_sites:
+        structure = {}
 
-            # Skip if there aren't any tables
-            if len(tables) == 0:
-                click.echo(f"No tables found for {site}")
-                continue
+        # Make a list of tables
+        tables = []
+        try:
+            for filename in os.listdir(os.path.join(potential_sites[site])):
+                if filename.endswith(".csv"):
+                    tables.append(filename[0:-4])
+        except:
+            # lost+found folder throws a permission denied
+            pass
 
-            # Start defining the structure
-            structure = {"name": site, "tables": {}}
+        # Skip if there aren't any tables
+        if len(tables) == 0:
+            click.echo(f"No tables found for {site}")
+            continue
 
-            for table in tables:
-                # Get a list of columns for this table
-                csv_filename = os.path.join(blueleaks_path, site, f"{table}.csv")
-                with open(csv_filename) as csv_file:
-                    reader = csv.DictReader(csv_file)
-                    fields = [
-                        {
-                            "name": sanitize_field_name(field),
-                            "show": True,
-                            "type": "text",
-                        }
-                        for field in reader.fieldnames
-                    ]
+        # Start defining the structure
+        structure = {"name": site, "tables": {}}
 
-                    count = 0
-                    for row in reader:
-                        count += 1
+        for table in tables:
+            # Get a list of columns for this table
+            csv_filename = os.path.join(potential_sites[site], f"{table}.csv")
+            with open(csv_filename) as csv_file:
+                reader = csv.DictReader(csv_file)
+                fields = [
+                    {
+                        "name": sanitize_field_name(field),
+                        "show": True,
+                        "type": "text",
+                    }
+                    for field in reader.fieldnames
+                ]
 
-                if count == 0:
-                    hidden = True
-                else:
-                    hidden = False
+                count = 0
+                for row in reader:
+                    count += 1
 
-                structure["tables"][table] = {
-                    "display": table,
-                    "hidden": hidden,
-                    "fields": fields,
-                    "joins": [],
-                }
+            if count == 0:
+                hidden = True
+            else:
+                hidden = False
 
-            json_filename = os.path.join(get_default_structures_path(), f"{site}.json")
-            with open(json_filename, "w") as f:
-                f.write(json.dumps(structure, indent=4))
-            click.secho(f"Wrote {json_filename}", dim=True)
+            structure["tables"][table] = {
+                "display": table,
+                "hidden": hidden,
+                "fields": fields,
+                "joins": [],
+            }
+
+        json_filename = os.path.join(get_default_structures_path(), f"{site}.json")
+        with open(json_filename, "w") as f:
+            f.write(json.dumps(structure, indent=4))
+        click.secho(f"Wrote {json_filename}", dim=True)
 
 
 if __name__ == "__main__":

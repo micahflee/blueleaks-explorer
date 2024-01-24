@@ -10,7 +10,7 @@ def test_api_structures(client, blueleaks_path, dbs_path, structures_paths):
         obj["implemented_sites"][0]["name"]
         == "Northern California Regional Intelligence Center"
     )
-    assert len(obj["unimplemented_sites"]) == 120
+    assert len(obj["unimplemented_sites"]) == 244
     assert "arictexas" in obj["unimplemented_sites"]
     assert "houstonhidta" in obj["unimplemented_sites"]
     assert "memiac" in obj["unimplemented_sites"]
