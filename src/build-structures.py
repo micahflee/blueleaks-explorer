@@ -26,6 +26,7 @@ def build_structure():
 
             # Skip if there aren't any tables
             if len(tables) == 0:
+                click.echo(f"No tables found for {site}")
                 continue
 
             # Start defining the structure
