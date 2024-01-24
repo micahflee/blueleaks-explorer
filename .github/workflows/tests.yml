@@ -12,7 +12,7 @@ jobs:
           python-version: "3.11"
       - uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
+          node-version: "20.x"
       - name: Install pip and poetry
         run: pip install --upgrade pip poetry
       - uses: actions/cache@v3
@@ -21,6 +21,10 @@ jobs:
           key: ${{ runner.os }}-poetry-${{ hashFiles('src/poetry.lock') }}
       - name: Install Poetry dependencies
         run: cd src && poetry install
+      - uses: actions/cache@v3
+        with:
+          path: src/frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('src/frontend/package-lock.json') }}
       - name: Install Node dependencies
         run: cd src/frontend && npm install
       - name: Build frontend
