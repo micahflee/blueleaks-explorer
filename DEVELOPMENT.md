@@ -13,3 +13,12 @@ If you want to rebuild the frontend in development mode so that the [Vue Devtool
 ```sh
 docker-compose exec -w /app/frontend app ./node_modules/vite/bin/vite.js build -m development
 ```
+
+## Updating dependencies
+
+```sh
+cd src
+poetry update
+cd frontend
+npm upgrade
+```
