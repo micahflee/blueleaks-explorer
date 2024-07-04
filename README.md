@@ -25,8 +25,6 @@ To run BlueLeaks Explorer on your computer, you need [Docker](https://www.docker
 Create a new folder for your BlueLeaks Explorer data, which will take up about 5GB of data. Create a file in that folder called `docker-compose.yaml`, and copy and paste this into it:
 
 ```yaml
-version: "3.9"
-
 services:
   app:
     image: micahflee/blueleaks-explorer:latest
