@@ -248,11 +248,15 @@ def catch_all(path):
         if not os.path.isfile(os.path.join(get_dbs_path(), f"{site}.sqlite3")):
             missing_dbs.append(site)
     if len(missing_sites) > 0:
+        print(f"Missing sites: {missing_sites}")
+        sys.stdout.flush()
         return render_template(
             "error.html",
             error_message=f"Can't find the unzipped BlueLeaks dataset. Fix the volume that maps to {get_blueleaks_path()} in your docker-compose.yaml.",
         )
     if len(missing_dbs) > 0:
+        print(f"Missing databases: {missing_dbs}")
+        sys.stdout.flush()
         return render_template(
             "error.html",
             error_message="SQLite3 databases are missing. You probably haven't run the initialize.py script yet.",
