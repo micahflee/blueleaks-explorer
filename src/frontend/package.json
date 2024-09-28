@@ -13,7 +13,7 @@
     "vuedraggable": "^4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2",
-    "vite": "^2"
+    "@vitejs/plugin-vue": "^5",
+    "vite": "^5"
   }
 }
