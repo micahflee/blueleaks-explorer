@@ -37,7 +37,7 @@ WORKDIR /app
 # Install python dependencies
 COPY src/pyproject.toml .
 COPY src/poetry.lock .
-RUN poetry install
+RUN poetry install --no-root
 
 # Copy the frontend
 RUN mkdir frontend
