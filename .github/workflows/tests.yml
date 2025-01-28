@@ -20,7 +20,7 @@ jobs:
           path: ~/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-poetry-${{ hashFiles('src/poetry.lock') }}
       - name: Install Poetry dependencies
-        run: cd src && poetry install
+        run: cd src && poetry install --no-root
       - uses: actions/cache@v4
         with:
           path: src/frontend/node_modules
