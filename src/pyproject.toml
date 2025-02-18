@@ -9,7 +9,7 @@ python = "^3.10"
 click = "*"
 flask = "*"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = "*"
 pytest = "*"
 
